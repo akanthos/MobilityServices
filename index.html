@@ -1,0 +1,141 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="style.css" rel="stylesheet"/>
+  <script src="http://cdn.jsdelivr.net/raphael/2.1.2/raphael-min.js"></script>
+  <script src="justgage.js"></script>
+  <script src="https://code.jquery.com/jquery-2.1.3.js"></script>
+  <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+</head>
+<body>
+<div class="container-fluid">
+  <div class="row text-center">
+    <div class="col-md-6">
+      <div class="box">
+        <div id="gauge" style="width:400px; height:320px"></div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="box">
+        Ausgewählte Stadt (Zielort): 
+        <div id="city-selection">
+          <select>
+            <option value="Garching" selected>Garching</option>
+            <option value="Berlin">Berlin</option>
+            <option value="Bonn">Bonn</option>
+          </select>
+        </div>
+      </div>
+    </div>
+</div>
+  <div class="row text-center">
+    <div class="col-md-6">
+      <div class="box">
+        <label for="spinner">Innenraumlüfter:</label>
+        <input id="spinner" name="value">
+      </div>
+    </div>
+  <div class="col-md-6">
+      <div class="box">
+        Temperatur in <span id="city">Garching</span>: <span id="temp"></span>°C
+      </div>
+    </div>
+    
+  </div>
+</div>
+<script>
+var URLluefterInnenraum = "http://localhost:8080/services/klima/parameters/luefterInnenraum";
+var URLremoteLocation = "http://localhost:8080/services/weather/parameters/remoteLocation";
+var URLgeschwindigkeit = "http://localhost:8080/services/auto/parameters/geschwindigkeit";
+var URLremoteTemperature = "http://localhost:8080/services/weather/parameters/remoteTemperature";
+var subscriptionSuffix = "/subscription";
+
+function initializeValues(gauge) {
+    $.ajax({
+        url: URLremoteTemperature,
+        success: function(data) {
+            $("#temp").text(data.toFixed(1));
+        }
+    });
+    $.ajax({
+        url: URLgeschwindigkeit,
+        success: function(data) {
+            gauge.refresh(Math.abs(data));
+        }
+    });
+    $.ajax({
+        url: URLremoteLocation,
+        success: function(data) {
+            $("#city").text(data);
+        }
+    });
+    $.ajax({
+        url: URLluefterInnenraum,
+        success: function(data) {
+            $("#spinner").spinner("value", data);
+        }
+    });
+};
+
+function initializeSubscriptions(gauge) {
+    var velocitySource = new EventSource(URLgeschwindigkeit + subscriptionSuffix);
+    velocitySource.onmessage = function(event) {
+        gauge.refresh(Math.abs(event.data))
+    };
+
+    var temperatureSource = new EventSource(URLremoteTemperature + subscriptionSuffix);
+    temperatureSource.onmessage = function(event) {
+        $("#temp").text(parseFloat(event.data).toFixed(1));
+    };
+
+    var citySource = new EventSource(URLremoteLocation + subscriptionSuffix);
+    citySource.onmessage = function(event) {
+        $("#city").text(event.data);
+    };
+}
+
+function initializeWidgets() {
+    $("#spinner").spinner({
+        spin: function(event, ui) {
+            var data = ui.value;
+            $.ajax({
+                url: URLluefterInnenraum,
+                method: "PUT",
+                data: data + ".0",
+                success: function(data) {}
+            });
+        },
+        min: 0,
+        max: 10
+    });
+
+    var gauge = new JustGage({
+        id: "gauge",
+        value: 0,
+        min: 0,
+        max: 140,
+        relativeGaugeSize: true,
+        title: "Aktuelle Geschwindigkeit"
+    });
+
+    $("#city-selection").change(function() {
+        var newCity = $("#city-selection option:selected").text();
+        $.ajax({
+            url: URLremoteLocation,
+            method: "PUT",
+            data: newCity,
+            success: function(data) {}
+        });
+    });
+
+    initializeValues(gauge);
+    initializeSubscriptions(gauge);
+}
+
+
+initializeWidgets();
+
+</script>
+</body>
+</html>

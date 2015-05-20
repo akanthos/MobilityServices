@@ -1,0 +1,13 @@
+.box {
+	margin-top:10px;
+	border: #cdcdcd medium solid;
+	border-radius: 10px;
+}
+
+body {
+	background-color: #8C8C8C;
+}
+
+.box {
+	background-color: #DADADA;
+}

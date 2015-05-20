@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<service path="weather" name="weather" ranking="10">
+	<parameters>
+	   <restNumericParameter path="remoteTemperature" referenceParameter="0"
+	   						 name="Remote Temperature" stepSize="0.1" readOnly="true"/>
+	   <restStateParameter path="remoteLocation" referenceParameter="1" name="Remote Location"/>
+	</parameters>
+</service>
+

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<service name="weather" description="">
+	<parameters>
+	   <numericParameter id="0" name="remoteTemperature" range="-50..50" 
+	   					 stepSize="0.01" unitSymbol="°C" readOnly="true"/>
+	   	<stateParameter id="1" name="remoteLocation">
+	   		<states>
+	   			<state>Berlin</state>
+	   			<state>Garching</state>
+	   			<state>Bonn</state>
+	   		</states>
+	   	</stateParameter>
+	</parameters>
+</service>

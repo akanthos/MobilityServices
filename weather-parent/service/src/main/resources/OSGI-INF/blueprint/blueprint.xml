@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint default-activation="eager"
+	xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
+
+	<bean id="customServiceRepository" class="de.visiom.carpc.services.weather.CustomServiceRepository" />
+
+	<service id="serviceRepository"
+		interface="de.visiom.carpc.asb.servicemodel.ServiceRepository" ref="customServiceRepository" />
+
+</blueprint>

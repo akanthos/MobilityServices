@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<features name="weather-features" version="${project.version}">
+    <repository>mvn:de.visiom.carpc.services.weather/features/${project.version}/xml/features</repository>
+    
+    <feature name="weather" version="${project.version}">
+        <feature>asb</feature>
+        <bundle start-level="85">mvn:com.eclipsesource.minimal-json/minimal-json/0.9.1</bundle>
+        <bundle start-level="85">mvn:org.glassfish.jersey.core/jersey-client/2.5</bundle>
+        <bundle>mvn:de.visiom.carpc.services.weather/service/${project.version}</bundle>
+        <bundle>mvn:de.visiom.carpc.services.weather/impl/${project.version}</bundle>
+    </feature>
+
+</features>

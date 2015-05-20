@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint default-activation="eager"
+		   xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
+
+	<reference id="serviceRegistry" interface="de.visiom.carpc.asb.serviceregistry.ServiceRegistry" />
+	<reference id="eventAdmin" interface="org.osgi.service.event.EventAdmin" />
+	<reference id="eventPublisher" interface="de.visiom.carpc.asb.messagebus.EventPublisher" />
+	<reference id="commandPublisher" interface="de.visiom.carpc.asb.messagebus.CommandPublisher" />
+	
+	<bean id="remoteTemperaturePublisher" class="de.visiom.carpc.services.weather.publishers.RemoteTemperaturePublisher" init-method="start">
+		<property name="eventPublisher" ref="eventPublisher" />
+		<property name="serviceRegistry" ref="serviceRegistry" />
+	</bean>
+	
+	<bean id="locationChangeRequestHandler" class="de.visiom.carpc.services.weather.handlers.RemoteLocationChangeRequestHandler">
+		<property name="eventPublisher" ref="eventPublisher" />
+		<property name="commandPublisher" ref="commandPublisher" />
+	</bean>
+	
+	<bean id="locationUpdateHandler" class="de.visiom.carpc.services.weather.handlers.RemoteLocationUpdateHandler">
+		<property name="remoteTemperaturePublisher" ref="remoteTemperaturePublisher" />
+	</bean>
+	
+	<service id="requestHandler" interface="org.osgi.service.event.EventHandler" ref="locationChangeRequestHandler">
+		<service-properties>
+			<entry key="event.topics" value="visiom/commands/requests" />
+			<entry key="event.filter" value="(serviceName=weather)" />
+		</service-properties>
+	</service>
+	
+	<service id="updateHandler" interface="org.osgi.service.event.EventHandler"
+		ref="locationUpdateHandler">
+		<service-properties>
+			<entry key="event.topics" value="visiom/updates/weather" />
+			<entry key="event.filter" value="(parameterName=remoteLocation)" />
+		</service-properties>
+	</service>
+	
+</blueprint>	
