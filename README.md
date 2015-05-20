@@ -1,2 +1,2 @@
 # mobilityServices
-For our prototyping of the mobility services lab
+Repository for the prototyping during the Mobility Services Lab
