@@ -5,19 +5,12 @@
 	   						 name="Remote Temperature" stepSize="0.1" readOnly="true"/>
 	   <restStateParameter path="remoteLocation" referenceParameter="1" name="Remote Location"/>
 	</parameters>
-	<restStringParameter path="loginRequest" referenceParameter="2"
-	   						 name="Login Request" readOnly="true" />
-	<restStringParameter path="signupRequest" referenceParameter="3"
-	   						 name="Signup Request" readOnly="true" />
-	<restStringParameter path="sendRouteRequest" referenceParameter="4"
-	   						 name="Send Route" readOnly="true" />
-	<restStringParameter path="requestRecommendationsRequest" referenceParameter="5"
-	   						 name="Request Recommendations" readOnly="true" />
-	<stringParameter path="requestHistory" referenceParameter="6"
-	   						 name="Request History" readOnly="true" />
-	<stringParameter path="sendComment" referenceParameter="7"
-	   						 name="Send Comment" readOnly="true" />
-	<stringParameter path="requestComments" referenceParameter="8"
-	   						 name="Request Comments" readOnly="true" />
+	
+	<restStringParameter path="userToken" referenceParameter="2"
+							 name="User Token"/>
+	<restStringParameter path="currentMatching" referenceParameter="3"
+							 name="Current Matching Routes"/>
+	 <restStringParameter path="requestMatching" referenceParameter="4"
+							 name="Request Matching Routes"/>
 </service>
 

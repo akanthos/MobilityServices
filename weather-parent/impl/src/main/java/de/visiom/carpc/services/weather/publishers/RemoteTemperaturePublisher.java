@@ -14,7 +14,7 @@ import de.visiom.carpc.asb.servicemodel.valueobjects.ValueObject;
 import de.visiom.carpc.asb.serviceregistry.ServiceRegistry;
 import de.visiom.carpc.asb.serviceregistry.exceptions.NoSuchServiceException;
 import de.visiom.carpc.services.weather.helpers.LocationCoordinatesMapper;
-import de.visiom.carpc.services.weather.helpers.ServiceConstants;
+import de.visiom.carpc.services.weather.helpers.WeatherServiceConstants;
 import de.visiom.carpc.services.weather.helpers.WeatherClient;
 
 public class RemoteTemperaturePublisher extends ParallelWorker {
@@ -43,10 +43,14 @@ public class RemoteTemperaturePublisher extends ParallelWorker {
 	@Override
 	public void initialize() throws NoSuchParameterException, NoSuchServiceException, UninitalizedValueException {
 		locationCoordinatesMapper = new LocationCoordinatesMapper();
-		Service thisService = serviceRegistry.getService(ServiceConstants.SERVICE_NAME);
+		
+		Service thisService = serviceRegistry.getService(WeatherServiceConstants.SERVICE_NAME);
 		remoteTemperatureParameter = (NumericParameter) thisService.getParameter("remoteTemperature");
+		
+		
 		StateValueObject initialRemoteLocationValue = initializeRemoteLocation(thisService);
 		locationCoordinatesMapper.initialize(initialRemoteLocationValue.toString());
+		
 		weatherClient = new WeatherClient(getCurrentLatitude(), getCurrentLongitude());
 	}
 	

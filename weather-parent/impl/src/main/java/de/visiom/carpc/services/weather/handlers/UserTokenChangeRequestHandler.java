@@ -10,7 +10,7 @@ import de.visiom.carpc.asb.messagebus.handlers.ValueChangeRequestHandler;
 import de.visiom.carpc.asb.servicemodel.parameters.Parameter;
 import de.visiom.carpc.asb.servicemodel.valueobjects.StringValueObject;
 
-public class LoginRequestHandler extends ValueChangeRequestHandler {
+public class UserTokenChangeRequestHandler extends ValueChangeRequestHandler {
 	private CommandPublisher commandPublisher;
 	private EventPublisher eventPublisher;
 	
@@ -26,12 +26,11 @@ public class LoginRequestHandler extends ValueChangeRequestHandler {
 	public void onValueChangeRequest(ValueChangeRequest request, Long requestID) {
 		Parameter parameter = request.getParameter();
 		Response response = null;
-		if(parameter.getName().equals("loginParameter")) {
+		
+		if(parameter.getName().equals("userToken")) {
 			StringValueObject valueObject = (StringValueObject) request.getValue();
-			/*ValueChangeEvent valueChangeEvent = ValueChangeEvent.createValueChangeEvent(parameter, valueObject);
-			eventPublisher.publishValueChange(valueChangeEvent);*/
-			// TODO: Send login request (JSON format) to server
-			//WhoElseLoginClient loginClient = new WhoElseLoginClient()
+			ValueChangeEvent valueChangeEvent = ValueChangeEvent.createValueChangeEvent(parameter, valueObject);
+			eventPublisher.publishValueChange(valueChangeEvent);
 			response = GenericResponse.createGenericResponse(GenericResponse.STATUS_OK);
 		}
 		else {

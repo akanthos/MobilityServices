@@ -10,7 +10,7 @@ import de.visiom.carpc.asb.messagebus.handlers.ValueChangeRequestHandler;
 import de.visiom.carpc.asb.servicemodel.parameters.Parameter;
 import de.visiom.carpc.asb.servicemodel.valueobjects.StateValueObject;
 
-public class SendRouteHandler extends ValueChangeRequestHandler {
+public class RequestMatchingHandler extends ValueChangeRequestHandler {
 	private CommandPublisher commandPublisher;
 	private EventPublisher eventPublisher;
 	
@@ -26,7 +26,8 @@ public class SendRouteHandler extends ValueChangeRequestHandler {
 	public void onValueChangeRequest(ValueChangeRequest request, Long requestID) {
 		Parameter parameter = request.getParameter();
 		Response response = null;
-		if(parameter.getName().equals("remoteLocation")) {
+		
+		if(parameter.getName().equals("requestMatching")) {
 			StateValueObject valueObject = (StateValueObject) request.getValue();
 			ValueChangeEvent valueChangeEvent = ValueChangeEvent.createValueChangeEvent(parameter, valueObject);
 			eventPublisher.publishValueChange(valueChangeEvent);
