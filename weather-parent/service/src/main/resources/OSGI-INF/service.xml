@@ -10,5 +10,12 @@
 	   			<state>Bonn</state>
 	   		</states>
 	   	</stateParameter>
+	   	<stringParameter id=2 name="loginParameter" />
+	   	<stringParameter id=3 name="signupParameter" />
+	   	<stringParameter id=4 name="sendRouteParameter" />
+	   	<stringParameter id=5 name="requestRecommendationsParameter" />
+	   	<stringParameter id=6 name="requestHistory" />
+	   	<stringParameter id=7 name="sendComment" />
+	   	<stringParameter id=8 name="requestComments" />
 	</parameters>
 </service>

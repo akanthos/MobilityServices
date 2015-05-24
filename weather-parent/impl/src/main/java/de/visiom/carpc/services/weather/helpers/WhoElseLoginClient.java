@@ -10,38 +10,34 @@ import com.eclipsesource.json.JsonObject;
  * 
  */
 public class WhoElseLoginClient {
-	private final WebTarget webTarget = ClientBuilder.newClient().target("http://localhost:666").path("whoelse/login");//.queryParam("units", "metric");
-	
-	private String username;
-	private String password;
-	
-	public WhoElseLoginClient(String username, String password) {
-		this.username = username;
-		this.password = password;
+	private final WebTarget webTarget = ClientBuilder.newClient()
+			.target("http://localhost:666").path("whoelse/login");// .queryParam("units","metric");
+
+	private String jsonLoginRequest;
+
+	public WhoElseLoginClient(String jsonLoginRequest) {
+		this.jsonLoginRequest = jsonLoginRequest;
 	}
-	
-	public void setUsername(String username) {
-        this.username = username;
-    }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	public void tryLogin() {
+		String output = webTarget.queryParam("loginRequest", jsonLoginRequest)
+				.request().get(String.class);
+		// return getLoginStatusFromJSONResponse(output);
+		sendLoginStatusFromJSONResponse(output);
+	}
 
-    public void tryLogin() {
-        String output = webTarget.queryParam("username", username).queryParam("password", password).request().get(String.class);
-        //return getLoginStatusFromJSONResponse(output);
-        getLoginStatusFromJSONResponse(output);
-    }
+	private void sendLoginStatusFromJSONResponse(String jsonString) {
+		JsonObject jsonObject = JsonObject.readFrom(jsonString);
+		JsonObject main = jsonObject.get("main").asObject();
+		
+		
+		//return main.get("temp").asDouble();
+		// TODO: throw event to report successful login
+		/*ValueObject valueObject = StringValueObject.valueOf(    jsonString     );
+		ValueChangeEvent valueChangeEvent = ValueChangeEvent
+				.createValueChangeEvent(remoteTemperatureParameter, valueObject);
+		eventPublisher.publishValueChange(valueChangeEvent);*/
 
-    private void getLoginStatusFromJSONResponse(String jsonString) {
-        JsonObject jsonObject = JsonObject.readFrom(jsonString);
-        JsonObject main = jsonObject.get("main").asObject();
-        
-        if (main.get("status").asString() == LoginStatus.LOGIN_OK.name()) {
-        	// TODO: throw event to report successful login
-        	return ;
-        }
-    }
+	}
 
 }

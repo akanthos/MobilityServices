@@ -8,6 +8,7 @@
   <script src="https://code.jquery.com/jquery-2.1.3.js"></script>
   <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 </head>
+<!--
 <body>
 <div class="container-fluid">
   <div class="row text-center">
@@ -44,6 +45,26 @@
     
   </div>
 </div>
+-->
+<body>
+
+<div style="padding-left: 300px; padding-top: 200px;">
+    <input type="text" value="" id="name" /><br><br> 
+    <input type="password" value="" id="pswd" /><br><br> 
+    <input type="button" value="Show" onclick="restCall()"/>
+</div>
+<script>
+    function restCall(){            
+        var user=$('#name').val();
+        var psw=$('#pswd').val();           
+        var url="http://localhost:8080/services/weather/parameters/users?name="+user+"&age="+psw;
+        alert(url);
+        $(location).attr('href',url);
+    }
+</script>
+
+</body>
+<!--
 <script>
 var URLluefterInnenraum = "http://localhost:8080/services/klima/parameters/luefterInnenraum";
 var URLremoteLocation = "http://localhost:8080/services/weather/parameters/remoteLocation";
@@ -137,5 +158,6 @@ function initializeWidgets() {
 initializeWidgets();
 
 </script>
+-->
 </body>
 </html>
