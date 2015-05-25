@@ -19,5 +19,8 @@ module.exports = {
 		db   : 'whoelse',
 		ms   : true
 	},
-	createDB : false
+	createDB : false,
+	google: {
+		apiKey : 'AIzaSyCQdHibiEyMOEtLt2I2wytp6d0HA4C3rzo'
+	}
 };

@@ -9,7 +9,7 @@ module.exports = {
 		var mysql 			= require('mysql');
 		var fs				= require('fs');
 		var uuid			= require('node-uuid');
-		//var mkdirp			= require('mkdirp');
+		var rest 			= require('node-rest-client').Client;
 
 		// Init context
 		context = {};
@@ -27,9 +27,9 @@ module.exports = {
 		// Init promises
 		context.q = require('q');
 
+		// Add dependencies to the context
 		context.fs = fs;
 		context.uuid = uuid;
-		//context.mkdirp = mkdirp;
 
 		// Init MySql
 		console.log('Connection to MySQL...');
@@ -82,7 +82,13 @@ module.exports = {
 			});
 
 			// Init rest client
-			context.rest = new require('node-rest-client').Client();
+			var options = {
+				mimetypes:{
+        			json:["application/json","application/json; charset=utf-8"],
+       				 xml:["application/xml","application/xml; charset=utf-8"]
+    			} 
+			};
+			context.rest = new rest(options);
 
 			context.component = function (compName) {
 

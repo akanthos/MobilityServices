@@ -20,6 +20,16 @@ SET time_zone = "+00:00";
 -- Database: `whoelse`
 --
 
+--
+-- Drop tables if exist
+--
+
+DROP TABLE IF EXISTS `tbl_matchings`;
+DROP TABLE IF EXISTS `tbl_comments`;
+DROP TABLE IF EXISTS `tbl_routePoints`;
+DROP TABLE IF EXISTS `tbl_routes`;
+DROP TABLE IF EXISTS `tbl_users`;
+
 -- --------------------------------------------------------
 
 --
@@ -42,25 +52,26 @@ CREATE TABLE IF NOT EXISTS `tbl_comments` (
 
 CREATE TABLE IF NOT EXISTS `tbl_routes` (
   `routeId` int(11) NOT NULL,
-  `startlat` double NOT NULL,
-  `startlong` double NOT NULL,
-  `endlat` double NOT NULL,
-  `endlong` double NOT NULL,
+  `startlat` varchar(15) NOT NULL,
+  `startlong` varchar(15) NOT NULL,
+  `endlat` varchar(15) NOT NULL,
+  `endlong` varchar(15) NOT NULL,
   `time` time NOT NULL,
-  'weekday' enum('1','2','3','4','5','6','7') NOT NULL 
+  `weekday` enum('Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday') NOT NULL,
+  `userId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_routePoint`
+-- Table structure for table `tbl_routePoints`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_routePoints` (
   `pointId` int(11) NOT NULL,
   `routeId` int(11) NOT NULL,
   `lat` double NOT NULL,
-  `long` double NOT NULL,
+  `long` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------

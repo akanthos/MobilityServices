@@ -11,7 +11,7 @@ module.exports = function (context) {
 
 	context.router
 		// Routing
-		//.get('/matching', authenticator.authMiddleware, routeCtrl.getMatching)
+		.get('/matching', authenticator.authMiddleware, routeCtrl.getMatching)
 		.post('/route', authenticator.authMiddleware, routeCtrl.addRoute);
 	
 
