@@ -14,8 +14,8 @@ module.exports = function (context) {
 				});
 			}
 			else if(req.url == '/signup') {
-				userCtrl.signup(req.body).then(function(user) {
-					return res.status(200).send({user: user});
+				userCtrl.signup(req.body).then(function(userId) {
+					return res.status(200).send({userId: userId});
 				},
 				function(error) {
 					return res.status(500).send({ msg : 'Error creating user.'});
@@ -26,7 +26,8 @@ module.exports = function (context) {
 				if(!token) {
 					return res.status(401).send();
 				}
-				userCtrl.checkToken(token).then(function() {
+				userCtrl.checkToken(token).then(function(userId) {
+					req.userId = userId
 					next();
 				},
 				function(error) {

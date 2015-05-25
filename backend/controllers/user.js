@@ -30,8 +30,8 @@ module.exports = function (context) {
 		signup : function(user) {
 			var deferred = context.q.defer();
 			var values =  context.connection.escape(user.name) + ',' + context.connection.escape(user.surname) + ','
-						  + context.connection.escape(user.password) + ',' + context.connection.escape(user.email) + ',' + context.connection.escape(user.age);
-			context.connection.query('Insert into tbl_users (name, surname, password, email, age) VALUES(' + values + ')', function(err, results) {
+						  + context.connection.escape(user.password) + ',' + context.connection.escape(user.email) + ',' + context.connection.escape(user.age) + ',' + context.connection.escape(user.gender) + ',' + context.connection.escape(user.about);
+			context.connection.query('Insert into tbl_users (name, surname, password, email, age, gender, about) VALUES(' + values + ')', function(err, results) {
 				if(err) {
 					console.error(err);
 					deferred.reject();
@@ -47,7 +47,7 @@ module.exports = function (context) {
 		},
 
 		checkToken : function(token) {
-			var deferrd = context.q.defer();
+			var deferred = context.q.defer();
 			context.connection.query('Select * from tbl_users where token = ' + context.connection.escape(token), function(err, results) {
 				if(err) {
 					console.error(err);
@@ -58,7 +58,7 @@ module.exports = function (context) {
 					deferred.reject();
 				}
 				else {
-					deferred.resolve();
+					deferred.resolve(results[0].userId);
 				}
 			});
 			return deferred.promise;
