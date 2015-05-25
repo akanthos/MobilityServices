@@ -29,7 +29,9 @@ module.exports = function (context) {
 
 		signup : function(user) {
 			var deferred = context.q.defer();
-			context.connection.query('Insert into tbl_users (userId, username, name, surname, password, email, phone, age) VALUES(12345, "test", "test", "test", "test", "test", "test", 20)', function(err, results) {
+			var values =  context.connection.escape(user.name) + ',' + context.connection.escape(user.surname) + ','
+						  + context.connection.escape(user.password) + ',' + context.connection.escape(user.email) + ',' + context.connection.escape(user.age);
+			context.connection.query('Insert into tbl_users (name, surname, password, email, age) VALUES(' + values + ')', function(err, results) {
 				if(err) {
 					console.error(err);
 					deferred.reject();
@@ -38,7 +40,7 @@ module.exports = function (context) {
 					deferred.reject();
 				}
 				else {
-					deferred.resolve(results[0]);
+					deferred.resolve(results.insertId);
 				}
 			});
 			return deferred.promise;
