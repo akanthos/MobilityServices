@@ -1,0 +1,33 @@
+{
+  "name": "whoelse-server",
+  "version": "0.0.1",
+  "description": "WhoElse server",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "npm start; node_modules/mocha/bin/mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fr33g/mobilityServices.git"
+  },
+  "author": "Ingo Glaser",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fr33g/mobilityServices/issues"
+  },
+  "homepage": "https://github.com/fr33g/mobilityServices",
+  "dependencies": {
+    "apn": "^1.6.2",
+    "body-parser": "^1.9.2",
+    "express": "^4.10.1",
+    "fb": "^0.7.0",
+    "mkdirp": "^0.5.0",
+    "mocha": "^2.0.1",
+    "node-rest-client": "^1.4.1",
+    "q": "^1.1.2",
+    "restler": "^3.2.2",
+    "mysql": "^2.6.0",
+    "node-uuid" : "^1.4.0"
+  }
+}
