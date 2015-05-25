@@ -15,7 +15,7 @@ module.exports = function (context) {
 				}
 				else {
 					var token = context.uuid.v4();
-					context.connection.query('Update tbl_users SET token = ' + token + ' where email = ' + context.connection.escape(email), function(err, results) {
+					context.connection.query('Update tbl_users SET token = ' + context.connection.escape(token) + ' where email = ' + context.connection.escape(email), function(err, results) {
 						if(err) {
 							console.error(err);
 							deferred.reject();
@@ -28,7 +28,8 @@ module.exports = function (context) {
 		},
 
 		signup : function(user) {
-			context.connection.query('Insert into tbl_users VALUES(' + context.connection.escape(user.userId) + ',' + '' + ')', function(err, results) {
+			var deferred = context.q.defer();
+			context.connection.query('Insert into tbl_users (userId, username, name, surname, password, email, phone, age) VALUES(12345, "test", "test", "test", "test", "test", "test", 20)', function(err, results) {
 				if(err) {
 					console.error(err);
 					deferred.reject();
