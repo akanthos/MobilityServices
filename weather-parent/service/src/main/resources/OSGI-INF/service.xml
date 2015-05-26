@@ -11,8 +11,9 @@
 	   		</states>
 	   	</stateParameter>
 	   	
-	   	<stringParameter id="2" name="userToken" />
-	   	<stringParameter id="3" name="currentMatching" />
-	   	<stringParameter id="4" name="requestMatching" />
+	   	<stringParameter id="2" name="userToken" ></stringParameter>
+	   	<stringParameter id="3" name="remoteMatchings" ></stringParameter>
+	   	<stringParameter id="4" name="requestMatching" ></stringParameter>
+	   	<stringParameter id="5" name="pushRoute" ></stringParameter>
 	</parameters>
 </service>

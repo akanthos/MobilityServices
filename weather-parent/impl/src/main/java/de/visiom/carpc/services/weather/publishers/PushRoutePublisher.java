@@ -1,0 +1,70 @@
+package de.visiom.carpc.services.weather.publishers;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import de.visiom.carpc.asb.messagebus.EventPublisher;
+import de.visiom.carpc.asb.messagebus.async.ParallelWorker;
+import de.visiom.carpc.asb.messagebus.events.ValueChangeEvent;
+import de.visiom.carpc.asb.parametervalueregistry.exceptions.UninitalizedValueException;
+import de.visiom.carpc.asb.servicemodel.Service;
+import de.visiom.carpc.asb.servicemodel.exceptions.NoSuchParameterException;
+import de.visiom.carpc.asb.servicemodel.parameters.StringParameter;
+import de.visiom.carpc.asb.servicemodel.valueobjects.StringValueObject;
+import de.visiom.carpc.asb.serviceregistry.ServiceRegistry;
+import de.visiom.carpc.asb.serviceregistry.exceptions.NoSuchServiceException;
+import de.visiom.carpc.services.weather.helpers.WeatherServiceConstants;
+import de.visiom.carpc.services.weather.helpers.WhoElseClient;
+
+public class PushRoutePublisher extends ParallelWorker {
+	private static final Logger LOG = LoggerFactory.getLogger(PushRoutePublisher.class);
+	private EventPublisher eventPublisher;
+	private ServiceRegistry serviceRegistry;
+
+	private WhoElseClient whoelseClient;
+	
+	public void setEventPublisher(EventPublisher eventPublisher) {
+		this.eventPublisher = eventPublisher;
+	}
+	
+	public void setServiceRegistry(ServiceRegistry serviceRegistry) {
+		this.serviceRegistry = serviceRegistry;
+	}
+	
+	@Override
+	public void initialize() throws NoSuchParameterException, NoSuchServiceException, UninitalizedValueException {
+
+		
+		Service thisService = serviceRegistry.getService(WeatherServiceConstants.SERVICE_NAME);
+		LOG.info("Tried to read USERTOKEN in PushRoutePublisher as {}", thisService.getParameter("userToken").toString());
+		whoelseClient = new WhoElseClient(thisService.getParameter("userToken").toString());
+		
+		initializePushRoute(thisService);
+	}
+	
+	@Override
+	public long getExecutionInterval() {
+		return 10000;
+	}
+	
+	@Override
+	public void execute() {
+//		fireUpdate();
+	}
+	
+	
+	public void setRoute(String route) {
+		whoelseClient.pushRoute(route);
+	}
+	
+	public void initializePushRoute(Service thisService) throws NoSuchParameterException {
+		StringParameter initialUserToken = (StringParameter) thisService.getParameter("pushRoute");
+		StringValueObject initialUserTokenValue = StringValueObject.valueOf("");
+		ValueChangeEvent valueChangeEvent = ValueChangeEvent.createValueChangeEvent(initialUserToken, initialUserTokenValue);
+		eventPublisher.publishValueChange(valueChangeEvent);
+//		return initialUserTokenValue;
+	}
+	
+	
+
+}

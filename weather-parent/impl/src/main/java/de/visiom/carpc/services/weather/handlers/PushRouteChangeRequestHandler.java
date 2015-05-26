@@ -8,9 +8,9 @@ import de.visiom.carpc.asb.messagebus.commands.ValueChangeRequest;
 import de.visiom.carpc.asb.messagebus.events.ValueChangeEvent;
 import de.visiom.carpc.asb.messagebus.handlers.ValueChangeRequestHandler;
 import de.visiom.carpc.asb.servicemodel.parameters.Parameter;
-import de.visiom.carpc.asb.servicemodel.valueobjects.StateValueObject;
+import de.visiom.carpc.asb.servicemodel.valueobjects.StringValueObject;
 
-public class RequestMatchingHandler extends ValueChangeRequestHandler {
+public class PushRouteChangeRequestHandler extends ValueChangeRequestHandler {
 	private CommandPublisher commandPublisher;
 	private EventPublisher eventPublisher;
 	
@@ -27,8 +27,8 @@ public class RequestMatchingHandler extends ValueChangeRequestHandler {
 		Parameter parameter = request.getParameter();
 		Response response = null;
 		
-		if(parameter.getName().equals("requestMatching")) {
-			StateValueObject valueObject = (StateValueObject) request.getValue();
+		if(parameter.getName().equals("pushRoute")) {
+			StringValueObject valueObject = (StringValueObject) request.getValue();
 			ValueChangeEvent valueChangeEvent = ValueChangeEvent.createValueChangeEvent(parameter, valueObject);
 			eventPublisher.publishValueChange(valueChangeEvent);
 			response = GenericResponse.createGenericResponse(GenericResponse.STATUS_OK);
