@@ -127,7 +127,7 @@
       </div>
 
       <div class="col-xs-8">
-        <form role="form">
+        
     <div class="form-group">
       <label for="comment">What else do you want to say about yourself?</label>
       <textarea class="form-control" rows="11" id="comment"></textarea>
@@ -137,7 +137,7 @@
     </div>
 
     
-  </form>
+ 
     </div>
   </form>
 
@@ -162,15 +162,17 @@
                 </div>
             </div>
             <div class="row">
-                <form role="form">
+  <form action="" method="post" id="formAddRoute" role="form">
     <div class="form-group">
       <div class="col-xs-4">
-        <label for="ex3">Your starting point:</label>
-        <input class="form-control" id="ex3" type="text">
-        <label for="ex4">Your final destination:</label>
-        <input class="form-control" id="ex4" type="text">
-        <label for="ex5">Time:</label>
-        <input class="form-control" id="ex5" type="text">
+        <label for="start">Your starting point:</label>
+        <input class="form-control" name="start" id="start" type="text">
+        <label for="end">Your final destination:</label>
+        <input class="form-control" name="end" id="end" type="text">
+        <label for="time">Time:</label>
+        <input class="form-control" name="time" id="time" type="text">
+		 <label for="day">Day:</label>
+        <input class="form-control" name="day" id="day" type="text">
       </br>
       <button type="submit" class="btn btn-default">Save</button>
       
@@ -178,6 +180,11 @@
 
     
   </form>
+  
+  <div class="col-xs-8">
+  
+  </div>
+  
             </div>
         </div>
     </section>
@@ -312,9 +319,9 @@
       <div class="modal-body">
 			<div class="form-group">
 						  
-				<label for="ex1">E-Mail:</label>
+				<label for="email">Mail:</label>
 				<input class="form-control" name="email" id="email" type="email">
-				<label for="ex2">Password:</label>
+				<label for="password">Password:</label>
 				<input class="form-control" name="password" id="password" type="password">
 									
 			</div>
@@ -415,7 +422,7 @@ var URLuser = "http://localhost:6000/api/user";
 var URLcomment = "http://localhost:6000/api/comment";
 
 
-
+// SignUp
 $('#formSignUp').submit(function() {
 
 	var signUpData = JSON.stringify($('#formSignUp').serializeObject());
@@ -431,6 +438,7 @@ $('#formSignUp').submit(function() {
 					 
 });
 
+// Login
 $('#formLogin').submit(function() {
 
 	var loginData = JSON.stringify($('#formLogin').serializeObject());
@@ -442,10 +450,25 @@ $('#formLogin').submit(function() {
 		success: function(data) {} 
 	});
 	
-	alert ("Debugging: New POST for LOGIN for URL " + URLlogin + " with JSON " + signUpData + ".");
+	alert ("Debugging: New POST for LOGIN for URL " + URLlogin + " with JSON " + loginData + ".");
 	
 });
 
+// Add Route
+$('#formAddRoute').submit(function() {
+
+	var routeData = JSON.stringify($('#formAddRoute').serializeObject());
+	
+	$.ajax({ 
+		url: URLroute,
+		method: "POST",
+		data: routeData,
+		success: function(data) {} 
+	});
+	
+	alert ("Debugging: New POST for ROUTE for URL " + URLroute + " with JSON " + routeData + ".");
+	
+});
 
 
 
@@ -479,6 +502,13 @@ $(function() {
 $(function() {
     $('#formLogin').submit(function() {
         $('#result').text(JSON.stringify($('#formLogin').serializeObject()));
+        return false;
+    });
+});
+
+$(function() {
+    $('#formAddRoute').submit(function() {
+        $('#result').text(JSON.stringify($('#formAddRoute').serializeObject()));
         return false;
     });
 });
