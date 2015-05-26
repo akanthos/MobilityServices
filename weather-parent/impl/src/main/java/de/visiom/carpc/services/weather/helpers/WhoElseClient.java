@@ -45,6 +45,7 @@ public class WhoElseClient {
     public void pushRoute(String pushRoute) {
     	
     	try {
+    		LOG.info("Trying to push by HTTP POST the route: {}", pushRoute);
     		webTarget.path("api/route").queryParam("token", userToken).request().post(Entity.text(pushRoute));
     	}
     	catch (ResponseProcessingException e) {

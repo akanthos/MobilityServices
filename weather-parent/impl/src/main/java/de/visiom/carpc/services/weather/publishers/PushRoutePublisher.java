@@ -59,7 +59,7 @@ public class PushRoutePublisher extends ParallelWorker {
 	
 	public void initializePushRoute(Service thisService) throws NoSuchParameterException {
 		StringParameter initialUserToken = (StringParameter) thisService.getParameter("pushRoute");
-		StringValueObject initialUserTokenValue = StringValueObject.valueOf("");
+		StringValueObject initialUserTokenValue = StringValueObject.valueOf("{}");
 		ValueChangeEvent valueChangeEvent = ValueChangeEvent.createValueChangeEvent(initialUserToken, initialUserTokenValue);
 		eventPublisher.publishValueChange(valueChangeEvent);
 //		return initialUserTokenValue;
