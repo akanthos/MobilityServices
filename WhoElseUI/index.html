@@ -62,6 +62,17 @@
                     <li class="page-scroll">
                         <a href="#Matches">Matches</a>
                     </li>
+					
+					
+					 <li>
+                        <a data-toggle="modal" data-target="#loginModal">Login</a>
+                    </li>
+					
+					 <li>
+                        <a data-toggle="modal" data-target="#signUpModal">SignUp</a>
+                    </li>
+					
+					
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -188,19 +199,19 @@
                     <ul class="list-group">
 					  <li class="list-group-item"><p>Match 1                    <button type="button" class="btn btn-success" aria-label="Left Align" style="float:right"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> Message</button> 
 																				
-																				<button type="button" class="btn btn-default" aria-label="Left Align" style="float:right;  margin-right: 8px;" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Profile</button><p> 
+																				<button type="button" class="btn btn-default" aria-label="Left Align" style="float:right;  margin-right: 8px;" data-toggle="modal" data-target="#ProfileModal"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Profile</button><p> 
 																				
 																				
 					  </li>
 					   <li class="list-group-item"><p>Match 2                    <button type="button" class="btn btn-success" aria-label="Left Align" style="float:right"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> Message</button> 
 																				
-																				<button type="button" class="btn btn-default" aria-label="Left Align" style="float:right;  margin-right: 8px;" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Profile</button><p> 
+																				<button type="button" class="btn btn-default" aria-label="Left Align" style="float:right;  margin-right: 8px;" data-toggle="modal" data-target="#ProfileModalModal"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Profile</button><p> 
 																				
 																				
 					  </li>
 					   <li class="list-group-item"><p>Match 3                    <button type="button" class="btn btn-success" aria-label="Left Align" style="float:right"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> Message</button> 
 																				
-																				<button type="button" class="btn btn-default" aria-label="Left Align" style="float:right;  margin-right: 8px;" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Profile</button><p> 
+																				<button type="button" class="btn btn-default" aria-label="Left Align" style="float:right;  margin-right: 8px;" data-toggle="modal" data-target="#ProfileModal"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Profile</button><p> 
 																				
 																				
 					  </li>
@@ -252,12 +263,12 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="ProfileModal" tabindex="-1" role="dialog" aria-labelledby="ProfileModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Profile</h4>
+        <h4 class="modal-title" id="ProfileModalLabel">Profile</h4>
       </div>
       <div class="modal-body">
            <ul class="list-group">
@@ -286,10 +297,92 @@
   </div>
 </div>
 	
+
+
+
+<!-- Login Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="loginModal">Login</h4>
+      </div>
+      <form role="form">
+      <div class="modal-body">
+			<div class="form-group">
+						  
+				<label for="ex1">E-Mail:</label>
+				<input class="form-control" id="email" type="email">
+				<label for="ex2">Password:</label>
+				<input class="form-control" id="password" type="password">
+									
+			</div>
+		</div>
+				
+        <div class="modal-footer">
+			<button type="submit" class="btn btn-success">Login</button>
+		</div>
+	  </form>
+    </div>
+  </div>
+</div>		
 	
 	
-	
-	
+<!-- SignUp Modal -->
+<div class="modal fade" id="signUpModal" tabindex="-1" role="dialog" aria-labelledby="signUpModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="signUpModal">Sign Up</h4>
+      </div>
+	  <form role="form">
+      <div class="modal-body">
+			<div class="form-group">
+				
+				<label for="age">Email:*</label>
+				<input class="form-control" id="email" type="email" required>	
+				<label for="age">Password:*</label>
+				<input class="form-control" id="password" type="text" required>		
+				<label for="surname">Surname:</label>
+				<input class="form-control" id="surname" type="text">
+				<label for="name">Name:</label>
+				<input class="form-control" id="name" type="text">
+				<label for="gender">Gender</label>
+				<select class="form-control" id="gender">
+				<option>male</option>
+				<option>female</option>
+				</select>
+				
+				<label for="age">Age:</label>
+				<input class="form-control" id="age" type="text">
+				
+					 
+
+				<div class="form-group">
+					<label for="about">What do you want to say about yourself?</label>
+					<textarea class="form-control" rows="5" id="about"></textarea>
+					</br>
+				</div>							
+			</div>
+		</div>
+								
+								
+							  
+							
+        <div class="modal-footer">
+		
+			<button type="submit" class="btn btn-success">SignUp</button>
+			
+		
+		
+		
+		</div>
+	  </form>
+    </div>
+  </div>
+</div>	
 	
 	
 	
