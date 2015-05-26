@@ -19,8 +19,8 @@
 
     <!-- Custom Fonts 
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
-    <link href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    
+   
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -72,9 +72,6 @@
                         <a data-toggle="modal" data-target="#signUpModal">SignUp</a>
                     </li>
 					
-					<li>
-                        <a>LoggedIn as </a>
-                    </li>
 					
                 </ul>
             </div>
@@ -311,14 +308,14 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="loginModal">Login</h4>
       </div>
-      <form role="form">
+      <form action="" method="post" role="form" id="formLogin">
       <div class="modal-body">
 			<div class="form-group">
 						  
 				<label for="ex1">E-Mail:</label>
-				<input class="form-control" id="email" type="email">
+				<input class="form-control" name="email" id="email" type="email">
 				<label for="ex2">Password:</label>
-				<input class="form-control" id="password" type="password">
+				<input class="form-control" name="password" id="password" type="password">
 									
 			</div>
 		</div>
@@ -340,7 +337,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="signUpModal">Sign Up</h4>
       </div>
-	  <form action="" method="post" role="form">
+	  <form action="" method="post" role="form" id="formSignUp">
       <div class="modal-body">
 			<div class="form-group">
 				
@@ -376,7 +373,7 @@
 							
         <div class="modal-footer">
 		
-			<button type="submit" class="btn btn-success">SignUp</button>
+			<button type="submit" class="btn btn-success" id="signUpSubmit">SignUp</button>
 			
 		
 		
@@ -401,7 +398,7 @@
 
 <!-- Matches Form JavaScript -->
 <script src="js/jqBootstrapValidation.js"></script>
-<script src="js/Matches_me.js"></script>
+<!-- <script src="js/Matches_me.js"></script>
 
 <!-- Custom Theme JavaScript -->
 <script src="js/freelancer.js"></script>
@@ -419,14 +416,40 @@ var URLcomment = "http://localhost:6000/api/comment";
 
 
 
-</script>
+$('#formSignUp').submit(function() {
+
+	var signUpData = JSON.stringify($('#formSignUp').serializeObject());
+	
+	$.ajax({ 
+		url: URLsignup,
+		method: "POST",
+		data: signUpData,
+		success: function(data) {} 
+	});
+	
+	alert ("Debugging: New POST for SignUP for URL " + URLsignup + " with JSON " + signUpData + ".");
+					 
+});
+
+$('#formLogin').submit(function() {
+
+	var loginData = JSON.stringify($('#formLogin').serializeObject());
+	
+	$.ajax({ 
+		url: URLlogin,
+		method: "POST",
+		data: loginData,
+		success: function(data) {} 
+	});
+	
+	alert ("Debugging: New POST for LOGIN for URL " + URLlogin + " with JSON " + signUpData + ".");
+	
+});
 
 
 
 
-
-
-<script>
+//Function to Convert Form into JSON
 $.fn.serializeObject = function()
 {
     var o = {};
@@ -444,12 +467,22 @@ $.fn.serializeObject = function()
     return o;
 };
 
+//Test Functions
 $(function() {
-    $('form').submit(function() {
-        $('#result').text(JSON.stringify($('form').serializeObject()));
+    $('#formSignUp').submit(function() {
+        $('#result').text(JSON.stringify($('#formSignUp').serializeObject()));
         return false;
     });
 });
+
+
+$(function() {
+    $('#formLogin').submit(function() {
+        $('#result').text(JSON.stringify($('#formLogin').serializeObject()));
+        return false;
+    });
+});
+
 </script>
 
 
