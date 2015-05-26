@@ -29,6 +29,18 @@
         </div>
       </div>
     </div>
+    <div class="col-md-6">
+      <div class="box">
+        Ausgewähltes Token: 
+        <div id="token-selection">
+          <select>
+            <option value="Dimitris" selected>Dimitris</option>
+            <option value="Adonis">Adonis</option>
+            <option value="John">John</option>
+          </select>
+        </div>
+      </div>
+    </div>
 </div>
   <div class="row text-center">
     <div class="col-md-6">
@@ -72,6 +84,7 @@ var URLluefterInnenraum = "http://localhost:8080/services/klima/parameters/lueft
 var URLremoteLocation = "http://localhost:8080/services/weather/parameters/remoteLocation";
 var URLgeschwindigkeit = "http://localhost:8080/services/auto/parameters/geschwindigkeit";
 var URLremoteTemperature = "http://localhost:8080/services/weather/parameters/remoteTemperature";
+var URLuserToken = "http://localhost:8080/services/weather/parameters/userToken";
 var subscriptionSuffix = "/subscription";
 
 function initializeValues(gauge) {
@@ -116,6 +129,10 @@ function initializeSubscriptions(gauge) {
     citySource.onmessage = function(event) {
         $("#city").text(event.data);
     };
+    // var tokenSource = new EventSource(URLuserToken + subscriptionSuffix);
+    // citySource.onmessage = function(event) {
+    //     $("#city").text(event.data);
+    // };
 }
 
 function initializeWidgets() {
@@ -148,6 +165,15 @@ function initializeWidgets() {
             url: URLremoteLocation,
             method: "PUT",
             data: newCity,
+            success: function(data) {}
+        });
+    });
+    $("#token-selection").change(function() {
+        var userToken = $("#token-selection option:selected").text();
+        $.ajax({
+            url: URLuserToken,
+            method: "PUT",
+            data: userToken,
             success: function(data) {}
         });
     });
