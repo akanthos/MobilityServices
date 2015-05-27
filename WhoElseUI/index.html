@@ -76,7 +76,7 @@
                     </li>
 					
 					 <li class="LoggedIn">
-                        <a>Logged in as <span id='uname'><span></a>
+                        <a>Logged in as <span id='usurname'><span id='uname'><span></a>
                     </li>
 					 <li class="LoggedIn">
                         <a href="" id="LogoutLink">Logout</a>
@@ -231,7 +231,7 @@
                     
                          <p>We identified potential matches for you! Have a look! <button class="btn btn-deafault btn-sm" id="RefreshMatches"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Refresh</button></p>      
                       
-                    <ul class="list-group" id="MatchList">
+                    <ul class="list-group">
 					  <li class="list-group-item"><p>Match 1 for route                    <button type="button" class="btn btn-success" aria-label="Left Align" style="float:right"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> Message</button> 
 																				
 																				<button type="button" class="btn btn-default" aria-label="Left Align" style="float:right;  margin-right: 8px;" data-toggle="modal" data-target="#ProfileModal"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Profile</button><p> 
@@ -442,7 +442,6 @@
 
 <button id="LoginTest">LoginTest</button>
 <button id="LogoutTest">LogoutTest</button>
-<button id="MatchesTest">MatchesTest</button>
 
 <script>
 
@@ -452,6 +451,8 @@ var URLroute = "http://localhost:3000/api/route";
 var URLmatching = "http://localhost:3000/api/matching";
 var URLuser = "http://localhost:3000/api/user";
 var URLcomment = "http://localhost:3000/api/comment";
+
+var token;
 
 //ON Document Load
 $('.LoggedIn').hide();
@@ -477,25 +478,6 @@ $('#formSignUp').submit(function() {
 					 
 });
 
-// SignUp ALTERNATIVE 
-/*
-$('#formSignUp').submit(function() {
-	$.post( URLsignup, function() {
-  alert( "success" );
-})
-  .done(function() {
-    alert( "second success" );
-  })
-  .fail(function() {
-    alert( "error" );
-  })
-  .always(function() {
-    alert( "finished" );
-});
-});
-*/
-
-
 // Login
 $('#formLogin').submit(function() {
 
@@ -509,10 +491,14 @@ $('#formLogin').submit(function() {
 			$('.NotLoggedIn').hide();
 			$('.LoggedIn').show();
             $('#uname').html(data.name);
+			$('#usurname').html(data.surname);
+			
+			token = data.token;
+		
 		} 
 	});
 	
-	alert ("Debugging: New POST for LOGIN for URL " + URLlogin + " with JSON " + loginData + ".");
+	//alert ("Debugging: New POST for LOGIN for URL " + URLlogin + " with JSON " + loginData + ".");
 	
 });
 
@@ -525,17 +511,36 @@ $('#formAddRoute').submit(function() {
 		url: URLroute,
 		method: "POST",
 		data: routeData,
-		success: function(data) {} 
+		headers: {
+        'Token':token,
+		},
+		success: function(data) {
+			$('#uuserid').html(data.userId);
+		
+		} 
 	});
 	
-	alert ("Debugging: New POST for ROUTE for URL " + URLroute + " with JSON " + routeData + ".");
+	//alert ("Debugging: New POST for ROUTE for URL " + URLroute + " with JSON " + routeData + ".");
 	
 });
 
 
+
 // Get Matches
 $('#RefreshMatches').click(function() {
-
+	
+	
+	$.ajax({ 
+		url: URLmatching,
+		method: "GET",
+		headers: {
+        'Token':token,
+		},
+		success: function(data) {
+			 $('#numbermatchings').html(data.numbermatchings);
+		
+		} 
+	});
 
 	
 });
@@ -613,17 +618,6 @@ $('#LogoutTest').click(function(){
 	
 });	
 
-$('#MatchesTest').click(function(){
-	
-
-		$('	<li class="list-group-item"><p>Match 1 for route <button type="button" class="btn btn-success" aria-label="Left Align" style="float:right"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> Message</button> <button type="button" class="btn btn-default" aria-label="Left Align" style="float:right;  margin-right: 8px;" data-toggle="modal" data-target="#ProfileModal"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Profile</button><p> </li>').appendTo("#MatchList");
-
-
-	});
-	
-																
-																				
-					 
 
 
 </script>
