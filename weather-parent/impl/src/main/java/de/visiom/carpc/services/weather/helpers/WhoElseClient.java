@@ -21,8 +21,7 @@ public class WhoElseClient {
 	
 	private String userToken;
 		
-	public WhoElseClient(String userToken) {
-		this.userToken = userToken;
+	public WhoElseClient() {
 	}
 	
 	public void setUserToken(String userToken) {

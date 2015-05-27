@@ -24,6 +24,6 @@ public class UserTokenUpdateHandler extends ValueChangeEventHandler {
 		Parameter parameter = valueChangeEvent.getParameter();
 		String value = stateValueObject.getValue();
 		LOG.info("Received User Token update for {}/{}:{}", parameter.getName(), parameter.getService().getName(), value);
-		userTokenPublisher.doSomething();
+		userTokenPublisher.setToken(value);
 	}
 }

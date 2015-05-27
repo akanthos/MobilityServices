@@ -14,7 +14,10 @@ import de.visiom.carpc.asb.servicemodel.valueobjects.StringValueObject;
 import de.visiom.carpc.asb.servicemodel.valueobjects.ValueObject;
 import de.visiom.carpc.asb.serviceregistry.ServiceRegistry;
 import de.visiom.carpc.asb.serviceregistry.exceptions.NoSuchServiceException;
+import de.visiom.carpc.services.weather.helpers.LocationCoordinatesMapper;
+import de.visiom.carpc.services.weather.helpers.TokenManager;
 import de.visiom.carpc.services.weather.helpers.WeatherServiceConstants;
+import de.visiom.carpc.services.weather.helpers.WeatherClient;
 import de.visiom.carpc.services.weather.helpers.WhoElseClient;
 
 public class RemoteMatchingsPublisher extends ParallelWorker {
@@ -38,11 +41,8 @@ public class RemoteMatchingsPublisher extends ParallelWorker {
 		Service thisService = serviceRegistry.getService(WeatherServiceConstants.SERVICE_NAME);
 		remoteMatchingsParameter = (StringParameter) thisService.getParameter("remoteMatchings");
 		
-		LOG.info("Tried to read USERTOKEN in RemoteMatchingsPublisher as {}", thisService.getParameter("userToken").toString());
-		
-		whoelseClient = new WhoElseClient(thisService.getParameter("userToken").toString());
 		initializeRemoteMatchings(thisService);
-		
+		whoelseClient = new WhoElseClient();
 	}
 	
 	@Override
@@ -56,22 +56,22 @@ public class RemoteMatchingsPublisher extends ParallelWorker {
 	}
 	
 	public void fireUpdate() {
-
+		LOG.info("Tried to read USERTOKEN in PushRoutePublisher as {}", TokenManager.getToken());
+		whoelseClient.setUserToken(TokenManager.getToken());
 		ValueObject valueObject = StringValueObject.valueOf(whoelseClient.getMatchings());
 		ValueChangeEvent valueChangeEvent = ValueChangeEvent.createValueChangeEvent(remoteMatchingsParameter, valueObject);
 		eventPublisher.publishValueChange(valueChangeEvent);
 	}
 	
 	public void initializeRemoteMatchings(Service thisService) throws NoSuchParameterException {
-		StringParameter initialRemoteMatchings = (StringParameter) thisService.getParameter("remoteMatchings");
-		StringValueObject initialRemoteMatchingsValue = StringValueObject.valueOf("{}");
-		ValueChangeEvent valueChangeEvent = ValueChangeEvent.createValueChangeEvent(initialRemoteMatchings, initialRemoteMatchingsValue);
+		StringParameter initialMatchings = (StringParameter) thisService.getParameter("remoteMatchings");
+		StringValueObject initialMatchingsValue = StringValueObject.valueOf("{}");
+		ValueChangeEvent valueChangeEvent = ValueChangeEvent.createValueChangeEvent(initialMatchings, initialMatchingsValue);
 		eventPublisher.publishValueChange(valueChangeEvent);
-//		return initialUserTokenValue;
 	}
 	
-	public void updateMatchings() {
-		fireUpdate();
+	public void doSth() {
+		
 	}
 	
 
