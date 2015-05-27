@@ -63,6 +63,7 @@ module.exports = {
 			// Init express app
 			context.app = express();
 			context.app.use(bodyParser.json());
+			context.app.use(bodyParser.urlencoded());
 
 			// Init router
 			context.router = new express.Router();
