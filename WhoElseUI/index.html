@@ -76,7 +76,7 @@
                     </li>
 					
 					 <li class="LoggedIn">
-                        <a>Logged in as <span id='uname'><span></a>
+                        <a>Logged in as <span id='usurname'><span id='uname'><span></a>
                     </li>
 					 <li class="LoggedIn">
                         <a href="" id="LogoutLink">Logout</a>
@@ -459,6 +459,8 @@ var URLmatching = "http://localhost:3000/api/matching";
 var URLuser = "http://localhost:3000/api/user";
 var URLcomment = "http://localhost:3000/api/comment";
 
+var token;
+
 //ON Document Load
 $('.LoggedIn').hide();
 
@@ -496,10 +498,14 @@ $('#formLogin').submit(function() {
 			$('.NotLoggedIn').hide();
 			$('.LoggedIn').show();
             $('#uname').html(data.name);
+			$('#usurname').html(data.surname);
+			
+			token = data.token;
+		
 		} 
 	});
 	
-	alert ("Debugging: New POST for LOGIN for URL " + URLlogin + " with JSON " + loginData + ".");
+	//alert ("Debugging: New POST for LOGIN for URL " + URLlogin + " with JSON " + loginData + ".");
 	
 });
 
@@ -512,17 +518,36 @@ $('#formAddRoute').submit(function() {
 		url: URLroute,
 		method: "POST",
 		data: routeData,
-		success: function(data) {} 
+		headers: {
+        'Token':token,
+		},
+		success: function(data) {
+			$('#uuserid').html(data.userId);
+		
+		} 
 	});
 	
-	alert ("Debugging: New POST for ROUTE for URL " + URLroute + " with JSON " + routeData + ".");
+	//alert ("Debugging: New POST for ROUTE for URL " + URLroute + " with JSON " + routeData + ".");
 	
 });
 
 
+
 // Get Matches
 $('#RefreshMatches').click(function() {
-
+	
+	
+	$.ajax({ 
+		url: URLmatching,
+		method: "GET",
+		headers: {
+        'Token':token,
+		},
+		success: function(data) {
+			 $('#numbermatchings').html(data.numbermatchings);
+		
+		} 
+	});
 
 	
 });
