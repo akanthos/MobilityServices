@@ -462,7 +462,6 @@ $('.LoggedIn').hide();
 $('#formSignUp').submit(function() {
 
 	var signUpData = JSON.stringify($('#formSignUp').serializeObject());
-	
 	$.ajax({ 
 		url: URLsignup,
 		method: "POST",

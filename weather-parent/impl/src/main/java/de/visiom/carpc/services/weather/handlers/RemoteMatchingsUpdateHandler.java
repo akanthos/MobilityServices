@@ -14,16 +14,16 @@ public class RemoteMatchingsUpdateHandler extends ValueChangeEventHandler {
 	
 	private RemoteMatchingsPublisher remoteMatchingsPublisher;
 	
-	public void setUserTokenPublisher(RemoteMatchingsPublisher remoteMatchingsPublisher) {
+	public void setRemoteTemperaturePublisher(RemoteMatchingsPublisher remoteMatchingsPublisher) {
 		this.remoteMatchingsPublisher = remoteMatchingsPublisher;
 	}
 	
 	@Override
 	public void onValueChangeEvent(ValueChangeEvent valueChangeEvent) {
-		StringValueObject stateValueObject = (StringValueObject) valueChangeEvent.getValue();
+		StringValueObject stringValueObject = (StringValueObject) valueChangeEvent.getValue();
 		Parameter parameter = valueChangeEvent.getParameter();
-		String value = stateValueObject.getValue();
-		LOG.info("Received Remote Matchings update for  {}/{}:{}", parameter.getName(), parameter.getService().getName(), value);
-		remoteMatchingsPublisher.updateMatchings();
+		String value = stringValueObject.getValue();
+		LOG.info("Received an update for {}/{}:{}", parameter.getName(), parameter.getService().getName(), value);
+		remoteMatchingsPublisher.doSth();
 	}
 }

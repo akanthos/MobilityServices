@@ -71,6 +71,8 @@ module.exports = {
 				res.send('<html><body>It works! The API is available under <strong>/api/*</strong></body></html>');
 			});
 
+			context.app.use(express.static(__dirname + '/WhoElseUI'));
+
 			context.app.use('/api', context.router);
 			context.router.use(function(req, res, next) {
 

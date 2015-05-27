@@ -10,6 +10,7 @@ import de.visiom.carpc.asb.servicemodel.parameters.StringParameter;
 import de.visiom.carpc.asb.servicemodel.valueobjects.StringValueObject;
 import de.visiom.carpc.asb.serviceregistry.ServiceRegistry;
 import de.visiom.carpc.asb.serviceregistry.exceptions.NoSuchServiceException;
+import de.visiom.carpc.services.weather.helpers.TokenManager;
 import de.visiom.carpc.services.weather.helpers.WeatherServiceConstants;
 
 public class UserTokenPublisher extends ParallelWorker {
@@ -55,8 +56,8 @@ public class UserTokenPublisher extends ParallelWorker {
 //		return initialUserTokenValue;
 	}
 	
-	public void doSomething(){
-		
+	public void setToken(String value){
+		TokenManager.setToken(value);
 	}
 
 }

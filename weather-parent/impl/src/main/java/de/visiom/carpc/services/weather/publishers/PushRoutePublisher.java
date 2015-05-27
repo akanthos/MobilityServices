@@ -13,14 +13,15 @@ import de.visiom.carpc.asb.servicemodel.parameters.StringParameter;
 import de.visiom.carpc.asb.servicemodel.valueobjects.StringValueObject;
 import de.visiom.carpc.asb.serviceregistry.ServiceRegistry;
 import de.visiom.carpc.asb.serviceregistry.exceptions.NoSuchServiceException;
+import de.visiom.carpc.services.weather.helpers.TokenManager;
 import de.visiom.carpc.services.weather.helpers.WeatherServiceConstants;
 import de.visiom.carpc.services.weather.helpers.WhoElseClient;
 
 public class PushRoutePublisher extends ParallelWorker {
 	private static final Logger LOG = LoggerFactory.getLogger(PushRoutePublisher.class);
+//	private StringParameter pushRouteParameter;
 	private EventPublisher eventPublisher;
 	private ServiceRegistry serviceRegistry;
-
 	private WhoElseClient whoelseClient;
 	
 	public void setEventPublisher(EventPublisher eventPublisher) {
@@ -36,8 +37,8 @@ public class PushRoutePublisher extends ParallelWorker {
 
 		
 		Service thisService = serviceRegistry.getService(WeatherServiceConstants.SERVICE_NAME);
-		LOG.info("Tried to read USERTOKEN in PushRoutePublisher as {}", thisService.getParameter("userToken").toString());
-		whoelseClient = new WhoElseClient(thisService.getParameter("userToken").toString());
+//		pushRouteParameter = (StringParameter) thisService.getParameter("pushRoute");
+		whoelseClient = new WhoElseClient();
 		
 		initializePushRoute(thisService);
 	}
@@ -54,13 +55,15 @@ public class PushRoutePublisher extends ParallelWorker {
 	
 	
 	public void setRoute(String route) {
+		LOG.info("Tried to read USERTOKEN in PushRoutePublisher as {}", TokenManager.getToken());
+		whoelseClient.setUserToken(TokenManager.getToken());
 		whoelseClient.pushRoute(route);
 	}
 	
 	public void initializePushRoute(Service thisService) throws NoSuchParameterException {
-		StringParameter initialUserToken = (StringParameter) thisService.getParameter("pushRoute");
-		StringValueObject initialUserTokenValue = StringValueObject.valueOf("{}");
-		ValueChangeEvent valueChangeEvent = ValueChangeEvent.createValueChangeEvent(initialUserToken, initialUserTokenValue);
+		StringParameter initialPushRoute = (StringParameter) thisService.getParameter("pushRoute");
+		StringValueObject initialPushRouteValue = StringValueObject.valueOf("{}");
+		ValueChangeEvent valueChangeEvent = ValueChangeEvent.createValueChangeEvent(initialPushRoute, initialPushRouteValue);
 		eventPublisher.publishValueChange(valueChangeEvent);
 //		return initialUserTokenValue;
 	}
