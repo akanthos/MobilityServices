@@ -52,10 +52,10 @@ CREATE TABLE IF NOT EXISTS `tbl_comments` (
 
 CREATE TABLE IF NOT EXISTS `tbl_routes` (
   `routeId` int(11) NOT NULL,
-  `startlat` varchar(15) NOT NULL,
-  `startlong` varchar(15) NOT NULL,
-  `endlat` varchar(15) NOT NULL,
-  `endlong` varchar(15) NOT NULL,
+  `startlat` double NOT NULL,
+  `startlng` double NOT NULL,
+  `endlat` double NOT NULL,
+  `endlng` double NOT NULL,
   `time` time NOT NULL,
   `weekday` enum('Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday') NOT NULL,
   `userId` int(11) NOT NULL
@@ -100,7 +100,18 @@ CREATE TABLE IF NOT EXISTS `tbl_users` (
 
 CREATE TABLE IF NOT EXISTS `tbl_matchings` (
   `routeId1` int(11) NOT NULL,
-  `routeId2` int(11) NOT NULL
+  `routeId2` int(11) NOT NULL,
+  `routeStart1` text NOT NULL,
+  `routeEnd1` text NOT NULL,
+  `routeStart2` text NOT NULL,
+  `routeEnd2` text NOT NULL,
+  `time1` time NOT NULL,
+  `time2` time NOT NULL,
+  `weekday1` enum('Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday') NOT NULL,
+  `weekday2` enum('Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday') NOT NULL,
+  `userId1` int(11) NOT NULL,
+  `userId2` int(11) NOT NULL,
+  `value` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -113,19 +124,19 @@ CREATE TABLE IF NOT EXISTS `tbl_matchings` (
 -- Indexes for table `tbl_comments`
 --
 ALTER TABLE `tbl_comments`
-  ADD PRIMARY KEY (`commentId`), ADD UNIQUE KEY `FOREIGNKEY` (`userId`), ADD UNIQUE KEY `FOREIGNKEYPOST` (`userIdPost`);
+  ADD PRIMARY KEY (`commentId`), ADD KEY `FOREIGNKEY` (`userId`), ADD KEY `FOREIGNKEYPOST` (`userIdPost`);
 
 --
 -- Indexes for table `tbl_routes`
 --
 ALTER TABLE `tbl_routes`
-  ADD PRIMARY KEY (`routeId`), ADD UNIQUE KEY `FOREIGNKEY` (`userId`);
+  ADD PRIMARY KEY (`routeId`), ADD KEY `FOREIGNKEY` (`userId`);
 
 --
 -- Indexes for table `tbl_routePoint`
 --
 ALTER TABLE `tbl_routePoints`
-  ADD PRIMARY KEY (`pointId`), ADD UNIQUE KEY `FOREIGNKEY` (`routeId`);
+  ADD PRIMARY KEY (`pointId`), ADD KEY `FOREIGNKEY` (`routeId`);
 
 --
 -- Indexes for table `tbl_users`
@@ -137,7 +148,7 @@ ALTER TABLE `tbl_users`
 -- Indexes for table `tbl_matching`
 --
 ALTER TABLE `tbl_matchings`
-  ADD PRIMARY KEY (`routeId1`, `routeId2`), ADD UNIQUE KEY `FOREIGNKEY1` (`routeId1`), ADD UNIQUE KEY `FOREIGNKEY2` (`routeId2`);
+  ADD PRIMARY KEY (`routeId1`, `routeId2`), ADD KEY `FOREIGNKEY1` (`routeId1`), ADD KEY `FOREIGNKEY2` (`routeId2`), ADD KEY `FOREIGNKEY3` (`userId1`), ADD KEY `FOREIGNKEY4` (`userId2`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -194,7 +205,9 @@ ADD CONSTRAINT `tbl_routePoint_ibfk_1` FOREIGN KEY (`routeId`) REFERENCES `tbl_r
 --
 ALTER TABLE `tbl_matchings`
 ADD CONSTRAINT `tbl_matchings_ibfk_1` FOREIGN KEY (`routeId1`) REFERENCES `tbl_routes` (`routeId`) ON DELETE CASCADE ON UPDATE CASCADE,
-ADD CONSTRAINT `tbl_matchings_ibfk_2` FOREIGN KEY (`routeId2`) REFERENCES `tbl_routes` (`routeId`) ON DELETE CASCADE ON UPDATE CASCADE;
+ADD CONSTRAINT `tbl_matchings_ibfk_2` FOREIGN KEY (`routeId2`) REFERENCES `tbl_routes` (`routeId`) ON DELETE CASCADE ON UPDATE CASCADE,
+ADD CONSTRAINT `tbl_matchings_ibfk_3` FOREIGN KEY (`userId1`) REFERENCES `tbl_users` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE,
+ADD CONSTRAINT `tbl_matchings_ibfk_4` FOREIGN KEY (`userId2`) REFERENCES `tbl_users` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -426,7 +426,6 @@ var URLcomment = "http://localhost:6000/api/comment";
 $('#formSignUp').submit(function() {
 
 	var signUpData = JSON.stringify($('#formSignUp').serializeObject());
-	
 	$.ajax({ 
 		url: URLsignup,
 		method: "POST",

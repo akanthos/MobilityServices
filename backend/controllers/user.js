@@ -62,6 +62,22 @@ module.exports = function (context) {
 				}
 			});
 			return deferred.promise;
+		},
+
+		logout : function(req, res) {
+			checkToken(req.get('token')).then(function(userId) {
+				context.connection.query('Update tbl_users SET token = null where userId = ' + userId, function(err, results) {
+					if(err) {
+						console.error(err);
+						return res.status(500).send();
+					}
+					else {
+						return res.status(200).send();
+					}
+				});
+			}, function() {
+				return res.status(500).send({msg: 'User not found'});
+			});
 		}
 	};
 };
