@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>WhoElse</title>
+
+    <!-- Bootstrap Core CSS - Uses Bootswatch Flatly Theme: http://bootswatch.com/flatly/ -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/freelancer.css" rel="stylesheet">
+
+    <!-- Custom Fonts 
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    
+   
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body id="page-top" class="index">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#page-top">WhoElse</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+					<!--
+                    <li class="page-scroll">
+                        <a href="#Profile">Profile</a>
+                    </li>
+					-->
+					
+                    <li class="page-scroll LoggedIn">
+                        <a href="#Route">Route</a>
+                    </li>
+                    <li class="page-scroll LoggedIn">
+                        <a href="#Matches">Matches</a>
+                    </li>
+					
+					
+					 <li class="NotLoggedIn">
+                        <a data-toggle="modal" data-target="#loginModal">Login</a>
+                    </li>
+					
+					 <li class="NotLoggedIn">
+                        <a data-toggle="modal" data-target="#signUpModal">SignUp</a>
+                    </li>
+					
+					 <li class="LoggedIn">
+                        <a>Logged in as USERNAME</a>
+                    </li>
+					 <li class="LoggedIn">
+                        <a href="" id="LogoutLink">Logout</a>
+                    </li>
+					
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+
+    <!-- Header -->
+    <header>
+
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-12">
+                
+                    <div class="intro-text">
+                        <span class="name">WhoElse</span>
+                       <img src="img/profile.png" class="img-responsive" alt="">
+                        <span class="skills"><b>Find your best suitable commuting partner - in an easy, automated and effortless way</b></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Profile Grid Section 
+    <section id="Profile">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2>Profile</h2>
+
+                    <hr>
+                </div>
+            </div>
+            <div class="row">
+    <form role="form">
+    <div class="form-group">
+      <div class="col-xs-4">
+        <label for="ex1">First name:</label>
+        <input class="form-control" id="ex1" type="text">
+        <label for="ex2">Second Name:</label>
+        <input class="form-control" id="ex2" type="text">
+        <label for="sel1">Gender</label>
+      <select class="form-control" id="sel1">
+        <option>male</option>
+        <option>female</option>
+        
+      </select>
+        <label for="ex3">Age:</label>
+        <input class="form-control" id="ex3" type="text">
+      </div>
+
+      <div class="col-xs-8">
+        
+    <div class="form-group">
+      <label for="comment">What else do you want to say about yourself?</label>
+      <textarea class="form-control" rows="11" id="comment"></textarea>
+	  </br>
+      <button type="submit" class="btn btn-default">Save</button>
+      <button type="submit" class="btn btn-primary">More options</button>
+    </div>
+
+    
+ 
+    </div>
+  </form>
+
+
+
+</div>
+                            
+            </div>
+        </div>
+        <hr>
+    </section>
+    <!-- Profile Grid Section !-->
+    <section id="Profile" class="NotLoggedIn">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2>Sign Up now!</h2>
+
+                    <hr>
+					<h3> Find your optimal Commuting Partner.</h3>
+                </div>
+            </div>
+           
+                            
+            
+        </div>
+   
+    </section>
+	
+	
+	
+    <!-- Route Section -->
+    <section class="success LoggedIn" id="Route">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2>Route</h2>
+                    <hr>
+                    <p>Please choose addresses for your starting point, and the final destination.</p>
+                    
+                </div>
+            </div>
+            <div class="row">
+  <form action="" method="post" id="formAddRoute" role="form">
+    <div class="form-group">
+      <div class="col-xs-4">
+        <label for="start">Your starting point:</label>
+        <input class="form-control" name="start" id="start" type="text">
+        <label for="end">Your final destination:</label>
+        <input class="form-control" name="end" id="end" type="text">
+        <label for="time">Time:</label>
+        <input class="form-control" name="time" id="time" type="text">
+		 <label for="day">Day:</label>
+        <input class="form-control" name="day" id="day" type="text">
+      </br>
+      <button type="submit" class="btn btn-default">Save</button>
+      
+    </div>
+
+    
+  </form>
+  
+  <div class="col-xs-8">
+  
+  </div>
+  
+            </div>
+        </div>
+    </section>
+
+    <!-- Matches Section -->
+    <section class="LoggedIn" id="Matches">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2>Matches</h2>
+                    <hr>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    
+                         <p>We identified potential matches for you! Have a look! <button class="btn btn-deafault btn-sm" id="RefreshMatches"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Refresh</button></p>      
+                      
+                    <ul class="list-group">
+					  <li class="list-group-item"><p>Match 1 for route                    <button type="button" class="btn btn-success" aria-label="Left Align" style="float:right"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> Message</button> 
+																				
+																				<button type="button" class="btn btn-default" aria-label="Left Align" style="float:right;  margin-right: 8px;" data-toggle="modal" data-target="#ProfileModal"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Profile</button><p> 
+																				
+																				
+					  </li>
+					   <li class="list-group-item"><p>Match 2                    <button type="button" class="btn btn-success" aria-label="Left Align" style="float:right"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> Message</button> 
+																				
+																				<button type="button" class="btn btn-default" aria-label="Left Align" style="float:right;  margin-right: 8px;" data-toggle="modal" data-target="#ProfileModalModal"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Profile</button><p> 
+																				
+																				
+					  </li>
+					   <li class="list-group-item"><p>Match 3                    <button type="button" class="btn btn-success" aria-label="Left Align" style="float:right"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> Message</button> 
+																				
+																				<button type="button" class="btn btn-default" aria-label="Left Align" style="float:right;  margin-right: 8px;" data-toggle="modal" data-target="#ProfileModal"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Profile</button><p> 
+																				
+																				
+					  </li>
+					  
+					  
+					  
+
+					</ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-center">
+        <div class="footer-above">
+            <div class="container">
+                <div class="row">
+                    
+                    
+                    
+        </div>
+        <div class="footer-below">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        Copyright &copy; WhoElse 2015 </br>
+						Template: Freelancer Bootstrap Template from http://startbootstrap.com/ </br>
+						Header Picture © 3dan3 – iStock.com
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
+    <div class="scroll-top page-scroll visible-xs visible-sm">
+        <a class="btn btn-primary" href="#page-top">
+            <i class="fa fa-chevron-up"></i>
+        </a>
+    </div>
+
+    
+    </div>
+
+	
+	
+	
+
+
+<!-- Modal -->
+<div class="modal fade" id="ProfileModal" tabindex="-1" role="dialog" aria-labelledby="ProfileModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="ProfileModalLabel">Profile</h4>
+      </div>
+      <div class="modal-body">
+           <ul class="list-group">
+					  <li class="list-group-item"><p>Name:							
+																			
+					  </li>
+					   <li class="list-group-item"><p>Starting Point:	
+								
+					  </li>
+					   <li class="list-group-item"><p>Destination:						
+							
+							
+					  </li>
+					  
+					  
+					  
+
+					</ul>		
+		
+		
+      </div>
+      <div class="modal-footer">
+
+      </div>
+    </div>
+  </div>
+</div>
+	
+
+
+
+<!-- Login Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="loginModal">Login</h4>
+      </div>
+      <form action="" method="post" role="form" id="formLogin">
+      <div class="modal-body">
+			<div class="form-group">
+						  
+				<label for="email">Mail:</label>
+				<input class="form-control" name="email" id="email" type="email">
+				<label for="password">Password:</label>
+				<input class="form-control" name="password" id="password" type="password">
+									
+			</div>
+		</div>
+				
+        <div class="modal-footer">
+			<button type="submit" class="btn btn-success">Login</button>
+		</div>
+	  </form>
+    </div>
+  </div>
+</div>		
+	
+	
+<!-- SignUp Modal -->
+<div class="modal fade" id="signUpModal" tabindex="-1" role="dialog" aria-labelledby="signUpModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="signUpModal">Sign Up</h4>
+      </div>
+	  <form action="" method="post" role="form" id="formSignUp">
+      <div class="modal-body">
+			<div class="form-group">
+				
+				<label for="age">Email:*</label>
+				<input class="form-control" name="email" id="email" type="email" required>	
+				<label for="age">Password:*</label>
+				<input class="form-control" name="password" id="password" type="text" required>			
+				<label for="name">Name:*</label>
+				<input class="form-control" name="name" id="name" type="text" required>
+				<label for="surname">Surname:</label>
+				<input class="form-control" name="surname" id="surname" type="text">		
+				<label for="gender">Gender</label>
+				<select class="form-control" name="gender" id="gender">
+				<option>male</option>
+				<option>female</option>
+				</select>
+				
+				<label for="age">Age:</label>
+				<input class="form-control" name="age" id="age" type="text">
+				
+					 
+
+				<div class="form-group">
+					<label for="about">What do you want to say about yourself?</label>
+					<textarea class="form-control" rows="5"  name="about" id="about"></textarea>
+					</br>
+				</div>							
+			</div>
+		</div>
+								
+								
+							  
+							
+        <div class="modal-footer">
+		
+			<button type="submit" class="btn btn-success" id="signUpSubmit">SignUp</button>
+			
+		
+		
+		
+		</div>
+	  </form>
+    </div>
+  </div>
+</div>	
+	
+
+<!-- jQuery -->
+<script src="js/jquery.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="js/bootstrap.min.js"></script>
+
+<!-- Plugin JavaScript -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+<script src="js/classie.js"></script>
+<script src="js/cbpAnimatedHeader.js"></script>
+
+<!-- Matches Form JavaScript -->
+<script src="js/jqBootstrapValidation.js"></script>
+<!-- <script src="js/Matches_me.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="js/freelancer.js"></script>
+
+
+
+<button id="LoginTest">LoginTest</button>
+<button id="LogoutTest">LogoutTest</button>
+
+<script>
+
+var URLlogin = "http://localhost:3000/api/login";
+var URLsignup = "http://localhost:3000/api/signup";
+var URLroute = "http://localhost:3000/api/route";
+var URLmatching = "http://localhost:3000/api/matching";
+var URLuser = "http://localhost:3000/api/user";
+var URLcomment = "http://localhost:3000/api/comment";
+
+//ON Document Load
+$('.LoggedIn').hide();
+
+
+
+// SignUp
+$('#formSignUp').submit(function() {
+
+	var signUpData = JSON.stringify($('#formSignUp').serializeObject());
+	$.ajax({ 
+		url: URLsignup,
+		method: "POST",
+		data: signUpData,
+		success: function(data) {
+			
+		
+			} 
+	});
+	
+	alert ("Debugging: New POST for SignUP for URL " + URLsignup + " with JSON " + signUpData + ".");
+					 
+});
+
+// Login
+$('#formLogin').submit(function() {
+
+	var loginData = JSON.stringify($('#formLogin').serializeObject());
+	
+	$.ajax({ 
+		url: URLlogin,
+		method: "POST",
+		data: loginData,
+		success: function(data) {
+			$('.NotLoggedIn').hide();
+			$('.LoggedIn').show();
+			
+			
+			} 
+	});
+	
+	alert ("Debugging: New POST for LOGIN for URL " + URLlogin + " with JSON " + loginData + ".");
+	
+});
+
+// Add Route
+$('#formAddRoute').submit(function() {
+
+	var routeData = JSON.stringify($('#formAddRoute').serializeObject());
+	
+	$.ajax({ 
+		url: URLroute,
+		method: "POST",
+		data: routeData,
+		success: function(data) {} 
+	});
+	
+	alert ("Debugging: New POST for ROUTE for URL " + URLroute + " with JSON " + routeData + ".");
+	
+});
+
+
+// Get Matches
+$('#RefreshMatches').click(function() {
+
+
+	
+});
+
+
+
+
+
+
+
+//LogOut
+$('#LogoutLink').click(function(){
+	localStorage.clear();
+	$('.NotLoggedIn').show();
+	$('.LoggedIn').hide();
+});	
+
+
+
+
+//Function to Convert Form into JSON
+$.fn.serializeObject = function()
+{
+    var o = {};
+    var a = this.serializeArray();
+    $.each(a, function() {
+        if (o[this.name] !== undefined) {
+            if (!o[this.name].push) {
+                o[this.name] = [o[this.name]];
+            }
+            o[this.name].push(this.value || '');
+        } else {
+            o[this.name] = this.value || '';
+        }
+    });
+    return o;
+};
+
+
+
+
+//Test Functions
+$(function() {
+    $('#formSignUp').submit(function() {
+        $('#result').text(JSON.stringify($('#formSignUp').serializeObject()));
+        return false;
+    });
+});
+
+
+$(function() {
+    $('#formLogin').submit(function() {
+        $('#result').text(JSON.stringify($('#formLogin').serializeObject()));
+        return false;
+    });
+});
+
+$(function() {
+    $('#formAddRoute').submit(function() {
+        $('#result').text(JSON.stringify($('#formAddRoute').serializeObject()));
+        return false;
+    });
+});
+
+
+$('#LoginTest').click(function(){
+	$('.NotLoggedIn').hide();
+	$('.LoggedIn').show();
+	
+});
+
+$('#LogoutTest').click(function(){
+	$('.NotLoggedIn').show();
+	$('.LoggedIn').hide();
+	
+});	
+
+
+
+</script>
+
+
+<h2>JSON</h2>
+<pre id="result">
+</pre>
+
+
+
+
+
+
+
+
+
+</body>
+</html>
