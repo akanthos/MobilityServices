@@ -15,12 +15,12 @@ module.exports = function (context) {
 				}
 				else {
 					var token = context.uuid.v4();
-					context.connection.query('Update tbl_users SET token = ' + context.connection.escape(token) + ' where email = ' + context.connection.escape(email), function(err, results) {
+					context.connection.query('Update tbl_users SET token = ' + context.connection.escape(token) + ' where email = ' + context.connection.escape(email), function(err, results2) {
 						if(err) {
 							console.error(err);
 							deferred.reject();
 						}
-						deferred.resolve(token);
+						deferred.resolve({name: results[0].name, surname: results[0].surname, token: token});
 					});
 				}
 			});

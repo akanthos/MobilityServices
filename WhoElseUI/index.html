@@ -76,7 +76,7 @@
                     </li>
 					
 					 <li class="LoggedIn">
-                        <a>Logged in as USERNAME</a>
+                        <a>Logged in as <span id='uname'><span></a>
                     </li>
 					 <li class="LoggedIn">
                         <a href="" id="LogoutLink">Logout</a>
@@ -508,8 +508,8 @@ $('#formLogin').submit(function() {
 		success: function(data) {
 			$('.NotLoggedIn').hide();
 			$('.LoggedIn').show();
-			
-			} 
+            $('#uname').html(data.name);
+		} 
 	});
 	
 	alert ("Debugging: New POST for LOGIN for URL " + URLlogin + " with JSON " + loginData + ".");
