@@ -19,10 +19,10 @@
 		<property name="eventPublisher" ref="eventPublisher" />
 		<property name="serviceRegistry" ref="serviceRegistry" />
 	</bean>
-	<bean id="remoteMatchingsPublisher" class="de.visiom.carpc.services.weather.publishers.RemoteMatchingsPublisher" init-method="start">
+	<!-- <bean id="remoteMatchingsPublisher" class="de.visiom.carpc.services.weather.publishers.RemoteMatchingsPublisher" init-method="start">
 		<property name="eventPublisher" ref="eventPublisher" />
 		<property name="serviceRegistry" ref="serviceRegistry" />
-	</bean>
+	</bean> -->
 	
 	
 	<bean id="locationChangeRequestHandler" class="de.visiom.carpc.services.weather.handlers.RemoteLocationChangeRequestHandler">
@@ -37,10 +37,7 @@
 		<property name="eventPublisher" ref="eventPublisher" />
 		<property name="commandPublisher" ref="commandPublisher" />
 	</bean>
-	<bean id="remoteMatchingsChangeRequestHandler" class="de.visiom.carpc.services.weather.handlers.RemoteMatchingsChangeRequestHandler">
-		<property name="eventPublisher" ref="eventPublisher" />
-		<property name="commandPublisher" ref="commandPublisher" />
-	</bean>
+	
 	
 	
 	<bean id="locationUpdateHandler" class="de.visiom.carpc.services.weather.handlers.RemoteLocationUpdateHandler">
@@ -52,9 +49,9 @@
 	<bean id="pushRouteUpdateHandler" class="de.visiom.carpc.services.weather.handlers.PushRouteUpdateHandler">
 		<property name="pushRoutePublisher" ref="pushRoutePublisher" />
 	</bean>
-	<bean id="remoteMatchingsUpdateHandler" class="de.visiom.carpc.services.weather.handlers.RemoteMatchingsUpdateHandler">
+	<!-- <bean id="remoteMatchingsUpdateHandler" class="de.visiom.carpc.services.weather.handlers.RemoteMatchingsUpdateHandler">
 		<property name="remoteMatchingsPublisher" ref="remoteMatchingsPublisher" />
-	</bean>
+	</bean> -->
 	
 	
 	<service id="requestHandler" interface="org.osgi.service.event.EventHandler" ref="locationChangeRequestHandler">
@@ -75,12 +72,7 @@
 			<entry key="event.filter" value="(serviceName=weather)" />
 		</service-properties>
 	</service>
-	<service id="requestHandler4" interface="org.osgi.service.event.EventHandler" ref="remoteMatchingsChangeRequestHandler">
-		<service-properties>
-			<entry key="event.topics" value="visiom/commands/requests" />
-			<entry key="event.filter" value="(serviceName=weather)" />
-		</service-properties>
-	</service>
+
 	
 	
 	<service id="updateHandler" interface="org.osgi.service.event.EventHandler"
@@ -104,13 +96,13 @@
 			<entry key="event.filter" value="(parameterName=pushRoute)" />
 		</service-properties>
 	</service>
-	<service id="updateHandler4" interface="org.osgi.service.event.EventHandler"
-		ref="pushRouteUpdateHandler">
+	<!-- <service id="updateHandler4" interface="org.osgi.service.event.EventHandler"
+		ref="remoteMatchingsUpdateHandler">
 		<service-properties>
 			<entry key="event.topics" value="visiom/updates/weather" />
 			<entry key="event.filter" value="(parameterName=remoteMatchings)" />
 		</service-properties>
-	</service>
-	
+	</service> -->
+ 	
 	
 </blueprint>	
