@@ -462,7 +462,6 @@ $('.LoggedIn').hide();
 $('#formSignUp').submit(function() {
 
 	var signUpData = $('#formSignUp').serializeObject();
-    console.log(signUpData);
 	$.ajax({ 
 		url: URLsignup,
 		type: 'POST',
@@ -500,7 +499,7 @@ $('#formSignUp').submit(function() {
 // Login
 $('#formLogin').submit(function() {
 
-	var loginData = JSON.stringify($('#formLogin').serializeObject());
+	var loginData = $('#formLogin').serializeObject();
 	
 	$.ajax({ 
 		url: URLlogin,
@@ -509,7 +508,6 @@ $('#formLogin').submit(function() {
 		success: function(data) {
 			$('.NotLoggedIn').hide();
 			$('.LoggedIn').show();
-			
 			
 			} 
 	});
@@ -521,7 +519,7 @@ $('#formLogin').submit(function() {
 // Add Route
 $('#formAddRoute').submit(function() {
 
-	var routeData = JSON.stringify($('#formAddRoute').serializeObject());
+	var routeData = $('#formAddRoute').serializeObject();
 	
 	$.ajax({ 
 		url: URLroute,
