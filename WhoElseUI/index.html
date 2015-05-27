@@ -231,7 +231,7 @@
                     
                          <p>We identified potential matches for you! Have a look! <button class="btn btn-deafault btn-sm" id="RefreshMatches"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Refresh</button></p>      
                       
-                    <ul class="list-group">
+                    <ul class="list-group" id="MatchList">
 					  <li class="list-group-item"><p>Match 1 for route                    <button type="button" class="btn btn-success" aria-label="Left Align" style="float:right"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> Message</button> 
 																				
 																				<button type="button" class="btn btn-default" aria-label="Left Align" style="float:right;  margin-right: 8px;" data-toggle="modal" data-target="#ProfileModal"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Profile</button><p> 
@@ -442,6 +442,7 @@
 
 <button id="LoginTest">LoginTest</button>
 <button id="LogoutTest">LogoutTest</button>
+<button id="MatchesTest">MatchesTest</button>
 
 <script>
 
@@ -475,6 +476,25 @@ $('#formSignUp').submit(function() {
 	alert ("Debugging: New POST for SignUP for URL " + URLsignup + " with JSON " + signUpData + ".");
 					 
 });
+
+// SignUp ALTERNATIVE 
+/*
+$('#formSignUp').submit(function() {
+	$.post( URLsignup, function() {
+  alert( "success" );
+})
+  .done(function() {
+    alert( "second success" );
+  })
+  .fail(function() {
+    alert( "error" );
+  })
+  .always(function() {
+    alert( "finished" );
+});
+});
+*/
+
 
 // Login
 $('#formLogin').submit(function() {
@@ -594,6 +614,17 @@ $('#LogoutTest').click(function(){
 	
 });	
 
+$('#MatchesTest').click(function(){
+	
+
+		$('	<li class="list-group-item"><p>Match 1 for route <button type="button" class="btn btn-success" aria-label="Left Align" style="float:right"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> Message</button> <button type="button" class="btn btn-default" aria-label="Left Align" style="float:right;  margin-right: 8px;" data-toggle="modal" data-target="#ProfileModal"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Profile</button><p> </li>').appendTo("#MatchList");
+
+
+	});
+	
+																
+																				
+					 
 
 
 </script>
