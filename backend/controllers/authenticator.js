@@ -5,9 +5,11 @@ module.exports = function (context) {
 
 	return {
 		authMiddleware : function (req, res, next) {
+			res.header('Access-Control-Allow-Origin', '*');
+    		res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 			if(req.url == '/login') {
-				userCtrl.login(req.body.email, req.body.password).then(function(token) {
-					return res.status(200).send({token: token});
+				userCtrl.login(req.body.email, req.body.password).then(function(respo) {
+					return res.status(200).send(respo);
 				},
 				function(error) {
 					return res.status(401).send();

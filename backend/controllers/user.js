@@ -15,12 +15,12 @@ module.exports = function (context) {
 				}
 				else {
 					var token = context.uuid.v4();
-					context.connection.query('Update tbl_users SET token = ' + context.connection.escape(token) + ' where email = ' + context.connection.escape(email), function(err, results) {
+					context.connection.query('Update tbl_users SET token = ' + context.connection.escape(token) + ' where email = ' + context.connection.escape(email), function(err, results2) {
 						if(err) {
 							console.error(err);
 							deferred.reject();
 						}
-						deferred.resolve(token);
+						deferred.resolve({name: results[0].name, surname: results[0].surname, token: token});
 					});
 				}
 			});
@@ -78,6 +78,53 @@ module.exports = function (context) {
 			}, function() {
 				return res.status(500).send({msg: 'User not found'});
 			});
+		},
+
+		getUser : function(req, res) {
+			var id = req.get('userId');
+			context.connection.query('Select email, name, surname, age, gender, about from tbl_users where userId = ' + id, function(err, results) {
+				if(err) {
+					console.error(err);
+					return res.status(500).send();
+				}
+				else if(results.length == 0) {
+					console.log("user not found");
+					return res.status(500).send({msg: "User not found"});
+				}
+				else {
+					context.connection.query('Select comment from tbl_comments where userId = ' + id, function(err2, results2) {
+						if(err2) {
+							console.error(err2);
+							return res.status(500).send();
+						}
+						else {
+							results[0].comments = new Array();
+							for(var i = 0; i < results2.length; ++i) {
+								results[0].comments.push(results2[i]);
+							}
+							return res.status(200).send({user: results[0]});
+						}
+					});
+				}
+			})
+		},
+
+		comment : function(req, res) {
+			var poster = req.userId;
+			var userId = req.body.userId;
+			var text = req.body.comment;
+			var rating = req.body.rating;
+
+			var values = poster + ',' + userId + ',' + context.connection.escape(text) + ',' + context.connection.escape(rating);
+			context.connection.query('Insert into tbl_comments (userIdPost, userId, comment, rating) VALUES(' + values + ')', function(err, results) {
+				if(err) {
+					console.error(err);
+					return res.status(500).send();
+				}
+				else {
+					return res.status(200).send({commentId: results.insertId});
+				}
+			})
 		}
 	};
 };

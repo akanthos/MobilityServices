@@ -76,7 +76,7 @@
                     </li>
 					
 					 <li class="LoggedIn">
-                        <a>Logged in as USERNAME</a>
+                        <a>Logged in as <span id='uname'><span></a>
                     </li>
 					 <li class="LoggedIn">
                         <a href="" id="LogoutLink">Logout</a>
@@ -460,11 +460,12 @@ $('.LoggedIn').hide();
 // SignUp
 $('#formSignUp').submit(function() {
 
-	var signUpData = JSON.stringify($('#formSignUp').serializeObject());
+	var signUpData = $('#formSignUp').serializeObject();
 	$.ajax({ 
 		url: URLsignup,
-		method: "POST",
+		type: 'POST',
 		data: signUpData,
+        dataType: 'json',
 		success: function(data) {
 			
 		
@@ -478,7 +479,7 @@ $('#formSignUp').submit(function() {
 // Login
 $('#formLogin').submit(function() {
 
-	var loginData = JSON.stringify($('#formLogin').serializeObject());
+	var loginData = $('#formLogin').serializeObject();
 	
 	$.ajax({ 
 		url: URLlogin,
@@ -487,9 +488,8 @@ $('#formLogin').submit(function() {
 		success: function(data) {
 			$('.NotLoggedIn').hide();
 			$('.LoggedIn').show();
-			
-			
-			} 
+            $('#uname').html(data.name);
+		} 
 	});
 	
 	alert ("Debugging: New POST for LOGIN for URL " + URLlogin + " with JSON " + loginData + ".");
@@ -499,7 +499,7 @@ $('#formLogin').submit(function() {
 // Add Route
 $('#formAddRoute').submit(function() {
 
-	var routeData = JSON.stringify($('#formAddRoute').serializeObject());
+	var routeData = $('#formAddRoute').serializeObject();
 	
 	$.ajax({ 
 		url: URLroute,

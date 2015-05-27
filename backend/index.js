@@ -63,6 +63,7 @@ module.exports = {
 			// Init express app
 			context.app = express();
 			context.app.use(bodyParser.json());
+			context.app.use(bodyParser.urlencoded());
 
 			// Init router
 			context.router = new express.Router();
@@ -70,8 +71,6 @@ module.exports = {
 			context.app.get('/', function(req, res) {
 				res.send('<html><body>It works! The API is available under <strong>/api/*</strong></body></html>');
 			});
-
-			context.app.use(express.static(__dirname + '/WhoElseUI'));
 
 			context.app.use('/api', context.router);
 			context.router.use(function(req, res, next) {
