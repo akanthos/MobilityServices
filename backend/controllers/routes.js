@@ -15,6 +15,10 @@ module.exports = function (context) {
 		// Routing
 		.get('/matching', authenticator.authMiddleware, routeCtrl.getMatching)
 		.post('/route', authenticator.authMiddleware, routeCtrl.addRoute);
+
+	context.router
+		.get('/user', authenticator.authMiddleware, userCtrl.getUser)
+		.post('/comment', authenticator.authMiddleware, userCtrl.comment);
 	
 
 	return {

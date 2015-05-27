@@ -461,11 +461,13 @@ $('.LoggedIn').hide();
 // SignUp
 $('#formSignUp').submit(function() {
 
-	var signUpData = JSON.stringify($('#formSignUp').serializeObject());
+	var signUpData = $('#formSignUp').serializeObject();
+    console.log(signUpData);
 	$.ajax({ 
 		url: URLsignup,
-		method: "POST",
+		type: 'POST',
 		data: signUpData,
+        dataType: 'json',
 		success: function(data) {
 			
 		
