@@ -1,0 +1,140 @@
+LOGIN:
+
+UI will send this to the backend server (localhost:6000/api/login)
+HTTP POST with JSON BODY:
+{
+	"email" : "test@test.de",
+	"password" : "secret"
+}
+ Server sends back just JSON:
+ {
+ 	"token" : "theToken"
+ 	"name" : "Ingo",
+ 	"surnane" : "Glaser"
+ }
+
+ In case it wasn't succesfull you will receive a HTTP 401
+-------------------------------------------------------------
+
+ SIGNUP:
+
+ UI will send this to the backend server (localhost:6000/api/signup)
+ HTTP POST with JSON BODY:
+ {
+ 	"email" : "test@test.de",
+	"password" : "secret",
+	"name" : "Ingo",
+	"surname" : "Glaser",
+	"age" : 24,
+	"about" : "Some text",
+	"gender" : "male"
+ }
+
+ Server sends back userId as JSON:
+ {
+ 	"userId" : "1"
+ }
+
+ In case it wasn't succesfull (for instance email already in use) you will receive an HTTP 500
+-------------------------------------------------------------------------------------------------
+
+ ADD ROUTE:
+
+ UI will enter a route and provide it to ASB via parameter
+ ASB will send the route to the backend server (localhost:6000/api/route
+ HTTP POST with JSON BODY:
+ {
+ 	"start" : "Acrisstraße 21, 80687 München",
+ 	"end" : "Boltzmannstraße 3, 88888 Garching",
+ 	"time" : "08:00",
+ 	"day" : "Monday"
+ }
+ Header parameter:
+ "token" : "theToken"
+
+ Server sends back a HTTP 200
+ If ther is a unexpected error HTTP 500
+ or if unauthorized ---> HTTP 401 ---> Need to login (perhaps the asb shoudl clear the token parameter in order to notify UI about logged out state)
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+ GET MATCHING
+
+ ASB will ask for matching (I dont care on what base) the backend server (localhost:6000/api/matching)
+ HTTP GET
+ Header parameter:
+ "token" : "theToken"
+
+ Server sends back an HTTP 200 with JSON BODY
+ {
+ 	"numberMathchings" : "1",
+ 	"matchings" : {
+ 		"startUser": "Acrisstraße 21, 80687 München",
+		"destinationUser": "Boltzmannstraße 3, 88888 Garching",
+		"timeUser": "08:00",
+		"dayUser": "Monday",
+		"startPartner": "Acrisstraße 21, 80802 München",
+		"destinationPartner": "Boltzmannstraße 3, 88888 Garching",
+		"timePartner": "08:15",
+		"dayPartner": "Monday",
+		"mactchingValue": "8.67"
+ 	}
+ }
+ If there won't be a matching numberMathchings will be zero and thus the matchings property can be ignored
+
+If ther is a unexpected error HTTP 500
+or if unauthorized ---> HTTP 401 ---> Need to login (perhaps the asb shoudl clear the token parameter in order to notify UI about logged out state)
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+IF WE WANT TO HAVE A GET A PROFILE:
+Send to backend server (localhost:6000/api/user) (don't know most likely UI will send this but i'm also open for asb doing this)
+HTTP GET
+Header parameter:
+ "token" : "theToken"
+ "userId" : "userId of the user to show"
+
+ Server sends bakc an HTTP 200 with JSON BODY
+ {
+ 	user: {
+ 		"email" : "test@test.de",
+		"password" : "secret",
+		"name" : "Ingo",
+		"surname" : "Glaser",
+		"age" : 24,
+		"about" : "Some text",
+		"gender" : "male"
+		"comments" : [
+			{"text" : "the comment"},
+			{"text" : "anotherComment"}
+		]
+ 	}
+ }
+
+ if there won't be a user than it will be
+ {
+ 	user : null
+ }
+ 
+If ther is a unexpected error HTTP 500
+or if unauthorized ---> HTTP 401 ---> Need to login (perhaps the asb shoudl clear the token parameter in order to notify UI about logged out state)
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+IF WE WANT TO HAVE CREATE COMMENT:
+Send to backend-server (localhost:6000/api/comment) don't know most likely UI will send this but i'm also open for asb doing this)
+HTTP POST
+Header parameter:
+ "token" : "theToken"
+
+HTTP BODY
+{
+	"userId" : "the id of the user to which the comment belongs (not the poster)",
+	"comment" : "the actual comment",
+	"rating" : 1 (1-5)
+}
+
+Server sends bakc an HTTP 200 with body
+{
+	"commentId" : "1"
+}
+
+If ther is a unexpected error HTTP 500
+or if unauthorized ---> HTTP 401 ---> Need to login (perhaps the asb shoudl clear the token parameter in order to notify UI about logged out state)
