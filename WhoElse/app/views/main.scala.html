@@ -1,0 +1,28 @@
+@(template: String)(content: Html)
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dressando</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel='shortcut icon' type='image/png' href='@routes.Assets.at("images/favicon.png")'>
+    <link rel='stylesheet' href='@routes.WebJarAssets.at(WebJarAssets.locate("bootstrap.min.css"))'>
+    <link rel="stylesheet" href="@routes.Assets.at("stylesheets/main.css")">
+    <script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("jquery.min.js"))'></script>
+    <script type='text/javascript' src='@routes.Assets.at("scripts/inputValidation.js")'></script>
+    <link rel="testit" type="image/png" href="@routes.Assets.at("images/1.png")">
+    <style>
+    body {
+        margin-top: 50px;
+    }
+    </style>
+</head>
+<body background="@routes.Assets.at("images/exploreDress.png")">
+    <div class="container col-md-offset-1 col-md-8">
+        <a href="@routes.Dressando.lander()" class="title"><h1>dressando</h1></a>
+        @menu(template)
+        @content
+        @footer(template)
+    </div>
+</body>
+</html>

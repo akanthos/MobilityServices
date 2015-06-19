@@ -1,0 +1,53 @@
+body {
+    background-attachment: fixed;
+    background-size: cover;
+    background-clip: content-box;
+}
+
+a.title {
+    color: #FAFAFA;
+    margin-bottom:20px;
+    font-size:150%;
+}
+a.title:hover {
+    text-decoration: none;
+}
+
+/*---------- Navbar ----------*/
+ul.nav a {
+    color: #FAFAFA;
+    margin-left: 20px;
+    margin-right: 20px;
+    font-size: 160%;
+}
+
+.nav-tabs {
+    border-bottom: none;
+}
+
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:hover {
+    background: none;
+    color: darkblue;
+    border: none;
+}
+
+.nav-tabs>li>a:hover {
+    color: darkblue;;
+    border: none;
+}
+
+
+/*---------- Main - Background Pictures ----------*/
+
+/*---------- Body ----------*/
+
+div.well {
+    background-color: rgba(245, 245, 245, 0.6);
+}
+
+
+/*---------- Footer ----------*/
+ul.footer a {
+    color: #FAFAFA;
+    text-decoration: underline;
+}
