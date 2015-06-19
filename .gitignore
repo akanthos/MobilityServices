@@ -73,3 +73,24 @@ local.properties
 
 # TeXlipse plugin
 .texlipse
+
+/WhoeElse/logs
+/WhoeElse/project/project
+/WhoeElse/project/target
+/WhoeElse/target
+/WhoeElse/tmp
+/WhoeElse/.history
+/WhoeElse/dist
+/WhoeElse/.idea
+/WhoeElse/.cache
+/WhoeElse/.target
+/WhoeElse/*.iml
+/WhoeElse/out
+/WhoeElse/.idea_modules
+/WhoeElse/.classpath
+/WhoeElse/.project
+/WhoeElse/RUNNING_PID
+/WhoeElse/.settings
+/WhoeElse/project/*-shim.sbt
+/WhoeElse/db.db
+
