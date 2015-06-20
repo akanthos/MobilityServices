@@ -1,6 +1,5 @@
 package models;
 
-import play.data.validation.Constraints;
 import play.db.jpa.JPA;
 
 import javax.persistence.Entity;
@@ -12,21 +11,19 @@ public class User {
 
     @Id
     @GeneratedValue
-    public Integer id;
+    public Integer userId;
 
-    public String firstname;
-    public String lastname;
-
-    @Constraints.Required
+    public String username;
+    public String password;
+    public String firstName;
+    public String lastName;
     public String email;
-    public String date_of_birth;
+    public String token;
+    public Double balance;
 
-    @Constraints.Required
-    public String password_hash;
-
-    public static User findByEmail(String email)
+    public static User findByUsername(String username)
     {
-        return JPA.em().find(User.class, email);
+        return JPA.em().find(User.class, username);
     }
 
     public void save() {

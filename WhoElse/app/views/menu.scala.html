@@ -1,6 +1,5 @@
 @(template: String)
 <ul class="nav nav-tabs">
-  <li role="presentation" class="@{if (template == "explore") { "active" }}"><a href="@routes.Dressando.explore()">explore dresses</a></li>
-  <li role="presentation" class="@{if (template == "lend") { "active" }}"><a href="@routes.Dressando.lend()">lend dresses</a></li>
-  <li role="presentation" class="@{if (template == "profile") { "active" }}"><a href="@routes.Dressando.profile()">view profile</a></li>
+  <li role="presentation" class="@{if (template == "search") { "active" }}"><a href="@routes.WhoElse.search()">Search</a></li>
+  <li role="presentation" class="@{if (template == "profile") { "active" }}"><a href="@routes.WhoElse.profile()">Profile</a></li>
 </ul>

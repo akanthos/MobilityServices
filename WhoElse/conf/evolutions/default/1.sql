@@ -1,15 +1,14 @@
 # --- !Ups
-CREATE TABLE `Item` (
-	`id`	INTEGER PRIMARY KEY AUTOINCREMENT,
-	`user_id`	INTEGER,
-	`description`	TEXT,
-	`dress_size`	INTEGER,
-	`color`	TEXT,
-	`price_per_day`	NUMERIC,
-	`material`	TEXT,
-	`brand`	TEXT,
-	`dress_type`	TEXT
+CREATE TABLE `User` (
+	`userId`	INTEGER PRIMARY KEY AUTOINCREMENT,
+	`username`	TEXT UNIQUE,
+	`firstName`	TEXT,
+	`lastName`	TEXT,
+	`password`	TEXT,
+	`email`	TEXT,
+	`token`	TEXT,
+	`balance`	REAL
 );
 
 # --- !Downs
-DROP TABLE Item
+DROP TABLE `User`

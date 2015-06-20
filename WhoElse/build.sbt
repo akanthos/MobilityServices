@@ -1,6 +1,6 @@
 import play.Project._
 
-name := "Dressando"
+name := "WhoElse"
 
 version := "1.0-SNAPSHOT"
 

@@ -35,37 +35,37 @@
                 <div class="col-md-10">
                     <div ng-app="">
                         <div ng-show=""></div>
-                        <form action="@routes.UserActions.postNewUser()" onsubmit="return validateCreateItemForm()" method="post" class="form-horizontal" name="postNewUser">
-                            <div class="form-group">
-                                <label for="text">Name</label>
-                                <input type="text" id="inputFirstName" name="firstname" class="form-control" placeholder="First name" required="required" autofocus="" ng-model="user.firstname">
-                                <input type="text" id="inputLastName" name="lastname" class="form-control" placeholder="Last name" required="required" autofocus="" ng-model="user.secondname">
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Email Address</label>
-                                <input type="email" id="inputMail" name="email" class="form-control" placeholder="Email address" required="required" autofocus="" ng-model="user.email">
-                            </div>
-                            <div class="form-group">
-                                <label for="pwd">Password</label>
-                                <input type="password" id="inputPw" name="password" class="form-control" placeholder="Password" required="required" autofocus="" ng-model="user.password">
-                            </div>
-                            <div class="form-group" ng-show="user.password">
-                                <p>
-                                    Hello {{user.firstname}}. Welcome to the dressando community. Please accept the dressando terms and conditions to proceed.<br>
-                                </p>
-                                <label><input type="checkbox" ng-model="user.accepted">
-                                    Accept the dressando <a href="www.google.de">
-                                        Terms and Conditions</a></label><br>
-                            </div>
-                            <div class="form-group" ng-show="user.accepted">
-                                <p>On pressing 'get dressed' an Email with an activation code will be sent to your email address {{user.email}}.<br></p>
-                                <p><button type="submit" class="btn btn-primary">get dressed.</button></p>
+                        @*<form action="@routes.UserActions.postNewUser()" onsubmit="return validateCreateItemForm()" method="post" class="form-horizontal" name="postNewUser">*@
+                            @*<div class="form-group">*@
+                                @*<label for="text">Name</label>*@
+                                @*<input type="text" id="inputFirstName" name="firstname" class="form-control" placeholder="First name" required="required" autofocus="" ng-model="user.firstname">*@
+                                @*<input type="text" id="inputLastName" name="lastname" class="form-control" placeholder="Last name" required="required" autofocus="" ng-model="user.secondname">*@
+                            @*</div>*@
+                            @*<div class="form-group">*@
+                                @*<label for="email">Email Address</label>*@
+                                @*<input type="email" id="inputMail" name="email" class="form-control" placeholder="Email address" required="required" autofocus="" ng-model="user.email">*@
+                            @*</div>*@
+                            @*<div class="form-group">*@
+                                @*<label for="pwd">Password</label>*@
+                                @*<input type="password" id="inputPw" name="password" class="form-control" placeholder="Password" required="required" autofocus="" ng-model="user.password">*@
+                            @*</div>*@
+                            @*<div class="form-group" ng-show="user.password">*@
+                                @*<p>*@
+                                    @*Hello {{user.firstname}}. Welcome to the dressando community. Please accept the dressando terms and conditions to proceed.<br>*@
+                                @*</p>*@
+                                @*<label><input type="checkbox" ng-model="user.accepted">*@
+                                    @*Accept the dressando <a href="www.google.de">*@
+                                        @*Terms and Conditions</a></label><br>*@
+                            @*</div>*@
+                            @*<div class="form-group" ng-show="user.accepted">*@
+                                @*<p>On pressing 'get dressed' an Email with an activation code will be sent to your email address {{user.email}}.<br></p>*@
+                                @*<p><button type="submit" class="btn btn-primary">get dressed.</button></p>*@
 
-                            </div>
-                            <div class="form-group" ng-show="!user.accepted">
-                                <a href="/"><button type="button" class="btn btn-primary">Back</button></a>
-                            </div>
-                        </form>
+                            @*</div>*@
+                            @*<div class="form-group" ng-show="!user.accepted">*@
+                                @*<a href="/"><button type="button" class="btn btn-primary">Back</button></a>*@
+                            @*</div>*@
+                        @*</form>*@
                     </div>
                 </div>
             }

@@ -1,14 +1,12 @@
 # --- !Ups
-
-CREATE TABLE `Rating` (
-	`transaction_id`	INTEGER,
-	`id`	INTEGER PRIMARY KEY AUTOINCREMENT,
-	`rating`	INTEGER,
-	`comment`	TEXT,
-	`role`	TEXT,
-	`rating_date`	INTEGER
+CREATE TABLE `RoutePoints` (
+	`pointId`	INTEGER,
+	`routeId`	INTEGER,
+	`lat`	REAL,
+	`lng`	REAL,
+	`dateTime`	TEXT,
+	PRIMARY KEY(pointId)
 );
 
 # --- !Downs
-
-DROP TABLE Rating
+DROP TABLE `RoutePoints`
