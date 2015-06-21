@@ -8,4 +8,4 @@ CREATE TABLE `Matchings` (
 );
 
 # --- !Downs
-DELETE TABLE `Matchings`
+DROP TABLE `Matchings`

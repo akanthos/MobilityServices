@@ -9,4 +9,4 @@ CREATE TABLE `Ratings` (
 );
 
 # --- !Downs
-DELETE TABLE `Ratings`
+DROP TABLE `Ratings`

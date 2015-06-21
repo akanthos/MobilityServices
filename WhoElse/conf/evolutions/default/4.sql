@@ -1,11 +1,10 @@
 # --- !Ups
 CREATE TABLE `RoutePoints` (
-	`pointId`	INTEGER,
+	`pointId`	INTEGER PRIMARY KEY AUTOINCREMENT,
 	`routeId`	INTEGER,
 	`lat`	REAL,
 	`lng`	REAL,
-	`dateTime`	TEXT,
-	PRIMARY KEY(pointId)
+	`dateTime`	TEXT
 );
 
 # --- !Downs
