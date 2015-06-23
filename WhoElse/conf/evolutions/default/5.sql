@@ -1,5 +1,5 @@
 # --- !Ups
-CREATE TABLE `Ratings` (
+CREATE TABLE `Rating` (
 	`ratingId`	INTEGER PRIMARY KEY AUTOINCREMENT,
 	`userId`	INTEGER,
 	`userIdPost`	INTEGER,
@@ -9,4 +9,4 @@ CREATE TABLE `Ratings` (
 );
 
 # --- !Downs
-DROP TABLE `Ratings`
+DROP TABLE `Rating`

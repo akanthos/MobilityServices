@@ -1,5 +1,5 @@
 # --- !Ups
-CREATE TABLE `Routes` (
+CREATE TABLE `Route` (
 	`routeId`	INTEGER PRIMARY KEY AUTOINCREMENT,
 	`userId`	INTEGER,
 	`routePatternId`	INTEGER,
@@ -13,4 +13,4 @@ CREATE TABLE `Routes` (
 );
 
 # --- !Downs
-DROP TABLE `Routes`
+DROP TABLE `Route`

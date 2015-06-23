@@ -1,5 +1,5 @@
 # --- !Ups
-CREATE TABLE `Matchings` (
+CREATE TABLE `Matching` (
 	`matchingId`	INTEGER PRIMARY KEY AUTOINCREMENT,
 	`userId`	INTEGER,
 	`routePatternId1`	INTEGER,
@@ -8,4 +8,4 @@ CREATE TABLE `Matchings` (
 );
 
 # --- !Downs
-DROP TABLE `Matchings`
+DROP TABLE `Matching`

@@ -10,14 +10,16 @@
     <link rel="stylesheet" href="@routes.Assets.at("stylesheets/main.css")">
     <script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("jquery.min.js"))'></script>
     <script type='text/javascript' src='@routes.Assets.at("scripts/inputValidation.js")'></script>
-
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
+    <script type='text/javascript' src='@routes.Assets.at("scripts/autocomplete.js")'></script>
     <style>
     body {
         margin-top: 50px;
     }
     </style>
 </head>
-<body background="@routes.Assets.at("images/whoelse.jpg")">
+    @*background="@routes.Assets.at("images/whoelse.jpg")"*@
+<body  >
     <div class="container col-md-offset-1 col-md-8">
         <a href="@routes.WhoElse.main()" class="title"><h1>WhoElse</h1></a>
         @menu(template)

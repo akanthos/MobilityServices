@@ -1,5 +1,5 @@
 # --- !Ups
-CREATE TABLE `RoutePoints` (
+CREATE TABLE `RoutePoint` (
 	`pointId`	INTEGER PRIMARY KEY AUTOINCREMENT,
 	`routeId`	INTEGER,
 	`lat`	REAL,
@@ -8,4 +8,4 @@ CREATE TABLE `RoutePoints` (
 );
 
 # --- !Downs
-DROP TABLE `RoutePoints`
+DROP TABLE `RoutePoint`

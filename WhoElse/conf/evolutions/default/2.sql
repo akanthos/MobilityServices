@@ -1,5 +1,5 @@
 # --- !Ups
-CREATE TABLE `RoutePatterns` (
+CREATE TABLE `RoutePattern` (
 	`routePatternId`	INTEGER PRIMARY KEY AUTOINCREMENT,
 	`userId`	INTEGER,
 	`startAddress`	TEXT,
@@ -8,10 +8,11 @@ CREATE TABLE `RoutePatterns` (
 	`startLong`	REAL,
 	`endLat`	REAL,
 	`endLong`	REAL,
-	`dateTime`	TEXT,
+	`time`	TEXT,
+	`date`	TEXT,
 	`punctuality`	REAL,
 	`periodicity`	TEXT
 );
 
 # --- !Downs
-DROP TABLE `RoutePatterns`
+DROP TABLE `RoutePattern`

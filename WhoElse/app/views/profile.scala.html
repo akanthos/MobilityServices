@@ -1,4 +1,47 @@
 @main("profile") {
+<body onload="check_periodicity(); initializeAutocomplete(document)">
+        <div>
+                <form name="addPattern" action="@routes.RouteActions.addPattern()" method="post">
+                        <input id="userId" name="userId" value="1" type="hidden" />
+                        <label>Starting Address</label>
+                        <input class="form-control" id="startAddress" name="startAddress" />
+                        <br>
+                        <label>Destination Address</label>
+                        <input class="form-control" id="endAddress" name="endAddress"  />
+                        <br>
+                        <label>Time</label>
+                        <input class="form-control" id="time" name="time"  />
+                        <br>
+                        <label>Periodicity</label>
+                        <select class="form-control" id="periodicity" name="periodicity" onchange="check_periodicity()">
+                                <option value="None">-------</option>
+                                <option value="Daily">Daily</option>
+                                <option value="Weekly">Weekly</option>
+                                <option value="Weekday">Weekday</option>
+                                <option value="Once">Once</option>
+                        </select>
+                        <select class="form-control" id="weekdayOptions" name="weekdayOptions" >
+                                <option value="Monday">Monday</option>
+                                <option value="Tuesday">Tuesday</option>
+                                <option value="Wednesday">Wednesday</option>
+                                <option value="Thursday">Thursday</option>
+                                <option value="Friday">Friday</option>
+                                <option value="Saturday">Saturday</option>
+                                <option value="Sunday">Sunday</option>
+                        </select>
+                        <input type="submit" value="Add Pattern">
 
-        show users profile
+
+                </form>
+        </div>
+</body>
+
+<script>
+        function check_periodicity() {
+                if (document.getElementById('periodicity').value=="Weekly")
+                        document.getElementById('weekdayOptions').style.visibility='visible';
+                else
+                        document.getElementById('weekdayOptions').style.visibility='hidden';
+        }
+</script>
 }
