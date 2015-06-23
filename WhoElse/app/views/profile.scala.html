@@ -1,3 +1,4 @@
+@(matchResponse: MatchResponse)
 @main("profile") {
 <body onload="check_periodicity(); initializeAutocomplete(document)">
         <div>
@@ -31,7 +32,24 @@
                         </select>
                         <input type="submit" value="Add Pattern">
 
+                        <div class="col-md-3">
+                                <h3>User Patterns found for the following matches:</h3>
 
+                                @if(matchResponse.routePatterns != null) {
+                                        @for(m <- matchResponse.routePatterns) {
+                                                <ul>
+                                                        <label>@(m.startAddress) </label>
+                                                        <label>@(m.endAddress) </label>
+                                                        <label>@(m.time) </label>
+                                                        <label>@(m.date) </label>
+                                                        <label>@(m.periodicity) </label>
+                                                </ul>
+                                        }
+                                } else {
+                                       <label>No patterns found! </label>
+                                }
+
+                        </div>
                 </form>
         </div>
 </body>

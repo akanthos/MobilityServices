@@ -1,6 +1,7 @@
 package controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import models.Matching;
 import models.RoutePattern;
 import play.data.DynamicForm;
 import play.data.Form;
@@ -16,6 +17,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.*;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class RouteActions extends Controller {
 
@@ -71,7 +73,13 @@ public class RouteActions extends Controller {
         pattern.date = "";
         pattern.punctuality = 0.0;
         pattern.periodicity = form.get("periodicity");
+
+
         pattern.save();
+        // TODO: Update Matches
+        // select all patterns and compare start with each other,
+        // suppose all patterns are daily
+        // routePatterdId1, routePatternId2 unique in DB, with try catch
         return redirect(controllers.routes.WhoElse.profile());
 
     }
