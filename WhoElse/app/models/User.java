@@ -5,6 +5,7 @@ import play.db.jpa.JPA;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.TypedQuery;
 
 @Entity
 public class User {
@@ -18,12 +19,18 @@ public class User {
     public String firstName;
     public String lastName;
     public String email;
-    public String token;
+    public String company;
     public Double balance;
 
     public static User findByUsername(String username)
     {
-        return JPA.em().find(User.class, username);
+        User user;
+
+        String query = "SELECT u FROM User u WHERE username = '" + username + "')";
+        TypedQuery<User> query_result = JPA.em().createQuery(query, User.class);
+        user = query_result.getSingleResult();
+
+        return user;
     }
 
     public void save() {
@@ -33,5 +40,4 @@ public class User {
     public void delete() {
         JPA.em().remove(this);
     }
-
 }

@@ -7,6 +7,13 @@ GET         /search               controllers.WhoElse.search()
 GET         /profile              controllers.WhoElse.profile()
 POST        /addPattern           controllers.RouteActions.addPattern()
 
+GET         /login                controllers.WhoElse.getLoginPage()
+GET         /register             controllers.WhoElse.getSignUpPage()
+POST        /addUser              controllers.UserActions.addNewUser()
+POST        /authenticate         controllers.UserActions.authenticate()
+GET         /logout               controllers.WhoElse.logout()
+
+
 #GET         /explore               controllers.Dressando.explore()
 #GET         /lend                  controllers.Dressando.lend()
 #GET         /profile               controllers.Dressando.profile()

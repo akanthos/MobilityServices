@@ -5,7 +5,6 @@ import play.db.jpa.JPA;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.util.List;
 
 @Entity
 public class RoutePattern {
@@ -24,8 +23,6 @@ public class RoutePattern {
     public String date;
     public Double punctuality;
     public String periodicity;
-
-//    public List<Matching> matches;
 
     public void save() {
         JPA.em().persist(this);

@@ -1,7 +1,6 @@
 package controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import models.Matching;
 import models.RoutePattern;
 import play.data.DynamicForm;
 import play.data.Form;
@@ -17,35 +16,12 @@ import java.io.UnsupportedEncodingException;
 import java.net.*;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 public class RouteActions extends Controller {
-
-//    @Transactional
-//    public static Result createItem() {
-//        DynamicForm form = Form.form().bindFromRequest();
-//
-//        Item item = new Item();
-//        item.brand = form.get("brand");
-//        item.description = form.get("description");
-//        item.color = form.get("color");
-//        item.material = form.get("material");
-//        if (form.get("price") != null) {
-//            item.price_per_day = Float.parseFloat(form.get("price"));
-//        }
-//        item.dress_size = form.get("size");
-//        item.dress_type = form.get("type");
-//
-//        item.save();
-//
-//        flash("success", "Your item was successfully added. Thank you!");
-//        return redirect(controllers.routes.ItemActions.addItem());
-//    }
 
     @Transactional(readOnly = true)
     public static Result search() {
 
-        //return ok(views.html.search.render(filter, successMessage));
         return ok(views.html.search.render());
     }
 
@@ -74,14 +50,12 @@ public class RouteActions extends Controller {
         pattern.punctuality = 0.0;
         pattern.periodicity = form.get("periodicity");
 
-
         pattern.save();
         // TODO: Update Matches
         // select all patterns and compare start with each other,
         // suppose all patterns are daily
         // routePatterdId1, routePatternId2 unique in DB, with try catch
         return redirect(controllers.routes.WhoElse.profile());
-
     }
 
     private static ArrayList<Double> getLatLong(String address) {
@@ -111,7 +85,6 @@ public class RouteActions extends Controller {
                 full += output;
             }
 
-
             JsonNode root = Json.parse(full);
             Iterator<JsonNode> results = root.path("results").elements();
             JsonNode first = results.next();
@@ -134,8 +107,5 @@ public class RouteActions extends Controller {
 //            conn.disconnect();
             return ret;
         }
-
     }
-
-
 }

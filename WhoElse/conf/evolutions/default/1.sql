@@ -4,9 +4,9 @@ CREATE TABLE `User` (
 	`username`	TEXT UNIQUE,
 	`firstName`	TEXT,
 	`lastName`	TEXT,
+	`company`	TEXT,
 	`password`	TEXT,
 	`email`	TEXT,
-	`token`	TEXT,
 	`balance`	REAL
 );
 

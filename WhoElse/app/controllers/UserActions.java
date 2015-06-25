@@ -1,60 +1,76 @@
 package controllers;
 
+import models.User;
+import play.data.DynamicForm;
+import play.data.Form;
+import play.db.jpa.JPA;
+import play.db.jpa.Transactional;
 import play.mvc.Controller;
+import play.mvc.Result;
+
+import javax.persistence.TypedQuery;
 
 public class UserActions extends Controller {
 
+    @Transactional
+    public static Result addNewUser()
+    {
+        DynamicForm form = Form.form().bindFromRequest();
 
-//    public static Result getSignUpPage() {
-//        String successMessage = flash("success");
-//        return ok(views.html.signup.render("getSignUpPage", successMessage));
-//    }
+        try
+        {
+            User user = new models.User();
+            user.username = form.get("username");
+            user.firstName = form.get("firstname");
+            user.lastName = form.get("lastname");
+            user.company = form.get("company");
+            user.email = form.get("email");
+            user.username = form.get("username");
+            user.password = org.apache.commons.codec.digest.DigestUtils.shaHex(form.get("password"));
+            user.balance = 0.0;
 
-//    @Transactional
-//    public static Result postNewUser() {
-//        DynamicForm form = form().bindFromRequest();
-//
-//        User user = new models.User();
-//        user.firstname = form.get("firstname");
-//        user.lastname = form.get("lastname");
-//        user.email = form.get("email");
-//        user.password_hash = org.apache.commons.codec.digest.DigestUtils.shaHex(form.get("password"));
-//
-//        user.save();
-//
-//        flash("success", user.firstname+" thank you for joining the dressando community. We will get you dressed very soon. An email with the activation link has been sent to "+user.email+".");
-//        return redirect(controllers.routes.UserActions.getSignUpPage());
-//    }
+            user.save();
 
-//    @Transactional(readOnly = true)
-//    public static Result authenticate(){
-//        DynamicForm form = form().bindFromRequest();
-//
-//        LoginData loginData = new LoginData();
-//        loginData.email = form.get("email");
-//        loginData.password_hash = org.apache.commons.codec.digest.DigestUtils.shaHex(form.get("password"));
-//
-//        TypedQuery<String> query = JPA.em().createQuery("SELECT u.password_hash FROM User AS u WHERE u.email=:email",String.class);
-//        query.setParameter("email",loginData.email);
-//
-//        boolean authenticated = false;
-//
-//        for(String object : query.getResultList()){
-//            if(object.equalsIgnoreCase(loginData.password_hash)){
-//                authenticated = true;
-//                break;
-//            }
-//        }
-//
-//        if(authenticated){
-//            return redirect(controllers.routes.Dressando.explore());
-//        }else {
-//            return redirect(controllers.routes.UserActions.getSignUpPage());
-//        }
-//    }
-//
-//    public static class LoginData{
-//        public String email;
-//        public String password_hash;
-//    }
+            user = User.findByUsername(user.username);
+
+            session().clear();
+            session("whoelse_user", user.firstName + " " + user.lastName);
+            session("whoelse_user_id", user.userId.toString());
+
+            return redirect(controllers.routes.WhoElse.main());
+        }
+        catch (Exception ex)
+        {
+            return ok(views.html.signup.render("An Error Occurred"));
+        }
+    }
+
+    @Transactional(readOnly = true)
+    public static Result authenticate()
+    {
+        User user;
+        DynamicForm form = Form.form().bindFromRequest();
+        String username = form.get("username");
+        String pass = org.apache.commons.codec.digest.DigestUtils.shaHex(form.get("password"));
+
+        try
+        {
+            String query = "SELECT u FROM User u WHERE username = '" + username + "')";
+            TypedQuery<User> query_result = JPA.em().createQuery(query, User.class);
+            user = query_result.getSingleResult();
+
+            if (pass.equals(user.password)) {
+                session().clear();
+                session("whoelse_user", user.firstName + " " + user.lastName);
+                session("whoelse_user_id", user.userId.toString());
+                return redirect(controllers.routes.WhoElse.main());
+            } else {
+                return ok(views.html.login.render("Wrong Password"));
+            }
+        }
+        catch (Exception ex)
+        {
+            return ok(views.html.login.render("An Error Occurred"));
+        }
+    }
 }
