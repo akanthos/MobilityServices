@@ -63,7 +63,7 @@ public class UserActions extends Controller {
                 session().clear();
                 session("whoelse_user", user.firstName + " " + user.lastName);
                 session("whoelse_user_id", user.userId.toString());
-                return redirect(controllers.routes.WhoElse.main());
+                return redirect(controllers.routes.WhoElse.profile());
             } else {
                 return ok(views.html.login.render("Wrong Password"));
             }
