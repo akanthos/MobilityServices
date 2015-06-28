@@ -1,14 +1,18 @@
 package controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import models.Matching;
 import models.RoutePattern;
 import play.data.DynamicForm;
 import play.data.Form;
+import play.db.jpa.JPA;
 import play.db.jpa.Transactional;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -19,6 +23,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 
 public class RouteActions extends Controller {
 
@@ -27,6 +32,25 @@ public class RouteActions extends Controller {
 
         return ok(views.html.search.render());
     }
+
+    @Transactional
+    public static Result deletePattern() {
+
+        DynamicForm form = Form.form().bindFromRequest();
+        Integer routePatternId = Integer.parseInt(form.get("patternId"));
+        // TODO: delete pattern from DB
+        String queryStr = "DELETE FROM RoutePattern WHERE (routePatternId = " + routePatternId + ")";
+        Query matchingsQuery = JPA.em().createQuery(queryStr);
+        int results = matchingsQuery.executeUpdate();
+        System.out.println("Deleted query with ID: " + routePatternId);
+
+        queryStr = "DELETE FROM Matching WHERE (routePatternId1 = " + routePatternId + " OR routePatternId2 = " + routePatternId + ")";
+        matchingsQuery = JPA.em().createQuery(queryStr);
+        results = matchingsQuery.executeUpdate();
+
+        return redirect(controllers.routes.WhoElse.profile());
+    }
+
 
     @Transactional
     public static Result addPattern() {

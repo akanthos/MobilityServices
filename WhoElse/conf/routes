@@ -6,6 +6,7 @@ GET         /                     controllers.WhoElse.main()
 GET         /search               controllers.WhoElse.search()
 GET         /profile              controllers.WhoElse.profile()
 POST        /addPattern           controllers.RouteActions.addPattern()
+POST        /deletePattern        controllers.RouteActions.deletePattern()
 
 GET         /login                controllers.WhoElse.getLoginPage()
 GET         /register             controllers.WhoElse.getSignUpPage()

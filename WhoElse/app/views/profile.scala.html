@@ -35,33 +35,45 @@
                 </form>
                         <br><br>
 
-                        <div>
-                                <h1>Matchings found:</h1>
-                        </div>
-                        @if(matchResponse.matchings != null) {
-                                @for( (m, p) <- (matchResponse.matchings zip matchResponse.routePatterns)) {
+
+                        @if(!matchResponse.routePatterns.isEmpty) {
+                                <div>
+                                        <h1>Matchings found:</h1>
+                                </div>
+                                @for((k, v) <- matchResponse.routePatterns) {
+                                        <h4>Route ID: @(k.routePatternId)</h4>
+                                        <form name="deletePattern" action="@routes.RouteActions.deletePattern()" method="post">
+                                                <input id="patternId" name="patternId" value="@(k.routePatternId)" type="hidden" />
+                                                <input type="submit" value="Delete this pattern!">
+                                        </form>
+                                        <h4>Start: @(k.startAddress)</h4>
+                                        <h4>End: @(k.endAddress)</h4>
+                                        <h4>The following users have similar journeys:</h4>
+                                        @for(r <- v) {
                                         <div>
-                                                <h4>Matching ID: @(m.matchingId)</h4>
                                                 <ul>
-                                                        <li><label>User1: @(m.userId1) </label></li>
-                                                        <li><label>User2: @(m.userId2) </label></li>
-                                                        <li><label>PatternUser: @(p.userId) </label></li>
-                                                        <li><label>PatternStart: @(p.startAddress) </label></li>
-                                                        <li><label>PatternEnd: @(p.endAddress) </label></li>
-                                                        <li><label>PatternTime: @(p.time) </label></li>
-                                                        <li><label>PatternDate: @(p.date) </label></li>
-                                                        <li><label>PatternPeriodicity: @(p.periodicity) </label></li>
-                                                        <li><input type="submit"
-                                                                value="Show on map!"
-                                                                onclick="showRoute(@(p.startLat), @(p.startLong), @(p.endLat), @(p.endLong))"></li>
+                                                        <li><label>PatternUser: @(r.userId) </label></li>
+                                                        <li><label>PatternStart: @(r.startAddress) </label></li>
+                                                        <li><label>PatternEnd: @(r.endAddress) </label></li>
+                                                        <li><label>PatternTime: @(r.time) </label></li>
+                                                        <li><label>PatternDate: @(r.date) </label></li>
+                                                        <li><label>PatternPeriodicity: @(r.periodicity) </label></li>
+                                                        <input type="submit"
+                                                        value="Show on map!"
+                                                        onclick="showRoute(@(r.startLat), @(r.startLong), @(r.endLat), @(r.endLong))">
                                                 </ul>
                                         </div>
+                                        }
                                 }
+
+
                                 <div class="hidable" id="mapContainer" style="height: 600px ; width: 80%; margin: 0px auto;"; >
                                                 <!-- This is where Google map will go. -->
                                 </div>
                         } else {
-                                <label>No patterns found! </label>
+                                <div>
+                                        <h1>No patterns found!</h1>
+                                </div>
                         }
 
 
