@@ -13,7 +13,8 @@ public class Matching {
     @GeneratedValue
     public Integer matchingId;
 
-    public Integer userId;
+    public Integer userId1;
+    public Integer userId2;
     public Integer routePatternId1;
     public Integer routePatternId2;
     public Double value;
