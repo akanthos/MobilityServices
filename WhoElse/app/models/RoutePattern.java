@@ -76,7 +76,7 @@ public class RoutePattern {
         }
     }
 
-    Double overhead(RoutePattern p) {
+    public Double overhead(RoutePattern p) {
         Double startDistance = distance(this.startLat, p.startLat, this.startLong, p.startLong);
         Double endDistance = distance(this.endLat, p.endLat, this.endLong, p.endLong);
         Double aloneDistance = distance(startLat, endLat, startLong, endLong);
@@ -84,7 +84,7 @@ public class RoutePattern {
         return aloneDistance / (startDistance + rideshareDistance + endDistance);
     }
     boolean isSimilarEnough(RoutePattern p, Double overhead) {
-        if (p.periodicity != periodicity) return false;
+        if (!periodicity.equals(p.periodicity)) return false;
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
         try {
             Date myDate = sdf.parse(time);
