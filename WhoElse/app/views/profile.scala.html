@@ -2,7 +2,8 @@
 @main("profile") {
 
 <body onload="check_periodicity(); initializeAutocomplete(document); ">
-        <div>
+<section>
+        <div class="container">
                 <form name="addPattern" action="@routes.RouteActions.addPattern()" onsubmit="validate_form()" method="post">
                         <input id="userId" name="userId" value="2" type="hidden" />
                         <label>Starting Address</label>
@@ -81,7 +82,7 @@
 		
 		
 		
-		
+</section>		
 </body>
 
 <script>
