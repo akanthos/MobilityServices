@@ -32,52 +32,103 @@
                                 <option value="Saturday">Saturday</option>
                                 <option value="Sunday">Sunday</option>
                         </select>
-                        <input type="submit" value="Add Pattern">
+                        <input type="submit" class="btn btn-success" value="Add Pattern">
                 </form>
                         <br><br>
 
 
+						
+						
+
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
                         @if(!matchResponse.routePatterns.isEmpty) {
                                 <div>
-                                        <h1>Matchings found:</h1>
+                                        <h3>Matchings found:</h3>
                                 </div>
+								<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                                 @for((k, v) <- matchResponse.routePatterns) {
-                                        <h4>Route ID: @(k.routePatternId)</h4>
+								
+								
+										<div class="panel panel-default">
+											<div class="panel-heading" role="tab" id="headingOne">
+											  <div class="panel-title">
+												<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse@(k.routePatternId)" aria-expanded="false" aria-controls="collapse@(k.routePatternId)">
+												<p><b>Route ID: @(k.routePatternId)</b> </br>
+												Start: @(k.startAddress)</br>
+												End: @(k.endAddress)</p>
+												</a>
+											  </div>
+											</div>
+											<div id="collapse@(k.routePatternId)" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+											  <div class="panel-body">
+
+											 
+                                     
                                         <form name="deletePattern" action="@routes.RouteActions.deletePattern()" method="post">
                                                 <input id="patternId" name="patternId" value="@(k.routePatternId)" type="hidden" />
-                                                <input type="submit" value="Delete this pattern!">
+                                                <input type="submit" class="btn btn-default btn-sm" value="Delete this pattern!">
                                         </form>
-                                        <h4>Start: @(k.startAddress)</h4>
-                                        <h4>End: @(k.endAddress)</h4>
+                                       
                                         <h4>The following users have similar journeys:</h4>
-                                        @for(r <- v) {
-                                        <div>
-                                                <ul>
-                                                        <li><label>PatternUser: @(r.userId) </label></li>
-                                                        <li><label>PatternStart: @(r.startAddress) </label></li>
-                                                        <li><label>PatternEnd: @(r.endAddress) </label></li>
-                                                        <li><label>PatternTime: @(r.time) </label></li>
-                                                        <li><label>PatternDate: @(r.date) </label></li>
-                                                        <li><label>PatternPeriodicity: @(r.periodicity) </label></li>
-                                                        <input type="submit"
-                                                        value="Show on map!"
-                                                        onclick="showRoute(@(r.startLat), @(r.startLong), @(r.endLat), @(r.endLong))">
-                                                </ul>
-                                        </div>
-                                        }
+																														@for(r <- v) {
+																														<div>
+																														
+																															<div class="panel panel-default">
+																																<div class="panel-body">
+	
+																																	<ul class="list-group">	
+																																			<div class="col-xs-6">
+																																			<li><label>PatternUser: @(r.userId) </label></li>
+																																			<li><label>PatternStart: @(r.startAddress) </label></li>
+																																			<li><label>PatternEnd: @(r.endAddress) </label></li>
+																																			</div>
+																																			<div class="col-xs-6">
+																																			<li><label>PatternTime: @(r.time) </label></li>
+																																			<li><label>PatternDate: @(r.date) </label></li>
+																																			<li><label>PatternPeriodicity: @(r.periodicity) </label></li>
+																																			</div>
+																																			
+																																	</ul>
+																																</div>
+																																<div  class="panel-footer">
+																																			<input type="submit" class="btn btn-default btn-info btn-sm"
+																																			value="Show on map!"
+																																			onclick="showRoute(@(r.startLat), @(r.startLong), @(r.endLat), @(r.endLong))">
+																																</div>
+																															</div>
+																														</div>
+																														</br>
+																														
+																														
+																														}
                                 }
-
+								
+											</div>
+										</div>
+									</div>
+											
+								</div>
 
                                 <div class="hidable" id="mapContainer" style="height: 600px ; width: 80%; margin: 0px auto;"; >
                                                 <!-- This is where Google map will go. -->
                                 </div>
                         } else {
                                 <div>
-                                        <h1>No patterns found!</h1>
+                                        <h3>No patterns found!</h3>
                                 </div>
                         }
 
-
+			
+											
         </div>
 		
 		
