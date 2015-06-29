@@ -22,21 +22,28 @@
                     <li role="presentation" class="@{if (template == "search") { "active" }}"><a href="@routes.WhoElse.search()">Search</a></li>
 					<li role="presentation" class="@{if (template == "profile") { "active" }}"><a href="@routes.WhoElse.profile()">Profile</a></li>
 					
-					<li>
-								 <div class="col-md-offset-4 col-md-8">
+					<li role="presentation">
+								
 									@if(session().containsKey("whoelse_user")){
+										<p style="color: white">
 										Logged in as
 										<b>
 										@session().get("whoelse_user")
 										</b>
-										<a href="@routes.WhoElse.logout()"><button type="button" class="btn btn-primary btn-lg">Logout</button></a>
+										</br>
+										<a href="@routes.WhoElse.logout()"><button type="button" class="btn btn-success btn-sm">Logout</button></a>
+										</p>
+									
 									}
 									@if(!session().containsKey("whoelse_user")){
+										<p style="color: white">
 										Not Logged in
-										<a href="@routes.WhoElse.getLoginPage()"><button type="button" class="btn btn-primary btn-lg">Login</button></a>
+										</br>
+										<a href="@routes.WhoElse.getLoginPage()"><button type="button" class="btn btn-success btn-sm">Login</button></a>
+										</p>
 									}
 
-								</div>
+								
 					<li>
 					
 					
@@ -47,6 +54,6 @@
         <!-- /.container-fluid -->
     </nav>
 	
-</br></br></br></br><p>PLEASE NO LOGIN - THOMAS WILL KILL US:)</p></br></br></br>
+</br></br></br></br></br></br></br>
 
 <!--MenuEND-->
