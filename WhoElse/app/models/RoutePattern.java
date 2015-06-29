@@ -46,7 +46,7 @@ public class RoutePattern {
         for (RoutePattern p: query.getResultList()) {
             Double overhead = overhead(p);
             System.out.println("overhead: " + overhead);
-            if (isCloseEnough(p, overhead)) {
+            if (isSimilarEnough(p, overhead)) {
 //                System.out.println("================================================");
 //                System.out.println("User: " + p.userId);
 //                System.out.println("Start: " + p.startAddress + "(" + p.startLat + ", " + p.endLat + ")");
@@ -83,7 +83,8 @@ public class RoutePattern {
         Double rideshareDistance = distance(p.startLat, p.endLat, p.startLong, p.endLong);
         return aloneDistance / (startDistance + rideshareDistance + endDistance);
     }
-    boolean isCloseEnough(RoutePattern p, Double overhead) {
+    boolean isSimilarEnough(RoutePattern p, Double overhead) {
+        if (p.periodicity != periodicity) return false;
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
         try {
             Date myDate = sdf.parse(time);
