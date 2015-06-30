@@ -4,7 +4,23 @@
 <body onload="check_periodicity(); initializeAutocomplete(document); ">
 <section>
         <div class="container">
-                <form name="addPattern" action="@routes.RouteActions.addPattern()" onsubmit="validate_form()" method="post">
+		
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-success">
+    <div class="panel-heading" role="tab" id="headingTwo">
+      <p class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseForm" aria-expanded="false" aria-controls="collapseForm" style="color:white !important">
+          <p >
+		  <b> Add New Patterns</b></br>
+		  Click here to add new personal patterns
+		  </p>
+        </a>
+      </p>
+    </div>
+    <div id="collapseForm" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+      <div class="panel-body">
+
+				<form name="addPattern" action="@routes.RouteActions.addPattern()" onsubmit="validate_form()" method="post">
                         <input id="userId" name="userId" value="2" type="hidden" />
                         <label>Starting Address</label>
                         <input class="form-control" id="startAddress" name="startAddress" />
@@ -34,6 +50,34 @@
                         </select>
                         <input type="submit" class="btn btn-success" value="Add Pattern">
                 </form>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+               
                         <br><br>
 
 
