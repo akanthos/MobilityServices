@@ -81,16 +81,27 @@
                                             <div class="panel-body">
 
                                                 <ul class="list-group">
-                                                    <div class="col-xs-6">
+                                                    <div class="col-xs-5">
                                                         <li><label>User: <a href="@routes.WhoElse.userProfile(r.userId)">View User</a> </label></li>
                                                         <li><label>Start: @(r.startAddress) </label></li>
                                                         <li><label>Destination: @(r.endAddress) </label></li>
                                                     </div>
-                                                    <div class="col-xs-6">
+                                                    <div class="col-xs-4">
                                                         <li><label>Time: @(r.time) </label></li>
                                                             <!--<li><label>PatternDate: @(r.date) </label></li>-->
                                                         <li><label>Periodicity: @(r.periodicity) </label></li>
-                                                        <li><label>PatternPeriodicity: @(value.toString) </label></li>
+                                                        <li><label>Fit: @(value.toString) </label></li>
+                                                    </div>
+                                                    <div class="col-xs-3">
+                                                        <div class="panel-heading"><b><img href='@routes.Assets.at("images/leave.png")'>
+                                                            <span style="font-size:50px; color: #017F0F">
+                                                                <span class="glyphicon glyphicon-tree-deciduous  glyphicon-ok" aria-hidden="true"></span>
+                                                                @if(value<0.88) {<span style="font-size:50px; color: gray">}
+                                                                <span class="glyphicon glyphicon-tree-deciduous  glyphicon-ok" aria-hidden="true"></span>
+                                                                @if(value<0.95) {<span style="font-size:50px; color: gray">}
+                                                                <span class="glyphicon glyphicon-tree-deciduous  glyphicon-ok" aria-hidden="true"></span>
+                                                            </span>
+                                                        </b></div>
                                                     </div>
 
                                                 </ul>
@@ -226,17 +237,17 @@
 //                    mapTypeId: google.maps.MapTypeId.ROADMAP
 //                }
 //            );
-    pinpointMe(document, 'startAddress');
+    pinpointMe(document, mapContainer, 'startAddress');
     function showRoute(startLat1, startLong1, endLat1, endLong1, startLat2, startLong2, endLat2, endLong2) {
                 showRouteOnMap(document, mapContainer, /*map,*/ startLat1, startLong1, endLat1, endLong1, startLat2, startLong2, endLat2, endLong2);
     }
     function handleClick() {
         if ($('input[name="auto"]:checked').val() == 'start'){
             document.getElementById('endAddress').value = '';
-            pinpointMe(document, 'startAddress');
+            pinpointMe(document, mapContainer, 'startAddress');
         }else{
             document.getElementById('startAddress').value = '';
-            pinpointMe(document, 'endAddress');
+            pinpointMe(document, mapContainer, 'endAddress');
         }
     }
     </script>

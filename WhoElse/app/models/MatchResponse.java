@@ -7,10 +7,7 @@ import scala.util.parsing.combinator.testing.Str;
 
 import javax.persistence.TypedQuery;
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Thanasis on 23/6/2015.
@@ -47,6 +44,13 @@ public class MatchResponse {
                 routePatterns.get(searchPattern).add(new Tuple2<RoutePattern, Double>(p, overhead));
             }
         }
+        Collections.sort(routePatterns.get(searchPattern), new Comparator<Tuple2<RoutePattern, Double>>() {
+            @Override
+            public int compare(Tuple2<RoutePattern, Double> t1, Tuple2<RoutePattern, Double> t2) {
+
+                return t2._2().compareTo(t1._2());
+            }
+        });
     }
 
     public MatchResponse(Integer userId) {
@@ -74,6 +78,13 @@ public class MatchResponse {
                         routePatterns.get(p).add(new Tuple2<RoutePattern, Double>(rp, m.value));
                     }
                 }
+                Collections.sort(routePatterns.get(p), new Comparator<Tuple2<RoutePattern, Double>>() {
+                    @Override
+                    public int compare(Tuple2<RoutePattern, Double> t1, Tuple2<RoutePattern, Double> t2) {
+
+                        return t2._2().compareTo(t1._2());
+                    }
+                });
             }
 
         }

@@ -54,10 +54,10 @@ function updateMarker( marker, latitude, longitude, label ){
 }
 
 
-function pinpointMe(document, label) {
+function pinpointMe(document, mapContainer, theLabel) {
 
     // Get the map container node.
-    var mapContainer = $( "#mapContainer" );
+    //var mapContainer = $( "#mapContainer" );
     var map = new google.maps.Map(
         mapContainer[ 0 ],
         {
@@ -96,7 +96,7 @@ function pinpointMe(document, label) {
                 geocoder.geocode({'latLng': latlng}, function(results, status) {
                     if (status == google.maps.GeocoderStatus.OK) {
                         if (results[0]) {
-                            document.getElementById(label).value = results[0].formatted_address;
+                            document.getElementById(theLabel).value = results[0].formatted_address;
                         } else {
                             alert('No results found');
                         }
@@ -123,11 +123,11 @@ function pinpointMe(document, label) {
                     position.coords.longitude,
                     "Initial Position"
                 );
+                map.setCenter(locationMarker.getPosition());
                 bounds.extend(locationMarker);
                 map.setCenter(locationMarker);
                 map.fitBounds(bounds);
                 map.setZoom(15);
-
             },
             function( error ){
                 console.log( "Something went wrong: ", error );
