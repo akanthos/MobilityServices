@@ -1,11 +1,11 @@
-@(searchResult: SearchResponse)(matchResponse: MatchResponse)
+@(searchResult: SearchResponse)(matchResponse: MatchResponse)(message: String)
 
 @main("search") {
 
     <body onload="initializeAutocomplete(document)">
 		<section>
 		<div class="container">
-		<h3>Search for Ridehsharing</h3></br>
+		<h3>Search for Ridehsharing</h3><br>
         <form name="searchRoute" action="@routes.RouteActions.search()" method="post">
 
             <div class="col-xs-12">
@@ -63,13 +63,12 @@
                 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                 @for((k, v) <- matchResponse.routePatterns) {
 
-
                     <div class="panel panel-default">
                         <div class="panel-heading" role="tab" id="headingOne">
                             <div class="panel-title">
                                 <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse@(k.routePatternId)" aria-expanded="false" aria-controls="collapse@(k.routePatternId)">
-                                    <p><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span><b>Start:</b> @(k.startAddress)</br>
-                                        <b>End:</b> @(k.endAddress)</br></p>
+                                    <p><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span><b>Start:</b> @(k.startAddress)<br>
+                                        <b>End:</b> @(k.endAddress)<br></p>
                                 </a>
                             </div>
                         </div>
@@ -78,7 +77,6 @@
                                 <h4>The following users have similar journeys:</h4>
                                 @for((r, value) <- v) {
                                     <div>
-
                                         <div class="panel panel-default">
                                             <div class="panel-body">
 
@@ -127,29 +125,25 @@
                                                     </div>
                                                 </div>
                                                     <!--End MODAL TEST-->
-
-
                                             </div>
                                         </div>
                                     </div>
-                                    </br>
-
-
+                                    <br>
                                 }
                             </div>
                         </div>
                     </div>
                 }
-
-
-
-
                 </div>
             }
 
-            <h3>Statistics</h3>
-            @if(!searchResult.Stop.equals("")) {
-                @if(!searchResult.Start.equals("")) {
+
+            @if(!searchResult.Start.equals("")) {
+                <h3>Search Statistics</h3>
+            }
+
+            @if(!searchResult.Start.equals("")){
+                @if(!searchResult.Stop.equals("")) {
                     You have searched route <b>from @searchResult.Start to @searchResult.Stop</b>
                     <br>
                     @searchResult.ExactMatches users have searched this route

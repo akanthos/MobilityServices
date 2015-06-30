@@ -12,20 +12,23 @@ public class WhoElse extends Controller {
     @Transactional
     public static Result main() {
 
+        String message = "";
         SearchResponse searchResponse = new SearchResponse();
         MatchResponse matchResponse = new MatchResponse();
 
-        return ok(views.html.search.render(searchResponse, matchResponse));
+        return ok(views.html.search.render(searchResponse, matchResponse, message));
     }
 
     @Transactional(readOnly = true)
     public static Result profile() {
         MatchResponse m = new MatchResponse();
+        String message = "";
+
         if (session().containsKey("whoelse_user_id")) {
             Integer userId = Integer.parseInt(session().get("whoelse_user_id"));
             m = new MatchResponse(userId);
         }
-        return ok(views.html.profile.render(m));
+        return ok(views.html.profile.render(m, message));
     }
 
     @Transactional(readOnly = true)
