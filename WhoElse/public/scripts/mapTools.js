@@ -54,11 +54,21 @@ function updateMarker( marker, latitude, longitude, label ){
 }
 
 
-function pinpointMe(document, map, label) {
+function pinpointMe(document, label) {
 
     // Get the map container node.
     var mapContainer = $( "#mapContainer" );
-
+    var map = new google.maps.Map(
+        mapContainer[ 0 ],
+        {
+            zoom: 15,
+            center: new google.maps.LatLng(
+                40.700683,
+                -73.925972
+            ),
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+    );
 
     var bounds = new google.maps.LatLngBounds();
 
