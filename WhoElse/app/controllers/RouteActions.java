@@ -3,6 +3,8 @@ package controllers;
 import com.fasterxml.jackson.databind.JsonNode;
 import models.Matching;
 import models.RoutePattern;
+import models.Search;
+import models.SearchResponse;
 import play.data.DynamicForm;
 import play.data.Form;
 import play.db.jpa.JPA;
@@ -27,10 +29,47 @@ import java.util.List;
 
 public class RouteActions extends Controller {
 
-    @Transactional(readOnly = true)
+    @Transactional
     public static Result search() {
 
-        return ok(views.html.search.render());
+        DynamicForm form = Form.form().bindFromRequest();
+        Search search = new Search();
+        String address1, address2;
+
+        try{
+            address1 = form.get("startAddress");
+            if (!address1.equals("")){
+                ArrayList<String> latlngloc = RouteActions.getLatLongLocality(address1);
+                search.startAreaSubLoc = latlngloc.get(2);
+                search.startAreaLoc = latlngloc.get(3);
+            }else{
+                search.startAreaSubLoc = address1;
+                search.startAreaLoc = address1;
+            }
+
+            address2 = form.get("endAddress");
+            if (!address2.equals("")){
+                ArrayList<String> latlngloc = RouteActions.getLatLongLocality(address2);
+                search.endAreaSubLoc = latlngloc.get(2);
+                search.endAreaLoc = latlngloc.get(3);
+            }else{
+                search.endAreaSubLoc = address2;
+                search.endAreaLoc = address2;
+            }
+
+            SearchResponse response = new SearchResponse();
+            response.GetSearchResults(search.startAreaSubLoc, search.startAreaLoc, search.endAreaSubLoc, search.endAreaLoc);
+
+            if ( (!address1.equals("")) && (!address2.equals(""))){
+                search.save();
+            }
+
+            return ok(views.html.search.render(response));
+        }
+        catch(Exception e){
+            SearchResponse response = new SearchResponse();
+            return ok(views.html.search.render(response));
+        }
     }
 
     @Transactional
@@ -70,10 +109,10 @@ public class RouteActions extends Controller {
         }
 
         pattern.startAddress = form.get("startAddress");
-        ArrayList<Double> latlng = getLatLong(form.get("startAddress"));
+        ArrayList<String> latlng = getLatLongLocality(form.get("startAddress"));
         if (!latlng.isEmpty()) {
-            pattern.startLat = latlng.get(0);
-            pattern.startLong = latlng.get(1);
+            pattern.startLat = Double.valueOf(latlng.get(0));
+            pattern.startLong = Double.valueOf(latlng.get(1));
         }
         else {
             System.out.println("Start Address geolocation failed");
@@ -82,10 +121,10 @@ public class RouteActions extends Controller {
 
 
         pattern.endAddress = form.get("endAddress");
-        latlng = getLatLong(form.get("endAddress"));
+        latlng = getLatLongLocality(form.get("endAddress"));
         if (!latlng.isEmpty()) {
-            pattern.endLat = latlng.get(0);
-            pattern.endLong = latlng.get(1);
+            pattern.endLat = Double.valueOf(latlng.get(0));
+            pattern.endLong = Double.valueOf(latlng.get(1));
         }
         else {
             System.out.println("End Address geolocation failed");
@@ -124,8 +163,8 @@ public class RouteActions extends Controller {
         return true;
     }
 
-    private static ArrayList<Double> getLatLong(String address) {
-        ArrayList<Double> ret= new ArrayList<>();
+    private static ArrayList<String> getLatLongLocality(String address) {
+        ArrayList<String> ret= new ArrayList<>();
         HttpURLConnection conn = null;
         try {
             String encodedUrl = null;
@@ -154,10 +193,35 @@ public class RouteActions extends Controller {
             JsonNode root = Json.parse(full);
             Iterator<JsonNode> results = root.path("results").elements();
             JsonNode first = results.next();
+            //get latitude and longitude
             String lat = first.path("geometry").path("location").path("lat").asText();
             String lng = first.path("geometry").path("location").path("lng").asText();
-            ret.add(Double.valueOf(lat));
-            ret.add(Double.valueOf(lng));
+            ret.add(lat);
+            ret.add(lng);
+
+            //get locality
+            results = first.path("address_components").elements();
+            JsonNode second;
+            Iterator<JsonNode> types;
+            String type;
+            String locality = "";
+            String sublocality = "";
+
+            while (results.hasNext()) {
+                second = results.next();
+                types = second.path("types").elements();
+                while (types.hasNext()) {
+                    type = types.next().asText();
+                    if (type.equals("locality")){
+                        locality = second.path("long_name").asText();
+                    }else if (type.equals("sublocality")){
+                        sublocality = second.path("long_name").asText();
+                    }
+                }
+            }
+
+            ret.add(sublocality);
+            ret.add(locality);
 
         } catch (NullPointerException e) {
             e.printStackTrace();

@@ -1,17 +1,25 @@
 package controllers;
 
 import models.MatchResponse;
+import models.RoutePattern;
+import models.Search;
+import models.SearchResponse;
 import play.data.DynamicForm;
 import play.data.Form;
 import play.db.jpa.Transactional;
 import play.mvc.Controller;
 import play.mvc.Result;
 
+import java.util.ArrayList;
+
 public class WhoElse extends Controller {
 
+    @Transactional
     public static Result main() {
 
-        return ok(views.html.search.render());
+        SearchResponse response = new SearchResponse();
+
+        return ok(views.html.search.render(response));
     }
 
     @Transactional(readOnly = true)
@@ -22,17 +30,6 @@ public class WhoElse extends Controller {
             m = new MatchResponse(userId);
         }
         return ok(views.html.profile.render(m));
-    }
-
-    @Transactional(readOnly = true)
-    public static Result search() {
-
-        DynamicForm form = Form.form().bindFromRequest();
-
-        //TODO
-        //Store searches
-        //Provide search results
-        return RouteActions.search();
     }
 
     public static Result logout() {

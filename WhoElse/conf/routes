@@ -3,7 +3,7 @@
 # ~~~~
 
 GET         /                     controllers.WhoElse.main()
-GET         /search               controllers.WhoElse.search()
+POST        /search               controllers.RouteActions.search()
 GET         /profile              controllers.WhoElse.profile()
 POST        /addPattern           controllers.RouteActions.addPattern()
 POST        /deletePattern        controllers.RouteActions.deletePattern()
