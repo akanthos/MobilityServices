@@ -20,17 +20,16 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li role="presentation" class="@{if (template == "search") { "active" }}"><a href="@routes.WhoElse.main()">Search</a></li>
-					<li role="presentation" class="@{if (template == "profile") { "active" }}"><a href="@routes.WhoElse.profile()">Matches</a></li>
-					
+                    @if(session().containsKey("whoelse_user")){
+                        <li role="presentation" class="@{if (template == "profile") { "active" }}"><a href="@routes.WhoElse.profile()">Matches</a></li>
+                    }
+                    @if(!session().containsKey("whoelse_user")){
+                        <li role="presentation" class="@{if (template == "profile") { "active" }}"><a href="@routes.WhoElse.getLoginPage()">Matches</a></li>
+                    }
 					<li class="dropdown">
 								 <a class="dropdown-toggle" data-toggle="dropdown" href="#">User
 								  <span class="caret"></span></a>
 											<ul class="dropdown-menu">
-									
-									
-									
-								 
-					
 								
 									@if(session().containsKey("whoelse_user")){
 										
@@ -40,21 +39,15 @@
 										</li>
 										
 										<li><a style="color:black" href="@routes.WhoElse.logout()">Logout</a></li>
-										
-									
 									}
 									@if(!session().containsKey("whoelse_user")){
 										
 										<li>&nbsp;Not Logged In</li>
 									
 										<li><a style="color:black" href="@routes.WhoElse.getLoginPage()">Login</a></li>
-										
 									}
-
 						 </ul>		
 					<li>
-					
-					
                 </ul>
             </div>
             <!-- /.navbar-collapse -->

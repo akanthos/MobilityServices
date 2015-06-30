@@ -33,6 +33,17 @@ public class User {
         return user;
     }
 
+    public static User findById(Integer id)
+    {
+        User user;
+
+        String query = "SELECT u FROM User u WHERE userId = '" + id + "')";
+        TypedQuery<User> query_result = JPA.em().createQuery(query, User.class);
+        user = query_result.getSingleResult();
+
+        return user;
+    }
+
     public void save() {
         JPA.em().persist(this);
     }

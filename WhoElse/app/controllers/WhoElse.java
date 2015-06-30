@@ -1,16 +1,11 @@
 package controllers;
 
 import models.MatchResponse;
-import models.RoutePattern;
-import models.Search;
 import models.SearchResponse;
-import play.data.DynamicForm;
-import play.data.Form;
+import models.User;
 import play.db.jpa.Transactional;
 import play.mvc.Controller;
 import play.mvc.Result;
-
-import java.util.ArrayList;
 
 public class WhoElse extends Controller {
 
@@ -31,6 +26,14 @@ public class WhoElse extends Controller {
             m = new MatchResponse(userId);
         }
         return ok(views.html.profile.render(m));
+    }
+
+    @Transactional(readOnly = true)
+    public static Result userProfile(Integer userId) {
+
+        User u = User.findById(userId);
+
+        return ok(views.html.userProfile.render(u));
     }
 
     public static Result logout() {

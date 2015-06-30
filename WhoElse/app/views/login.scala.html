@@ -1,20 +1,13 @@
 @(message: String)
-
-<html xmlns="http://www.w3.org/1999/html">
+@main("") {
     <head>
         <title>WhoElse - Login</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <link rel='shortcut icon' type='image/png' href='@routes.Assets.at("images/favicon.png")'>
-        <link rel='stylesheet' href='@routes.WebJarAssets.at(WebJarAssets.locate("bootstrap.min.css"))'>
-        <link rel="stylesheet" href="@routes.Assets.at("stylesheets/main.css")">
-
-        <script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("jquery.min.js"))'></script>
     </head>
-    <body background="@routes.Assets.at("images/whoelse.jpg")">
-        <h2>@message</h2>
-        <h2>Login</h2>
-        <div class="col-md-7 well">
+
+    <section>
+        <div class="container">
+            <h3>@message</h3>
+            <h3 align="left">Login</h3>
             <div class="col-md-10">
                 <div ng-app="">
                     <form action="@routes.UserActions.authenticate()" method="post" class="form-horizontal">
@@ -37,5 +30,5 @@
                 </div>
             </div>
         </div>
-    </body>
-</html>
+    </section>
+    }

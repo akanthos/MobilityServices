@@ -5,29 +5,41 @@
     <body onload="initializeAutocomplete(document)">
 		<section>
 		<div class="container">
+		<h3>Search for Ridehsharing</h3></br>
         <form name="searchRoute" action="@routes.RouteActions.search()" method="post">
+
             <div class="col-xs-12">
-			<label>Starting Address</label>
+            <label>Starting Address</label>
             <input class="form-control" id="startAddress" type="text" name="startAddress" value="" placeholder="Enter Location" onFocus="geolocate()" />
-            <input type="checkbox" name="autoStart" checked="yes" value="Auto">Auto
             </div>
-			<br>
+            <br>
+
 			<div class="col-xs-12">
             <label>Destination Address</label>
             <input class="form-control" id="endAddress" type="text" name="endAddress" value="" placeholder="Enter Location" onFocus="geolocate()" />
-            <input type="checkbox" name="autoEnd" value="Auto">Auto
+
+            <label>Use current location for</label>
+            <input type="radio" name="auto" checked="yes" onclick="handleClick();" value="start"><b>Starting</b>
+            <label>or</label>
+            <input type="radio" name="auto" onclick="handleClick();" value="dest"><b>Destination</b>
+            <label>Address</label>
+
             </div>
 			<br>
+
+
+
 			<div class="col-xs-4">
             <label>Date</label>
             <input class="form-control" name="date" type="date" placeholder="30.12.2015" />
-            <br>
 			</div>
+            <br>
+
 			<div class="col-xs-4">
             <label>Time</label>
             <input class="form-control col-xs-2" name="time"  placeholder="20:30"/>
-            <br>
 			</div>
+            <br>
 
 			<div class="col-xs-12">
             <input class="btn btn-success" type="submit" value="Search">
@@ -198,24 +210,33 @@
 	</section>
     </body>
 
-    <script>
+<script>
     var mapContainer = $( "#mapContainer" );
-        var map = // above the first Geolocated IP address.
-                map = new google.maps.Map(
-                    mapContainer[ 0 ],
-                    {
-                        zoom: 15,
-                        center: new google.maps.LatLng(
-                            40.700683,
-                            -73.925972
-                        ),
-                        mapTypeId: google.maps.MapTypeId.ROADMAP
-                    }
-                );
-        pinpointMe(document, map);
-        function showRoute(startLat, startLong, endLat, endLong) {
-                var mapContainer = $( "#mapContainer" );
-                showRouteOnMap(document, mapContainer, map, startLat, startLong, endLat, endLong);
+    var map = // above the first Geolocated IP address.
+            map = new google.maps.Map(
+                mapContainer[ 0 ],
+                {
+                    zoom: 15,
+                    center: new google.maps.LatLng(
+                        40.700683,
+                        -73.925972
+                    ),
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                }
+            );
+    pinpointMe(document, map, 'startAddress');
+    function showRoute(startLat, startLong, endLat, endLong) {
+            var mapContainer = $( "#mapContainer" );
+            showRouteOnMap(document, mapContainer, map, startLat, startLong, endLat, endLong);
+    }
+    function handleClick() {
+        if ($('input[name="auto"]:checked').val() == 'start'){
+            document.getElementById('endAddress').value = '';
+            pinpointMe(document, 'startAddress');
+        }else{
+            document.getElementById('startAddress').value = '';
+            pinpointMe(document, 'endAddress');
         }
+    }
     </script>
 }
