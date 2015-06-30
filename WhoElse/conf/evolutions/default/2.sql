@@ -11,7 +11,8 @@ CREATE TABLE `RoutePattern` (
 	`time`	TEXT,
 	`date`	TEXT,
 	`punctuality`	REAL,
-	`periodicity`	TEXT
+	`periodicity`	TEXT,
+	`car`	TEXT
 );
 
 # --- !Downs

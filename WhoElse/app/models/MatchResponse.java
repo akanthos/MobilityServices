@@ -29,7 +29,14 @@ public class MatchResponse {
     public MatchResponse(RoutePattern searchPattern) {
         routePatterns = new HashMap<RoutePattern, ArrayList<Tuple2<RoutePattern, Double>>>();
 
-        String queryStr = "SELECT rp FROM RoutePattern rp";
+        String carQuery;
+        if (searchPattern.car.equals("No")) {
+            carQuery = " WHERE (car = 'Yes')";
+        }
+        else {
+            carQuery = "";
+        }
+        String queryStr = "SELECT rp FROM RoutePattern rp" + carQuery;
         TypedQuery<RoutePattern> query = JPA.em().createQuery(queryStr, RoutePattern.class);
         routePatterns.put(searchPattern, new ArrayList<Tuple2<RoutePattern, Double>>());
         List<RoutePattern> results = query.getResultList();
@@ -70,32 +77,6 @@ public class MatchResponse {
             }
 
         }
-
-//        matchings = new ArrayList<>();
-//        routePatterns = new ArrayList<>();
-//        String queryStr = "SELECT m FROM Matching m WHERE (userId1 = " + userId + " OR userId2 = " + userId + ")";
-//        TypedQuery<Matching> matchingsQuery = JPA.em().createQuery(queryStr, Matching.class);
-//        for (Matching m: matchingsQuery.getResultList()) {
-//            matchings.add(m);
-//            if (userId == m.userId1) {
-//                queryStr = "SELECT rp FROM RoutePattern rp WHERE (routePatternId = " + m.routePatternId2 + ")";
-//            }
-//            else {
-//                queryStr = "SELECT rp FROM RoutePattern rp WHERE (routePatternId = " + m.routePatternId1 + ")";
-//            }
-//
-//            TypedQuery<RoutePattern> routePatternsQuery = JPA.em().createQuery(queryStr, RoutePattern.class);
-//
-//            for (RoutePattern p: routePatternsQuery.getResultList()) {
-//                routePatterns.add(p);
-//            }
-//        }
-//        if (matchings.size() != routePatterns.size()) {
-//            System.out.println("Matchings do not match routes!!!!");
-//            matchings = new ArrayList<>();
-//            routePatterns = new ArrayList<>();
-//        }
-
     }
 
 

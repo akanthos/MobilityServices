@@ -76,6 +76,7 @@ public class RouteActions extends Controller {
                 dummy.endLong = Double.parseDouble(latlngloc2.get(1));
                 dummy.periodicity = "Daily";
                 dummy.time = form.get("time");
+                dummy.car = form.get("car");
                 matchResponse = new MatchResponse(dummy);
             }
             return ok(views.html.search.render(searchResponse, matchResponse));
@@ -153,6 +154,7 @@ public class RouteActions extends Controller {
         pattern.date = "";
         pattern.punctuality = 0.0;
         pattern.periodicity = form.get("periodicity");
+        pattern.car = form.get("car");
 
         pattern.save();
         System.out.println("Saved pattern with ID: " + pattern.routePatternId);

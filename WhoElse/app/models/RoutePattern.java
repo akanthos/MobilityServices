@@ -29,6 +29,7 @@ public class RoutePattern {
     public String date;
     public Double punctuality;
     public String periodicity;
+    public String car;
 
     public void save() {
         JPA.em().persist(this);
@@ -41,7 +42,16 @@ public class RoutePattern {
     public void updateMatchings() {
         List<Matching> matchings = new ArrayList<>();
         List<Matching> routePatterns = new ArrayList<>();
-        String queryStr = "SELECT rp FROM RoutePattern rp WHERE (userId != " + userId + ")";
+
+        String carQuery;
+        if (car.equals("No")) {
+            carQuery = " AND car = 'Yes'";
+        }
+        else {
+            carQuery = "";
+        }
+
+        String queryStr = "SELECT rp FROM RoutePattern rp WHERE (userId != " + userId + carQuery + ")";
         TypedQuery<RoutePattern> query = JPA.em().createQuery(queryStr, RoutePattern.class);
         for (RoutePattern p: query.getResultList()) {
             Double overhead = overhead(p);
@@ -86,6 +96,9 @@ public class RoutePattern {
     public boolean isSimilarEnough(RoutePattern p, Double overhead) {
         System.out.println("Dummy: " + periodicity + " and pattern: " + p.periodicity );
         if (!periodicity.equals(p.periodicity)) return false;
+        Double startDistance = distance(this.startLat, p.startLat, this.startLong, p.startLong);
+        Double endDistance = distance(this.endLat, p.endLat, this.endLong, p.endLong);
+        if (startDistance > 2000 || endDistance > 2000) return false;
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
         try {
             Date myDate = sdf.parse(time);
