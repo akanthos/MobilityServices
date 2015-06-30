@@ -42,7 +42,7 @@
             <br>
 
             <div class="col-xs-4">
-            <label>Time</label>
+            <label>Car</label>
             <select class="form-control" id="car" name="car" >
                 <option value="No" selected="selected">No</option>
                 <option value="Yes">Yes</option>
@@ -98,7 +98,7 @@
                                             <div  class="panel-footer">
                                                 <input type="submit" class="btn btn-default btn-info btn-sm"
                                                 value="Show on map!"
-                                                onclick="showRoute(@(r.startLat), @(r.startLong), @(r.endLat), @(r.endLong))">
+                                                onclick="showRoute(@(k.startLat), @(k.startLong), @(k.endLat), @(k.endLong), @(r.startLat), @(r.startLong), @(r.endLat), @(r.endLong))">
 
                                                 <!--MODAL TEST -->
                                                 <!-- Button trigger modal -->
@@ -214,23 +214,22 @@
 
 <script>
     var mapContainer = $( "#mapContainer" );
-    var map = // above the first Geolocated IP address.
-            map = new google.maps.Map(
-                mapContainer[ 0 ],
-                {
-                    zoom: 15,
-                    center: new google.maps.LatLng(
-                        40.700683,
-                        -73.925972
-                    ),
-                    mapTypeId: google.maps.MapTypeId.ROADMAP
-                }
-            );
+//    var map = // above the first Geolocated IP address.
+//            map = new google.maps.Map(
+//                mapContainer[ 0 ],
+//                {
+//                    zoom: 15,
+//                    center: new google.maps.LatLng(
+//                        40.700683,
+//                        -73.925972
+//                    ),
+//                    mapTypeId: google.maps.MapTypeId.ROADMAP
+//                }
+//            );
     pinpointMe(document, map, 'startAddress');
-    function showRoute(startLat, startLong, endLat, endLong) {
-            var mapContainer = $( "#mapContainer" );
-            showRouteOnMap(document, mapContainer, map, startLat, startLong, endLat, endLong);
-    }
+    function showRoute(startLat1, startLong1, endLat1, endLong1, startLat2, startLong2, endLat2, endLong2) {
+                showRouteOnMap(document, mapContainer, /*map,*/ startLat1, startLong1, endLat1, endLong1, startLat2, startLong2, endLat2, endLong2);
+        }
     function handleClick() {
         if ($('input[name="auto"]:checked').val() == 'start'){
             document.getElementById('endAddress').value = '';

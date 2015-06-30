@@ -180,7 +180,7 @@ function pinpointMe(document, map, label) {
 
 }
 
-function showRouteOnMap(document, mapContainer, map, startLat, startLong, endLat, endLong) {
+function showRouteOnMap(document, mapContainer, /*map, */startLat1, startLong1, endLat1, endLong1, startLat2, startLong2, endLat2, endLong2) {
 
 //                var divs = document.getElementsByClassName("hidable");
 //                var i;
@@ -191,26 +191,54 @@ function showRouteOnMap(document, mapContainer, map, startLat, startLong, endLat
 //                mapContainer.style.visibility = 'visible';
 //                mapContainer.display = 'block';
 
+    var map = new google.maps.Map(
+        mapContainer[ 0 ],
+        {
+            zoom: 15,
+            center: new google.maps.LatLng(
+                40.700683,
+                -73.925972
+            ),
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+    );
+    var start1 = new google.maps.LatLng(startLat1, startLong1);
+    var end1 = new google.maps.LatLng(endLat1, endLong1);
+    var start2 = new google.maps.LatLng(startLat2, startLong2);
+    var end2 = new google.maps.LatLng(endLat2, endLong2);
 
-    var start = new google.maps.LatLng(startLat, startLong);
-    var end = new google.maps.LatLng(endLat, endLong);
-
-    var directionsDisplay = new google.maps.DirectionsRenderer({
+    var directionsDisplay1 = new google.maps.DirectionsRenderer({
         polylineOptions: {
             strokeColor: getRandomColor()
         }
     });// also, constructor can get "DirectionsRendererOptions" object
-    directionsDisplay.setMap(map); // map should be already initialized.
+    directionsDisplay1.setMap(map); // map should be already initialized.\
+    var directionsDisplay2 = new google.maps.DirectionsRenderer({
+        polylineOptions: {
+            strokeColor: getRandomColor()
+        }
+    });// also, constructor can get "DirectionsRendererOptions" object
+    directionsDisplay2.setMap(map); // map should be already initialized.
 
-    var request = {
-        origin : start,
-        destination : end,
+    var request1 = {
+        origin : start1,
+        destination : end1,
+        travelMode : google.maps.TravelMode.DRIVING
+    };
+    var request2 = {
+        origin : start2,
+        destination : end2,
         travelMode : google.maps.TravelMode.DRIVING
     };
     var directionsService = new google.maps.DirectionsService();
-    directionsService.route(request, function(response, status) {
+    directionsService.route(request1, function(response, status) {
         if (status == google.maps.DirectionsStatus.OK) {
-            directionsDisplay.setDirections(response);
+            directionsDisplay1.setDirections(response);
+        }
+    });
+    directionsService.route(request2, function(response, status) {
+        if (status == google.maps.DirectionsStatus.OK) {
+            directionsDisplay2.setDirections(response);
         }
     });
     mapContainer.scrollIntoView();

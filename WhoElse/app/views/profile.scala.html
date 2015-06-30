@@ -163,23 +163,20 @@
 
 <script>
         var mapContainer = $( "#mapContainer" );
-        var map = new google.maps.Map(
-                        mapContainer[ 0 ],
-                        {
-                            zoom: 15,
-                            center: new google.maps.LatLng(
-                                40.700683,
-                                -73.925972
-                            ),
-                            mapTypeId: google.maps.MapTypeId.ROADMAP
-                        }
-                    );
+//        var map = new google.maps.Map(
+//                        mapContainer[ 0 ],
+//                        {
+//                            zoom: 15,
+//                            center: new google.maps.LatLng(
+//                                40.700683,
+//                                -73.925972
+//                            ),
+//                            mapTypeId: google.maps.MapTypeId.ROADMAP
+//                        }
+//                    );
+        var directionsDisplay;
         function showRoute(startLat1, startLong1, endLat1, endLong1, startLat2, startLong2, endLat2, endLong2) {
-
-                alert(startLat1 +","+ startLong1 +","+ endLat1 +","+ endLong1);
-                alert(startLat2 +","+ startLong2 +","+ endLat2 +","+ endLong2);
-                showRouteOnMap(document, mapContainer, map, startLat1, startLong1, endLat1, endLong1);
-                showRouteOnMap(document, mapContainer, map, startLat2, startLong2, endLat2, endLong2);
+                showRouteOnMap(document, mapContainer, /*map,*/ startLat1, startLong1, endLat1, endLong1, startLat2, startLong2, endLat2, endLong2);
         }
         function check_periodicity() {
                 if (document.getElementById('periodicity').value=="Weekly")
