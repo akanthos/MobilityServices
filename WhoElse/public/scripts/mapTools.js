@@ -54,25 +54,12 @@ function updateMarker( marker, latitude, longitude, label ){
 }
 
 
-function pinpointMe(document,label) {
+function pinpointMe(document, map, label) {
+
     // Get the map container node.
     var mapContainer = $( "#mapContainer" );
 
-    // Create the new Goole map controller using our
-    // map (pass in the actual DOM object). Center it
-    // above the first Geolocated IP address.
-    map = new google.maps.Map(
-        mapContainer[ 0 ],
-        {
-            zoom: 15,
-            center: new google.maps.LatLng(
-                40.700683,
-                -73.925972
-            ),
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        }
-    );
-    google.maps.event.trigger(map, 'resize')
+
     var bounds = new google.maps.LatLngBounds();
 
     // Check to see if this browser supports geolocation.

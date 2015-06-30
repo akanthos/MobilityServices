@@ -1,10 +1,7 @@
 package controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import models.Matching;
-import models.RoutePattern;
-import models.Search;
-import models.SearchResponse;
+import models.*;
 import play.data.DynamicForm;
 import play.data.Form;
 import play.db.jpa.JPA;
@@ -19,6 +16,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Array;
 import java.net.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -37,38 +35,53 @@ public class RouteActions extends Controller {
         String address1, address2;
 
         try{
+            ArrayList<String> latlngloc1 = null;
             address1 = form.get("startAddress");
             if (!address1.equals("")){
-                ArrayList<String> latlngloc = RouteActions.getLatLongLocality(address1);
-                search.startAreaSubLoc = latlngloc.get(2);
-                search.startAreaLoc = latlngloc.get(3);
+                latlngloc1 = RouteActions.getLatLongLocality(address1);
+                search.startAreaSubLoc = latlngloc1.get(2);
+                search.startAreaLoc = latlngloc1.get(3);
             }else{
                 search.startAreaSubLoc = address1;
                 search.startAreaLoc = address1;
             }
 
+            ArrayList<String> latlngloc2 = null;
             address2 = form.get("endAddress");
             if (!address2.equals("")){
-                ArrayList<String> latlngloc = RouteActions.getLatLongLocality(address2);
-                search.endAreaSubLoc = latlngloc.get(2);
-                search.endAreaLoc = latlngloc.get(3);
+                latlngloc2 = RouteActions.getLatLongLocality(address2);
+                search.endAreaSubLoc = latlngloc2.get(2);
+                search.endAreaLoc = latlngloc2.get(3);
             }else{
                 search.endAreaSubLoc = address2;
                 search.endAreaLoc = address2;
             }
 
-            SearchResponse response = new SearchResponse();
-            response.GetSearchResults(search.startAreaSubLoc, search.startAreaLoc, search.endAreaSubLoc, search.endAreaLoc);
+            SearchResponse searchResponse = new SearchResponse();
+            searchResponse.GetSearchResults(search.startAreaSubLoc, search.startAreaLoc, search.endAreaSubLoc, search.endAreaLoc);
 
             if ( (!address1.equals("")) && (!address2.equals(""))){
                 search.save();
             }
 
-            return ok(views.html.search.render(response));
+            // TODO: Bring matches and forward them to search view
+            MatchResponse matchResponse = new MatchResponse();
+            if (latlngloc1 != null && latlngloc2 != null) {
+                RoutePattern dummy = new RoutePattern();
+                dummy.startAddress = address1;
+                dummy.endAddress = address2;
+                dummy.startLat = Double.parseDouble(latlngloc1.get(0));
+                dummy.startLong = Double.parseDouble(latlngloc1.get(1));
+                dummy.endLat = Double.parseDouble(latlngloc2.get(0));
+                dummy.endLong = Double.parseDouble(latlngloc2.get(1));
+                dummy.periodicity = "Daily";
+                dummy.time = form.get("time");
+                matchResponse = new MatchResponse(dummy);
+            }
+            return ok(views.html.search.render(searchResponse, matchResponse));
         }
         catch(Exception e){
-            SearchResponse response = new SearchResponse();
-            return ok(views.html.search.render(response));
+            return ok(views.html.search.render(new SearchResponse(), new MatchResponse()));
         }
     }
 
@@ -145,10 +158,6 @@ public class RouteActions extends Controller {
         System.out.println("Saved pattern with ID: " + pattern.routePatternId);
         pattern.updateMatchings();
 
-        // TODO: Update Matches
-        // select all patterns and compare start with each other,
-        // suppose all patterns are daily
-        // routePatterdId1, routePatternId2 unique in DB, with try catch
         return redirect(controllers.routes.WhoElse.profile());
     }
 
