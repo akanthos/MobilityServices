@@ -2,6 +2,7 @@ package models;
 
 import com.fasterxml.jackson.databind.deser.DataFormatReaders;
 import play.db.jpa.JPA;
+import scala.Tuple2;
 
 import javax.persistence.TypedQuery;
 import java.util.ArrayList;
@@ -14,16 +15,16 @@ import java.util.Map;
  */
 public class MatchResponse {
 
-    public Map<RoutePattern, ArrayList<RoutePattern>> routePatterns;
+    public Map<RoutePattern, ArrayList<Tuple2<RoutePattern, Double>>> routePatterns;
 
 //    public List<RoutePattern> routePatterns;
 //    public List<Matching> matchings;
 
     public MatchResponse() {
-        routePatterns = new HashMap<RoutePattern, ArrayList<RoutePattern>>();
+        routePatterns = new HashMap<RoutePattern, ArrayList<Tuple2<RoutePattern, Double>>>();
     }
     public MatchResponse(Integer userId) {
-        routePatterns = new HashMap<RoutePattern, ArrayList<RoutePattern>>();
+        routePatterns = new HashMap<RoutePattern, ArrayList<Tuple2<RoutePattern, Double>>>();
 
         String queryStr = "SELECT rp FROM RoutePattern rp WHERE (userId = " + userId + ")";
         TypedQuery<RoutePattern> routePatternsQuery = JPA.em().createQuery(queryStr, RoutePattern.class);
@@ -33,7 +34,7 @@ public class MatchResponse {
             TypedQuery<Matching> matchingsQuery = JPA.em().createQuery(queryStr, Matching.class);
             List<Matching> results = matchingsQuery.getResultList();
             if (!results.isEmpty()) {
-                routePatterns.put(p, new ArrayList<RoutePattern>());
+                routePatterns.put(p, new ArrayList<Tuple2<RoutePattern, Double>>());
                 for (Matching m: results) {
                     if (p.routePatternId == m.routePatternId1) {
                         queryStr = "SELECT rp FROM RoutePattern rp WHERE ( routePatternId = " + m.routePatternId2 + ")";
@@ -44,7 +45,7 @@ public class MatchResponse {
                     TypedQuery<RoutePattern> routePatternsQuery2 = JPA.em().createQuery(queryStr, RoutePattern.class);
                     List<RoutePattern> results2 = routePatternsQuery2.getResultList();
                     for (RoutePattern rp: results2) {
-                        routePatterns.get(p).add(rp);
+                        routePatterns.get(p).add(new Tuple2<RoutePattern, Double>(rp, m.value));
                     }
                 }
             }

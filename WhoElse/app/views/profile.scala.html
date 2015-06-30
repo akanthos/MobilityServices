@@ -123,7 +123,7 @@
                                         </form>
                                        
                                         <h4>The following users have similar journeys:</h4>
-																														@for(r <- v) {
+																														@for((r, value) <- v) {
 																														<div>
 																														
 																															<div class="panel panel-default">
@@ -139,6 +139,7 @@
 																																			<li><label>PatternTime: @(r.time) </label></li>
 																																			<li><label>PatternDate: @(r.date) </label></li>
 																																			<li><label>PatternPeriodicity: @(r.periodicity) </label></li>
+                                                                                                                                                    <li><label>PatternPeriodicity: @(value.toString) </label></li>
 																																			</div>
 																																			
 																																	</ul>
