@@ -17,9 +17,10 @@ public class WhoElse extends Controller {
     @Transactional
     public static Result main() {
 
-        SearchResponse response = new SearchResponse();
+        SearchResponse searchResponse = new SearchResponse();
+        MatchResponse matchResponse = new MatchResponse();
 
-        return ok(views.html.search.render(response));
+        return ok(views.html.search.render(searchResponse, matchResponse));
     }
 
     @Transactional(readOnly = true)

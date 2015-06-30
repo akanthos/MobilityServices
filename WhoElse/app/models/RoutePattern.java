@@ -83,7 +83,8 @@ public class RoutePattern {
         Double rideshareDistance = distance(p.startLat, p.endLat, p.startLong, p.endLong);
         return aloneDistance / (startDistance + rideshareDistance + endDistance);
     }
-    boolean isSimilarEnough(RoutePattern p, Double overhead) {
+    public boolean isSimilarEnough(RoutePattern p, Double overhead) {
+        System.out.println("Dummy: " + periodicity + " and pattern: " + p.periodicity );
         if (!periodicity.equals(p.periodicity)) return false;
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
         try {
@@ -94,6 +95,7 @@ public class RoutePattern {
             System.out.println("Minutes: " + minutes);
             System.out.println("Overhead: " + overhead);
             boolean ret = ( minutes <= 30 &&  overhead >= 0.8 );
+            System.out.println(ret);
             return ret;
         } catch (ParseException e) {
             e.printStackTrace();

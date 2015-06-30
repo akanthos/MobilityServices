@@ -3,8 +3,10 @@ package models;
 import com.fasterxml.jackson.databind.deser.DataFormatReaders;
 import play.db.jpa.JPA;
 import scala.Tuple2;
+import scala.util.parsing.combinator.testing.Str;
 
 import javax.persistence.TypedQuery;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,6 +25,23 @@ public class MatchResponse {
     public MatchResponse() {
         routePatterns = new HashMap<RoutePattern, ArrayList<Tuple2<RoutePattern, Double>>>();
     }
+
+    public MatchResponse(RoutePattern searchPattern) {
+        routePatterns = new HashMap<RoutePattern, ArrayList<Tuple2<RoutePattern, Double>>>();
+
+        String queryStr = "SELECT rp FROM RoutePattern rp";
+        TypedQuery<RoutePattern> query = JPA.em().createQuery(queryStr, RoutePattern.class);
+        routePatterns.put(searchPattern, new ArrayList<Tuple2<RoutePattern, Double>>());
+        List<RoutePattern> results = query.getResultList();
+        for (RoutePattern p: results) {
+            Double overhead = searchPattern.overhead(p);
+            System.out.println("Overhead: " + overhead);
+            if (searchPattern.isSimilarEnough(p, overhead)) {
+                routePatterns.get(searchPattern).add(new Tuple2<RoutePattern, Double>(p, overhead));
+            }
+        }
+    }
+
     public MatchResponse(Integer userId) {
         routePatterns = new HashMap<RoutePattern, ArrayList<Tuple2<RoutePattern, Double>>>();
 
