@@ -54,7 +54,7 @@ function updateMarker( marker, latitude, longitude, label ){
 }
 
 
-function pinpointMe(document) {
+function pinpointMe(document,label) {
     // Get the map container node.
     var mapContainer = $( "#mapContainer" );
 
@@ -99,7 +99,7 @@ function pinpointMe(document) {
                 geocoder.geocode({'latLng': latlng}, function(results, status) {
                     if (status == google.maps.GeocoderStatus.OK) {
                         if (results[0]) {
-                            document.getElementById('startAddress').value = results[0].formatted_address;
+                            document.getElementById(label).value = results[0].formatted_address;
                         } else {
                             alert('No results found');
                         }
