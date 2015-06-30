@@ -35,19 +35,13 @@
 											<ul class="dropdown-menu">
 								
 									@if(session().containsKey("whoelse_user")){
-										
-										<li>&nbsp;Logged in as
-										</br>
-										&nbsp;@session().get("whoelse_user")
-										</li>
-										
-										<li><a style="color:black" href="@routes.WhoElse.logout()">Logout</a></li>
+										<p align="center">Logged in as</p>
+										<p align="center">@session().get("whoelse_user")</p>
+                                        <a style="color:black" href="@routes.WhoElse.logout()">Logout</a>
 									}
 									@if(!session().containsKey("whoelse_user")){
-										
-										<li>&nbsp;Not Logged In</li>
-									
-										<li><a style="color:black" href="@routes.WhoElse.getLoginPage()">Login</a></li>
+                                        <p align="center">Not Logged In</p>
+                                        <a style="color:black" href="@routes.WhoElse.getLoginPage()">Login</a>
 									}
 						 </ul>		
 					<li>

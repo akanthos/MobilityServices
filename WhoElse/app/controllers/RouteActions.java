@@ -33,6 +33,7 @@ public class RouteActions extends Controller {
         DynamicForm form = Form.form().bindFromRequest();
         Search search = new Search();
         String address1, address2;
+        String message = "";
 
         try{
             ArrayList<String> latlngloc1 = null;
@@ -78,10 +79,10 @@ public class RouteActions extends Controller {
                 dummy.time = form.get("time");
                 matchResponse = new MatchResponse(dummy);
             }
-            return ok(views.html.search.render(searchResponse, matchResponse));
+            return ok(views.html.search.render(searchResponse, matchResponse, message));
         }
         catch(Exception e){
-            return ok(views.html.search.render(new SearchResponse(), new MatchResponse()));
+            return ok(views.html.search.render(new SearchResponse(), new MatchResponse(), message));
         }
     }
 
