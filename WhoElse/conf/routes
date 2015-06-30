@@ -7,24 +7,13 @@ POST        /search               controllers.RouteActions.search()
 GET         /profile              controllers.WhoElse.profile()
 POST        /addPattern           controllers.RouteActions.addPattern()
 POST        /deletePattern        controllers.RouteActions.deletePattern()
+GET         /user_profile         controllers.WhoElse.userProfile(userId:Integer)
 
 GET         /login                controllers.WhoElse.getLoginPage()
 GET         /register             controllers.WhoElse.getSignUpPage()
 POST        /addUser              controllers.UserActions.addNewUser()
 POST        /authenticate         controllers.UserActions.authenticate()
 GET         /logout               controllers.WhoElse.logout()
-
-
-#GET         /explore               controllers.Dressando.explore()
-#GET         /lend                  controllers.Dressando.lend()
-#GET         /profile               controllers.Dressando.profile()
-#GET         /impressum             controllers.Dressando.impressum()
-#GET         /addItem               controllers.ItemActions.addItem()
-#GET         /signup                controllers.UserActions.getSignUpPage()
-#POST        /createItem            controllers.ItemActions.createItem()
-#POST        /searchFiltered        controllers.ItemActions.searchFiltered()
-#POST        /users                 controllers.UserActions.postNewUser()
-#POST        /login                 controllers.UserActions.authenticate()
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file         controllers.Assets.at(path="/public", file)
