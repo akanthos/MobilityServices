@@ -1,27 +1,37 @@
 @(user: User)
-@main("") {
+@main("user") {
 
 <section>
     <div class="container">
-        <h3>User Profile</h3>
-        <label>
-            Username: @user.username
-        </label>
-        <br>
+        @if( user.userId == session().get("whoelse_user_id").toInt ){
+            <div>
+                <h3>Notifications</h3>
+            </div>
+        }
+        <div>
+            <h3>User Profile</h3>
+            <label>
+                Username: @user.username
+            </label>
+            <br>
 
-        <label>
-            First Name: @user.firstName
-        </label>
-        <br>
+            <label>
+                First Name: @user.firstName
+            </label>
+            <br>
 
-        <label>
-            Last Name: @user.lastName
-        </label>
-        <br>
+            <label>
+                Last Name: @user.lastName
+            </label>
+            <br>
 
-        <label>
-            Email: @user.email
-        </label>
+            <label>
+                Email: @user.email
+            </label>
+        </div>
+        <div>
+            <h3>Comments</h3>
+        </div>
     </div>
 </section>
 }

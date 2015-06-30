@@ -26,6 +26,9 @@
                     @if(!session().containsKey("whoelse_user")){
                         <li role="presentation" class="@{if (template == "profile") { "active" }}"><a href="@routes.WhoElse.getLoginPage()">Matches</a></li>
                     }
+                    @if(session().containsKey("whoelse_user")){
+                        <li role="presentation" class="@{if (template == "user") { "active" }}"><a href="@routes.WhoElse.userProfile(session().get("whoelse_user_id").toInt)">Profile</a></li>
+                    }
 					<li class="dropdown">
 								 <a class="dropdown-toggle" data-toggle="dropdown" href="#">User
 								  <span class="caret"></span></a>
