@@ -57,57 +57,66 @@
                 </tr>
             </table>
 
-            <h2>Statistics</h2>
-            You have searched route <b>from @searchResult.Start to @searchResult.Stop</b>
-            <br>
-            @searchResult.ExactMatches users have searched this route
-            <br><br>
-            <b>Searches starting in @searchResult.Start (@searchResult.StartMatches occurances)</b>
-
-            <table class="table table-striped table-bordered">
-                <tr>
-                    <th>
-                        Destination Address
-                    </th>
-                    <th>
-                        Frequency
-                    </th>
-                </tr>
-                @for(a <- searchResult.StartArea) {
-                    <tr>
-                        <td>
-                        @a.area
-                        </td>
-                        <td>
-                        @a.occurances
-                        </td>
-                    </tr>
+            <h3>Statistics</h3>
+            @if(!searchResult.Stop.equals("")) {
+                @if(!searchResult.Start.equals("")) {
+                    You have searched route <b>from @searchResult.Start to @searchResult.Stop</b>
+                    <br>
+                    @searchResult.ExactMatches users have searched this route
+                    <br><br>
                 }
-            </table>
+            }
 
+            @if(!searchResult.Start.equals("")) {
+                <b>Searches starting in @searchResult.Start (@searchResult.StartMatches occurances)</b>
 
-            <b>Searches with destination in @searchResult.Stop (@searchResult.EndMatches occurances)</b>
-
-            <table class="table table-striped table-bordered">
-                <tr>
-                    <th>
-                        Start Address
-                    </th>
-                    <th>
-                        Frequency
-                    </th>
-                </tr>
-                @for(a <- searchResult.DestinationAreas) {
+                <table class="table table-striped table-bordered">
                     <tr>
-                        <td>
-                        @a.area
-                        </td>
-                        <td>
-                        @a.occurances
-                        </td>
+                        <th>
+                            Destination Address
+                        </th>
+                        <th>
+                            Frequency
+                        </th>
                     </tr>
-                }
-            </table>
+                    @for(a <- searchResult.StartArea) {
+                        <tr>
+                            <td>
+                            @a.area
+                            </td>
+                            <td>
+                            @a.occurances
+                            </td>
+                        </tr>
+                    }
+                </table>
+            }
+
+
+            @if(!searchResult.Stop.equals("")) {
+                <b>Searches with destination in @searchResult.Stop (@searchResult.EndMatches occurances)</b>
+
+                <table class="table table-striped table-bordered">
+                    <tr>
+                        <th>
+                            Start Address
+                        </th>
+                        <th>
+                            Frequency
+                        </th>
+                    </tr>
+                    @for(a <- searchResult.DestinationAreas) {
+                        <tr>
+                            <td>
+                            @a.area
+                            </td>
+                            <td>
+                            @a.occurances
+                            </td>
+                        </tr>
+                    }
+                </table>
+            }
         </div>
 
         <div class="container" id="mapContainer" style="height: 600px ; margin: 0px auto;"; >
@@ -116,8 +125,7 @@
 	</section>
     </body>
 
-
-<script>
-    pinpointMe(document);
-</script>
+    <script>
+        pinpointMe(document);
+    </script>
 }

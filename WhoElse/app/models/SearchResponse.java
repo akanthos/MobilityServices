@@ -9,6 +9,7 @@ import java.util.List;
 
 public class SearchResponse {
 
+    public Boolean Initialized;
     public String Start;
     public String Stop;
     public Integer ExactMatches;
@@ -18,6 +19,7 @@ public class SearchResponse {
     public List<Area> DestinationAreas;
 
     public SearchResponse() {
+        Initialized = false;
         Start = "";
         Stop = "";
         ExactMatches = 0;
@@ -30,6 +32,7 @@ public class SearchResponse {
     @Transactional(readOnly = true)
     public void GetSearchResults(String startAreaSubLoc, String startAreaLoc, String endAreaSubLoc, String endAreaLoc) {
 
+        Initialized = true;
         String constraint1 = "";
         String constraint2 = "";
         String area;
