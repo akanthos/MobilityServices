@@ -176,10 +176,36 @@
         }
 
         </div>
-        <div class="hidable" id="mapContainer" style="height: 600px ; width: 80%; margin: 0px auto;"; >
-                        <!-- This is where Google map will go. -->
+
+    }
+    @if(!matchResponse.otherPatterns.isEmpty) {
+        <h3>No matchings found for:</h3>
+
+        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+        @for(p <- matchResponse.otherPatterns) {
+
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingOne">
+                    <div class="panel-title">
+                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse@(p.routePatternId)" aria-expanded="false" aria-controls="collapse@(p.routePatternId)">
+                            <p><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                                Start: @(p.startAddress)<br>
+                                End: @(p.endAddress)</p>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        }
+
         </div>
-    } else {
+    }
+    @if(!matchResponse.routePatterns.isEmpty) {
+        <div class="hidable" id="mapContainer" style="height: 600px ; width: 80%; margin: 0px auto;"; >
+                <!-- This is where Google map will go. -->
+        </div>
+    }
+    @if(matchResponse.routePatterns.isEmpty && matchResponse.otherPatterns.isEmpty) {
         <div>
                 <h3>No patterns found!</h3>
         </div>
