@@ -12,6 +12,13 @@ public class WhoElse extends Controller {
     @Transactional
     public static Result main() {
 
+
+
+        return ok(views.html.index.render());
+    }
+
+    public static Result search() {
+
         String message = "";
         SearchResponse searchResponse = new SearchResponse();
         MatchResponse matchResponse = new MatchResponse();
