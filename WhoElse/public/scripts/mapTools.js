@@ -254,6 +254,55 @@ function showRouteOnMap(document, mapContainer, /*map, */startLat1, startLong1, 
     mapContainer.scrollIntoView();
 }
 
+function showSingleRouteOnMap(document, mapContainer, /*map, */startLat, startLong, endLat, endLong) {
+
+//                var divs = document.getElementsByClassName("hidable");
+//                var i;
+//                for (i = 0; i < divs.length; i++) {
+//                        divs[i].style.visibility = 'hidden';
+//                        divs[i].display = 'none';
+//                }
+//                mapContainer.style.visibility = 'visible';
+//                mapContainer.display = 'block';
+
+    var map = new google.maps.Map(
+        mapContainer[ 0 ],
+        {
+            zoom: 15,
+            center: new google.maps.LatLng(
+                40.700683,
+                -73.925972
+            ),
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+    );
+    var start = new google.maps.LatLng(startLat, startLong);
+    var end = new google.maps.LatLng(endLat, endLong);
+
+    var directionsDisplay = new google.maps.DirectionsRenderer({
+        polylineOptions: {
+            strokeColor: getRandomColor()
+        }
+    });// also, constructor can get "DirectionsRendererOptions" object
+    directionsDisplay.setMap(map); // map should be already initialized.\
+
+
+    var request = {
+        origin : start,
+        destination : end,
+        travelMode : google.maps.TravelMode.DRIVING
+    };
+
+    var directionsService = new google.maps.DirectionsService();
+    directionsService.route(request, function(response, status) {
+        if (status == google.maps.DirectionsStatus.OK) {
+            directionsDisplay.setDirections(response);
+        }
+    });
+
+    mapContainer.scrollIntoView();
+}
+
 function getRandomColor() {
     var letters = '0123456789ABCDEF'.split('');
     var color = '#';

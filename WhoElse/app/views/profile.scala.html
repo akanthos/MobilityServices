@@ -194,8 +194,51 @@
                         </a>
                     </div>
                 </div>
+                <div id="collapse@(p.routePatternId)" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                    <div class="panel-body">
 
+
+                        <form name="deletePattern" action="@routes.RouteActions.deletePattern()" method="post">
+                            <input id="patternId" name="patternId" value="@(p.routePatternId)" type="hidden" />
+                            <input type="submit" class="btn btn-default btn-sm" value="Delete this pattern!">
+                        </form>
+
+
+                            <div>
+
+                                <div class="panel panel-default">
+                                    <div class="panel-heading"><b>Matching</b></div>
+
+
+                                    <div class="panel-body">
+                                        <ul class="list-group">
+                                            <div class="col-xs-3">
+                                                <li><label>Time: @(p.time) </label></li>
+                                                    <!--<li><label>PatternDate: @(p.date) </label></li>-->
+                                                <li><label>Periodicity: @(p.periodicity) </label></li>
+                                            </div>
+
+                                        </ul>
+                                    </div>
+                                    <div  class="panel-footer" >
+                                        <input type="submit" class="btn btn-default btn-info btn-sm"
+                                        value="Show on map!"
+                                        onclick="showSingleRoute(@(p.startLat), @(p.startLong), @(p.endLat), @(p.endLong))"></input>
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+
+                            @*ad*@
+                    </div>
+                </div>
             </div>
+
+
+        </div>
         }
 
         </div>
@@ -230,6 +273,9 @@
         var directionsDisplay;
         function showRoute(startLat1, startLong1, endLat1, endLong1, startLat2, startLong2, endLat2, endLong2) {
                 showRouteOnMap(document, mapContainer, /*map,*/ startLat1, startLong1, endLat1, endLong1, startLat2, startLong2, endLat2, endLong2);
+        }
+        function showSingleRoute(startLat, startLong, endLat, endLong) {
+                showSingleRouteOnMap(document, mapContainer, /*map,*/ startLat, startLong, endLat, endLong);
         }
         function check_periodicity() {
                 if (document.getElementById('periodicity').value=="Weekly")
