@@ -38,12 +38,14 @@ public class MatchResponse {
         }
         String queryStr = "SELECT rp FROM RoutePattern rp" + carQuery;
         TypedQuery<RoutePattern> query = JPA.em().createQuery(queryStr, RoutePattern.class);
-        routePatterns.put(searchPattern, new ArrayList<Tuple2<RoutePattern, Double>>());
         List<RoutePattern> results = query.getResultList();
         for (RoutePattern p: results) {
             Double overhead = searchPattern.overhead(p);
             System.out.println("Overhead: " + overhead);
             if (searchPattern.isSimilarEnough(p, overhead)) {
+                if (routePatterns.isEmpty()) {
+                    routePatterns.put(searchPattern, new ArrayList<Tuple2<RoutePattern, Double>>());
+                }
                 routePatterns.get(searchPattern).add(new Tuple2<RoutePattern, Double>(p, overhead));
             }
         }
