@@ -11,8 +11,31 @@ INSERT INTO `RoutePattern` (routePatternId,userId,startAddress,endAddress,startL
 INSERT INTO `Matching` (matchingId,userId1,userId2,routePatternId1,routePatternId2,value) VALUES (5,8,7,9,7,0.989061162834593);
 INSERT INTO `Matching` (matchingId,userId1,userId2,routePatternId1,routePatternId2,value) VALUES (6,8,7,10,8,0.989061162834593);
 
+INSERT INTO `Search` (searchId,startAreaSubLoc,startAreaLoc,endAreaSubLoc,endAreaLoc) VALUES (1,'Ramersdorf-Perlach','München','','Garching');
+INSERT INTO `Search` (searchId,startAreaSubLoc,startAreaLoc,endAreaSubLoc,endAreaLoc) VALUES (2,'','Munich','','Garching');
+INSERT INTO `Search` (searchId,startAreaSubLoc,startAreaLoc,endAreaSubLoc,endAreaLoc) VALUES (3,'','Munich','','Garching');
+INSERT INTO `Search` (searchId,startAreaSubLoc,startAreaLoc,endAreaSubLoc,endAreaLoc) VALUES (4,'Ramersdorf-Perlach','München','','Garching');
+INSERT INTO `Search` (searchId,startAreaSubLoc,startAreaLoc,endAreaSubLoc,endAreaLoc) VALUES (5,'','Garching','Altstadt-Lehel','München');
+INSERT INTO `Search` (searchId,startAreaSubLoc,startAreaLoc,endAreaSubLoc,endAreaLoc) VALUES (6,'','Garching','Sendling-Westpark','München');
+INSERT INTO `Search` (searchId,startAreaSubLoc,startAreaLoc,endAreaSubLoc,endAreaLoc) VALUES (7,'','Garching','Ramersdorf-Perlach','Munich');
+INSERT INTO `Search` (searchId,startAreaSubLoc,startAreaLoc,endAreaSubLoc,endAreaLoc) VALUES (8,'','Garching','Hochbrück','Garching');
+INSERT INTO `Search` (searchId,startAreaSubLoc,startAreaLoc,endAreaSubLoc,endAreaLoc) VALUES (9,'Ramersdorf-Perlach','München','','Garching');
+INSERT INTO `Search` (searchId,startAreaSubLoc,startAreaLoc,endAreaSubLoc,endAreaLoc) VALUES (10,'Altstadt-Lehel','München','Hochbrück','Garching');
+INSERT INTO `Search` (searchId,startAreaSubLoc,startAreaLoc,endAreaSubLoc,endAreaLoc) VALUES (11,'Altstadt-Lehel','München','','Garching');
+INSERT INTO `Search` (searchId,startAreaSubLoc,startAreaLoc,endAreaSubLoc,endAreaLoc) VALUES (12,'Altstadt-Lehel','München','','Ingolstadt');
+INSERT INTO `Search` (searchId,startAreaSubLoc,startAreaLoc,endAreaSubLoc,endAreaLoc) VALUES (13,'','Ingolstadt','','Munich');
+INSERT INTO `Search` (searchId,startAreaSubLoc,startAreaLoc,endAreaSubLoc,endAreaLoc) VALUES (14,'','Ingolstadt','','Munich');
+INSERT INTO `Search` (searchId,startAreaSubLoc,startAreaLoc,endAreaSubLoc,endAreaLoc) VALUES (15,'Altstadt-Lehel','München','','Garching');
+INSERT INTO `Search` (searchId,startAreaSubLoc,startAreaLoc,endAreaSubLoc,endAreaLoc) VALUES (16,'Altstadt-Lehel','München','','Garching');
+INSERT INTO `Search` (searchId,startAreaSubLoc,startAreaLoc,endAreaSubLoc,endAreaLoc) VALUES (17,'Ramersdorf-Perlach','München','','Garching');
+INSERT INTO `Search` (searchId,startAreaSubLoc,startAreaLoc,endAreaSubLoc,endAreaLoc) VALUES (18,'Altstadt-Lehel','München','','Garching');
+INSERT INTO `Search` (searchId,startAreaSubLoc,startAreaLoc,endAreaSubLoc,endAreaLoc) VALUES (19,'Altstadt-Lehel','München','','Garching');
+INSERT INTO `Search` (searchId,startAreaSubLoc,startAreaLoc,endAreaSubLoc,endAreaLoc) VALUES (20,'Altstadt-Lehel','München','','Garching');
+INSERT INTO `Search` (searchId,startAreaSubLoc,startAreaLoc,endAreaSubLoc,endAreaLoc) VALUES (21,'Altstadt-Lehel','München','Hochbrück','Garching');
+
 # --- !Downs
 
 DELETE TABLE `User`
 DELETE TABLE `RoutePattern`
 DELETE TABLE `Matching`
+DELETE TABLE `Search`
