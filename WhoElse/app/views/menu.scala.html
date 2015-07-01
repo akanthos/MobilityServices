@@ -13,13 +13,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#page-top">WhoElse</a>
+                <a class="navbar-brand" href="@routes.WhoElse.main()">WhoElse</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                    <li role="presentation" class="@{if (template == "search") { "active" }}"><a href="@routes.WhoElse.main()">Search</a></li>
+                    <li role="presentation" class="@{if (template == "search") { "active" }}"><a href="@routes.WhoElse.search()">Search</a></li>
                     @if(session().containsKey("whoelse_user")){
                         <li role="presentation" class="@{if (template == "profile") { "active" }}"><a href="@routes.WhoElse.profile()">Matches</a></li>
                     }
