@@ -32,20 +32,22 @@
 					<li class="dropdown">
 								 <a class="dropdown-toggle" data-toggle="dropdown" href="#">User
 								  <span class="caret"></span></a>
-											<ul class="dropdown-menu">
+											<ul class="dropdown-menu" style="padding:15px;">
 								
 									@if(session().containsKey("whoelse_user")){
-										<p align="center">Logged in as</p>
-										<p align="center">@session().get("whoelse_user")</p>
-                                        <a style="color:black" href="@routes.WhoElse.logout()">Logout</a>
+										<p align="center" style="font-size: 14px">Logged in as </br>
+										<span style="font-size: 16px" >@session().get("whoelse_user")<b></p>
+                                        <a class="btn btn-success" style="color:black; font-size: 14px" href="@routes.WhoElse.logout()"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Logout</a>
 									}
 									@if(!session().containsKey("whoelse_user")){
-                                        <p align="center">Not Logged In</p>
-                                        <a style="color:black" href="@routes.WhoElse.getLoginPage()">Login</a>
+                                        <p align="center" style="font-size: 14px">Not Logged In</p>
+                                        <a class="btn btn-success" style="color:black; font-size: 14px" href="@routes.WhoElse.getLoginPage()"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Login</a>
 									}
 						 </ul>		
 					<li>
                 </ul>
+				
+				
             </div>
             <!-- /.navbar-collapse -->
         </div>
