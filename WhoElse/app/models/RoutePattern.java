@@ -98,7 +98,7 @@ public class RoutePattern {
         if (!periodicity.equals(p.periodicity)) return false;
         Double startDistance = distance(this.startLat, p.startLat, this.startLong, p.startLong);
         Double endDistance = distance(this.endLat, p.endLat, this.endLong, p.endLong);
-        if (startDistance > 2000 || endDistance > 2000) return false;
+        if (startDistance > 5000 || endDistance > 5000) return false;
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
         try {
             Date myDate = sdf.parse(time);
@@ -107,7 +107,7 @@ public class RoutePattern {
             Long minutes = diff / (60 * 1000) % 60;
             System.out.println("Minutes: " + minutes);
             System.out.println("Overhead: " + overhead);
-            boolean ret = ( minutes <= 30 &&  overhead >= 0.8 );
+            boolean ret = ( minutes <= 30 &&  overhead >= 0.5 );
             System.out.println(ret);
             return ret;
         } catch (ParseException e) {

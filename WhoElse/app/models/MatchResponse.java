@@ -15,16 +15,19 @@ import java.util.*;
 public class MatchResponse {
 
     public Map<RoutePattern, ArrayList<Tuple2<RoutePattern, Double>>> routePatterns;
+    public ArrayList<RoutePattern> otherPatterns;
 
 //    public List<RoutePattern> routePatterns;
 //    public List<Matching> matchings;
 
     public MatchResponse() {
         routePatterns = new HashMap<RoutePattern, ArrayList<Tuple2<RoutePattern, Double>>>();
+        otherPatterns = new ArrayList<RoutePattern>();
     }
 
     public MatchResponse(RoutePattern searchPattern) {
         routePatterns = new HashMap<RoutePattern, ArrayList<Tuple2<RoutePattern, Double>>>();
+        otherPatterns = new ArrayList<RoutePattern>();
 
         String carQuery;
         if (searchPattern.car.equals("No")) {
@@ -55,6 +58,7 @@ public class MatchResponse {
 
     public MatchResponse(Integer userId) {
         routePatterns = new HashMap<RoutePattern, ArrayList<Tuple2<RoutePattern, Double>>>();
+        otherPatterns = new ArrayList<RoutePattern>();
 
         String queryStr = "SELECT rp FROM RoutePattern rp WHERE (userId = " + userId + ")";
         TypedQuery<RoutePattern> routePatternsQuery = JPA.em().createQuery(queryStr, RoutePattern.class);
@@ -86,8 +90,11 @@ public class MatchResponse {
                     }
                 });
             }
-
+            else{
+                otherPatterns.add(p);
+            }
         }
+
     }
 
 
