@@ -88,6 +88,7 @@ public class RoutePattern {
     }
 
     public Double overhead(RoutePattern p) {
+
         Double startDistance = distance(this.startLat, p.startLat, this.startLong, p.startLong);
         Double endDistance = distance(this.endLat, p.endLat, this.endLong, p.endLong);
         Double aloneDistance = distance(startLat, endLat, startLong, endLong);
@@ -95,6 +96,7 @@ public class RoutePattern {
         return aloneDistance / (startDistance + rideshareDistance + endDistance);
     }
     public boolean isSimilarEnough(RoutePattern p, Double overhead) {
+
         System.out.println("Dummy: " + periodicity + " and pattern: " + p.periodicity );
         if (!periodicity.equals(p.periodicity)) return false;
         Double startDistance = distance(this.startLat, p.startLat, this.startLong, p.startLong);
@@ -107,17 +109,20 @@ public class RoutePattern {
         }
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
         try {
+
             Date myDate = sdf.parse(time);
             Date pDate = sdf.parse(p.time);
             Long diff = Math.abs(myDate.getTime() - pDate.getTime()); // in Milliseconds
             Long minutes = diff / (60 * 1000);
-            System.out.println("Minutes: " + minutes);
+            System.out.println("Minutes: " + minutes );
             System.out.println("Overhead: " + overhead);
             boolean ret = ( minutes <= 30 &&  overhead >= 0.5 );
-//            boolean ret = ( minutes <= flexibility && minutes <= p.flexibility &&  overhead >= 0.5 );
+            ret = ( minutes <= new Long(flexibility) && minutes <= new Long(p.flexibility) &&  overhead >= 0.5 );
             System.out.println(ret);
             return ret;
         } catch (ParseException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return false; //( overhead >= 0.8 );
