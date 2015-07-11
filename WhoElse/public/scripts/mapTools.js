@@ -53,6 +53,44 @@ function updateMarker( marker, latitude, longitude, label ){
     }
 }
 
+function pinpointMeNoMap(document, startLabel) {
+    alert('in');
+    // Check to see if this browser supports geolocation.
+    if (navigator.geolocation) {
+
+        navigator.geolocation.getCurrentPosition(
+            function( position ){
+                var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                var geocoder;
+
+                geocoder = new google.maps.Geocoder();
+
+                geocoder.geocode({'latLng': latlng}, function(results, status) {
+                    if (status == google.maps.GeocoderStatus.OK) {
+                        if (results[0]) {
+                            document.getElementById(startLabel).value = results[0].formatted_address;
+                        } else {
+                            alert('No results found');
+                        }
+                    } else {
+                        alert('Geocoder failed due to: ' + status);
+                    }
+                });
+
+            },
+            function( error ){
+                console.log( "Something went wrong: ", error );
+            },
+            {
+                timeout: (5 * 1000),
+                maximumAge: (1000 * 60 * 15),
+                enableHighAccuracy: true
+            }
+        );
+
+    }
+
+}
 
 function pinpointMe(document, mapContainer, theLabel) {
 

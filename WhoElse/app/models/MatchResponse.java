@@ -28,7 +28,7 @@ public class MatchResponse {
     public MatchResponse(RoutePattern searchPattern) {
         routePatterns = new HashMap<RoutePattern, ArrayList<Tuple2<RoutePattern, Double>>>();
         otherPatterns = new ArrayList<RoutePattern>();
-
+        System.out.println("Search");
         String carQuery;
         if (searchPattern.car.equals("No")) {
             carQuery = " WHERE (car = 'Yes')";

@@ -23,6 +23,8 @@ public class WhoElse extends Controller {
         SearchResponse searchResponse = new SearchResponse();
         MatchResponse matchResponse = new MatchResponse();
 
+        //TODO: run a search with current data and give a meaningful result
+
         return ok(views.html.search.render(searchResponse, matchResponse, message));
     }
 

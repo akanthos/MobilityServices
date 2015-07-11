@@ -6,7 +6,7 @@
 		<section>
 		<div class="container">
 		<h3>Search for Ridehsharing</h3><br>
-        <form name="searchRoute" action="@routes.RouteActions.search()" method="post">
+        <form id="searchRoute" name="searchRoute" action="@routes.RouteActions.search()" method="post">
 
             <div class="col-xs-12">
             <label>Starting Address</label>
@@ -39,6 +39,12 @@
             <label>Time</label>
             <input class="form-control col-xs-2" name="time" type="time" placeholder="20:30"/>
 			</div>
+            <br>
+
+            <div class="col-xs-4">
+            <label>Time Flexibility</label>
+            <input type=range id=weight min=0 value=30 max=180 step=30 oninput="outputUpdate(value)"><output for=fader id=volume>30 Minutes</output>
+            </div>
             <br>
 
             <div class="col-xs-4">
@@ -254,6 +260,12 @@
             document.getElementById('startAddress').value = '';
             pinpointMe(document, mapContainer, 'endAddress');
         }
+    }
+    function firstSearch(document) {
+        document.getElementById("searchRoute").submit();
+    }
+    function outputUpdate(vol) {
+        document.querySelector('#volume').value = vol + " minutes";
     }
     </script>
 }

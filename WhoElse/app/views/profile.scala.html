@@ -30,6 +30,9 @@
                 <label>Time</label>
                 <input class="form-control" id="time" type="time" name="time"  />
                 <br>
+                <label>Time Flexibility</label>
+                <input class="form-control" type=range id=weight min=0 value=30 max=180 step=30 oninput="outputUpdate(value)"><output for=fader id=volume>30 Minutes</output>
+                <br>
                 <label>Periodicity</label>
                 <select class="form-control" id="periodicity" name="periodicity" onchange="check_periodicity()">
                         <option value="None">-------</option>
@@ -306,6 +309,9 @@
                 var t = document.getElementById('time');
                 var re=/^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/;
                 return re.test(t.value);
+        }
+        function outputUpdate(vol) {
+            document.querySelector('#volume').value = vol + " minutes";
         }
 </script>
 }

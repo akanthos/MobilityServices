@@ -67,16 +67,23 @@ public class RouteActions extends Controller {
 
             // TODO: Bring matches and forward them to search view
             MatchResponse matchResponse = new MatchResponse();
-            if (latlngloc1 != null && latlngloc2 != null) {
+            if (latlngloc1 != null ) {
                 RoutePattern dummy = new RoutePattern();
                 dummy.startAddress = address1;
                 dummy.endAddress = address2;
                 dummy.startLat = Double.parseDouble(latlngloc1.get(0));
                 dummy.startLong = Double.parseDouble(latlngloc1.get(1));
-                dummy.endLat = Double.parseDouble(latlngloc2.get(0));
-                dummy.endLong = Double.parseDouble(latlngloc2.get(1));
+                if (latlngloc2 != null) {
+                    dummy.endLat = Double.parseDouble(latlngloc2.get(0));
+                    dummy.endLong = Double.parseDouble(latlngloc2.get(1));
+                }
+                else {
+                    dummy.endLat = 0.0;
+                    dummy.endLong = 0.0;
+                }
                 dummy.periodicity = "Daily";
                 dummy.time = form.get("time");
+                dummy.flexibility = Integer.parseInt(form.get("flexibility"));
                 dummy.car = form.get("car");
                 matchResponse = new MatchResponse(dummy);
             }
@@ -151,7 +158,7 @@ public class RouteActions extends Controller {
             System.out.println("Time validation failed");
             return redirect(controllers.routes.WhoElse.profile());
         }
-
+        pattern.flexibility = Integer.parseInt(form.get("flexibility"));
         pattern.date = "";
         pattern.punctuality = 0.0;
         pattern.periodicity = form.get("periodicity");
