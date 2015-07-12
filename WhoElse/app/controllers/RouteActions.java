@@ -31,70 +31,80 @@ public class RouteActions extends Controller {
     public static Result search() {
 
         DynamicForm form = Form.form().bindFromRequest();
+        String butt = form.get("action_button");
 
-        Search search = new Search();
-        String address1, address2;
-        String message = "";
+        if (butt.equals("Search") || butt.equals("Start commuting!")) {
+            Search search = new Search();
+            String address1, address2;
+            String message = "";
 
-        try {
-            ArrayList<String> latlngloc1 = null;
-            address1 = form.get("startAddress");
-            if (!address1.equals("")) {
-                latlngloc1 = RouteActions.getLatLongLocality(address1);
-                search.startAreaSubLoc = latlngloc1.get(2);
-                search.startAreaLoc = latlngloc1.get(3);
-            } else {
-                search.startAreaSubLoc = address1;
-                search.startAreaLoc = address1;
-            }
-
-            ArrayList<String> latlngloc2 = null;
-            address2 = form.get("endAddress");
-            if (!address2.equals("")) {
-                latlngloc2 = RouteActions.getLatLongLocality(address2);
-                search.endAreaSubLoc = latlngloc2.get(2);
-                search.endAreaLoc = latlngloc2.get(3);
-            } else {
-                search.endAreaSubLoc = address2;
-                search.endAreaLoc = address2;
-            }
-
-            SearchResponse searchResponse = new SearchResponse();
-            searchResponse.GetSearchResults(search.startAreaSubLoc, search.startAreaLoc, search.endAreaSubLoc, search.endAreaLoc);
-
-            if ((!address1.equals("")) && (!address2.equals(""))) {
-                search.save();
-            }
-
-            MatchResponse matchResponse = new MatchResponse();
-            if (latlngloc1 != null) {
-                RoutePattern dummy = new RoutePattern();
-                dummy.startAddress = address1;
-                dummy.endAddress = address2;
-                dummy.startLat = Double.parseDouble(latlngloc1.get(0));
-                dummy.startLong = Double.parseDouble(latlngloc1.get(1));
-                if (latlngloc2 != null) {
-                    dummy.endLat = Double.parseDouble(latlngloc2.get(0));
-                    dummy.endLong = Double.parseDouble(latlngloc2.get(1));
+            try {
+                ArrayList<String> latlngloc1 = null;
+                address1 = form.get("startAddress");
+                if (!address1.equals("")) {
+                    latlngloc1 = RouteActions.getLatLongLocality(address1);
+                    search.startAreaSubLoc = latlngloc1.get(2);
+                    search.startAreaLoc = latlngloc1.get(3);
                 } else {
-                    dummy.endLat = 0.0;
-                    dummy.endLong = 0.0;
+                    search.startAreaSubLoc = address1;
+                    search.startAreaLoc = address1;
                 }
-                dummy.periodicity = "Daily";
-                dummy.time = form.get("time");
-                dummy.flexibility = Integer.parseInt(form.get("flexibility"));
-                dummy.car = form.get("car");
-                matchResponse = new MatchResponse(dummy);
-            }
+
+                ArrayList<String> latlngloc2 = null;
+                address2 = form.get("endAddress");
+                if (!address2.equals("")) {
+                    latlngloc2 = RouteActions.getLatLongLocality(address2);
+                    search.endAreaSubLoc = latlngloc2.get(2);
+                    search.endAreaLoc = latlngloc2.get(3);
+                } else {
+                    search.endAreaSubLoc = address2;
+                    search.endAreaLoc = address2;
+                }
+
+                SearchResponse searchResponse = new SearchResponse();
+                searchResponse.GetSearchResults(search.startAreaSubLoc, search.startAreaLoc, search.endAreaSubLoc, search.endAreaLoc);
+
+                if ((!address1.equals("")) && (!address2.equals(""))) {
+                    search.save();
+                }
+
+                MatchResponse matchResponse = new MatchResponse();
+                if (latlngloc1 != null) {
+                    RoutePattern dummy = new RoutePattern();
+                    dummy.startAddress = address1;
+                    dummy.endAddress = address2;
+                    dummy.startLat = Double.parseDouble(latlngloc1.get(0));
+                    dummy.startLong = Double.parseDouble(latlngloc1.get(1));
+                    if (latlngloc2 != null) {
+                        dummy.endLat = Double.parseDouble(latlngloc2.get(0));
+                        dummy.endLong = Double.parseDouble(latlngloc2.get(1));
+                    } else {
+                        dummy.endLat = 0.0;
+                        dummy.endLong = 0.0;
+                    }
+                    dummy.periodicity = "Daily";
+                    dummy.time = form.get("time");
+                    dummy.flexibility = Integer.parseInt(form.get("flexibility"));
+                    dummy.car = form.get("car");
+                    matchResponse = new MatchResponse(dummy);
+                }
             return ok(views.html.search.render(searchResponse, matchResponse, message, form));
-        } catch (Exception e) {
+            } catch (Exception e) {
             return ok(views.html.search.render(new SearchResponse(), new MatchResponse(), message, form));
+            }
+        }
+        else if (butt.equals("Login")) {
+            return WhoElse.getLoginPage();
+        }
+        else {
+            return subscribe();
         }
     }
 
     @Transactional
     public static Result subscribe() {
         DynamicForm form = Form.form().bindFromRequest();
+
 
         RoutePattern p = new RoutePattern();
         p.userId = Integer.parseInt(session().get("whoelse_user_id").toString());
