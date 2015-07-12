@@ -7,7 +7,7 @@
 		<div class="container">
 		<h3>Search for Ridehsharing</h3><br>
 
-        <form id="searchRoute" name="searchRoute" method="post">
+        <form id="searchRoute" name="searchRoute" method="post" action="@routes.RouteActions.search()" onsubmit="pick_submit_version()">
 
             <div class="col-xs-4">
                 <label>Looking for:</label>
@@ -52,12 +52,12 @@
    
 			<br>
 			<div class="col-xs-12" style="margin-top:20px">
-            <input class="btn btn-success" type="submit" name="action_button" onclick="form.action=@routes.RouteActions.search();" value="Search">
+            <input class="btn btn-success" type="submit" name="action_button" onclick="document.pressed=this.value" value="Search">
             @if(session().containsKey("whoelse_user")){
-                <input class="btn btn-success" type="submit" name="action_button" onclick="form.action=@routes.RouteActions.subscribe();" value="Subscribe for this route">
+                <input class="btn btn-success" type="submit" name="action_button" onclick="document.pressed=this.value" value="Subscribe for this route">
             }
             @if(!session().containsKey("whoelse_user")){
-                <button class="btn btn-success" name="action_button" onclick="@routes.WhoElse.getLoginPage();" value="Login">Login to subscribe for routes</button>
+                <button class="btn btn-success" name="action_button" onclick="document.pressed=this.value;" value="Login">Login to subscribe for routes</button>
                 @*<input class="btn btn-success" type="submit" name="action_button" onclick="form.action=@routes.WhoElse.getLoginPage();" value="Subscribe for this route">*@
             }
 			</div>
@@ -197,6 +197,21 @@
     }
     function outputUpdate(vol) {
         document.querySelector('#volume').value = vol + " minutes";
+    }
+    function pick_submit_version() {
+        if(document.pressed == 'Search') {
+            document.searchRoute.action ="@routes.RouteActions.search()";
+        }
+        if(document.pressed == 'Subscribe for this route'){
+            document.searchRoute.action ="@routes.RouteActions.subscribe()";
+        }
+        if (document.pressed == 'Login') {
+            document.searchRoute.action ="@routes.WhoElse.getLoginPage()";
+            document.searchRoute.method ="get";
+        }
+        alert(document.searchRoute.action);
+        alert(document.searchRoute.method);
+        return true;
     }
     </script>
 }
