@@ -62,7 +62,8 @@
                 <input class="btn btn-success" type="submit" name="action_button" onclick="form.action=@routes.RouteActions.subscribe();" value="Subscribe for this route">
             }
             @if(!session().containsKey("whoelse_user")){
-                <input class="btn btn-success" type="submit" name="action_button" onclick="form.action=@routes.WhoElse.getLoginPage();" value="Subscribe for this route">
+                <button class="btn btn-success" name="action_button" onclick="@routes.WhoElse.getLoginPage();" value="Login">Login to subscribe for routes</button>
+                @*<input class="btn btn-success" type="submit" name="action_button" onclick="form.action=@routes.WhoElse.getLoginPage();" value="Subscribe for this route">*@
             }
 			</div>
             <br>
