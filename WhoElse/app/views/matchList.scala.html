@@ -1,0 +1,116 @@
+@(matchResponse: MatchResponse)
+
+@for((k, v) <- matchResponse.routePatterns) {
+
+    <div class="panel panel-default" xmlns="http://www.w3.org/1999/html">
+    <div class="panel-heading" role="tab" id="headingOne">
+      <div class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse@(k.routePatternId)" aria-expanded="false" aria-controls="collapse@(k.routePatternId)">
+            Start: @(k.startAddress)<br>
+            End: @(k.endAddress)
+        </a>
+      </div>
+    </div>
+    <div id="collapse@(k.routePatternId)" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+        @for((r, value) <- v) {
+          <div>
+
+            <div class="panel panel-default">
+              <div class="panel-heading"><b>Matching</b></div>
+
+
+              <div class="panel-body">
+                <ul class="list-group">
+                  <div class="col-xs-5">
+                    <li><label>Start: @(r.startAddress) </label></li>
+                    <li><label>Destination: @(r.endAddress) </label></li>
+                    <li><label>Date: @(r.date) </label></li>
+                    <li><label>Time: @(r.time) </label></li>
+                  </div>
+                  <div class="col-xs-4">
+                    <div class="panel-heading"><img href='@routes.Assets.at("images/leave.png")'>
+                      <span style="font-size:50px; color: #017F0F">
+                        <span class="glyphicon glyphicon-tree-deciduous  glyphicon-ok" aria-hidden="true"></span>
+                        @if(value<0.7) {<span style="font-size:50px; color: gray">}
+                        <span class="glyphicon glyphicon-tree-deciduous  glyphicon-ok" aria-hidden="true"></span>
+                        @if(value<0.8) {<span style="font-size:50px; color: gray">}
+                        <span class="glyphicon glyphicon-tree-deciduous  glyphicon-ok" aria-hidden="true"></span>
+                        @if(value<0.9) {<span style="font-size:50px; color: gray">}
+                        <span class="glyphicon glyphicon-tree-deciduous  glyphicon-ok" aria-hidden="true"></span>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="col-xs-3">
+                      <label>
+                          @if(value>0.9){
+                              <span style="font-size:50px; color: green">
+                          }else{
+                              @if(value>0.8){
+                                    <span style="font-size:50px; color: orange">
+                              }else{
+                                @if(value>0.7){
+                                    <span style="font-size:50px; color: darkorange">
+                                }else{
+                                    <span style="font-size:50px; color: red">
+                                }
+                              }
+                          }
+                          @BigDecimal(value*100).setScale(1, BigDecimal.RoundingMode.HALF_UP).toDouble %
+                          </span>
+                      </label>
+                  </div>
+                </ul>
+              </div>
+              <div  class="panel-footer" >
+                <input type="submit" class="btn btn-default btn-info btn-sm"
+                value="Show on map!"
+                onclick="showRoute(@(k.startLat), @(k.startLong), @(k.endLat), @(k.endLong), @(r.startLat), @(r.startLong), @(r.endLat), @(r.endLong))"></input>
+
+
+                  <!--MODAL TEST -->
+                  <!-- Button trigger modal -->
+                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal@(r.userId)">
+                  <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>	 Send Message
+                </button>
+
+                <a href="@routes.WhoElse.userProfile(r.userId)">
+                  <button type="button" class="btn btn-primary btn-sm">
+                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span> View User's Profile
+                  </button>
+                </a>
+
+                <button type="button" class="btn btn-primary btn-sm"  style="float: right" data-toggle="modal" data-target="#myModal@(r.userId)">
+                  <span class="glyphicon glyphicon-check" aria-hidden="true"></span> Request Rideshare
+                </button>
+
+
+                  <!-- Modal -->
+                <div class="modal fade" id="myModal@(r.userId)" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Send message to user @(r.userId) </h4>
+                      </div>
+                      <div class="modal-body">
+                        <textarea rows="15" class="form-control" type="text"  placeholder="Insert your message here..."></textarea>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Send</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                  <!--End MODAL TEST-->
+              </div>
+            </div>
+          </div>
+          <br>
+
+          }
+      </div>
+    </div>
+  </div>
+}

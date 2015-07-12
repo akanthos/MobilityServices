@@ -1,9 +1,6 @@
 package controllers;
 
-import models.MatchResponse;
-import models.Notification;
-import models.SearchResponse;
-import models.User;
+import models.*;
 import play.data.DynamicForm;
 import play.data.Form;
 import play.db.jpa.Transactional;
@@ -57,8 +54,9 @@ public class WhoElse extends Controller {
         session("whoelse_notifications", "0");
 
         List<Notification> notif_list = Notification.getNotificationsByUserId(userId);
+        List<RoutePattern> pat_list = RoutePattern.getRoutePatternsByUserId(userId);
 
-        return ok(views.html.userProfile.render(u, notif_list));
+        return ok(views.html.userProfile.render(u, notif_list, pat_list));
     }
 
     public static Result logout() {

@@ -162,92 +162,10 @@
             @if(!matchResponse.routePatterns.isEmpty) {
                 <h3>Matched Routes</h3>
                 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                @for((k, v) <- matchResponse.routePatterns) {
 
-                    <div class="panel panel-default">
-                        <div class="panel-heading" role="tab" id="headingOne">
-                            <div class="panel-title">
-                                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse@(k.routePatternId)" aria-expanded="false" aria-controls="collapse@(k.routePatternId)">
-                                    <p><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span><b>Start:</b> @(k.startAddress)<br>
-                                        @if(!k.endAddress.equals("")) { <b>End:</b> @(k.endAddress)<br></p> }
-                                </a>
-                            </div>
-                        </div>
-                        <div id="collapse@(k.routePatternId)" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-                            <div class="panel-body">
-                                <h4>The following users have similar journeys:</h4>
-                                @for((r, value) <- v) {
-                                    <div>
-                                        <div class="panel panel-default">
-                                            <div class="panel-body">
+                    @matchList(matchResponse)
 
-                                                <ul class="list-group">
-                                                    <div class="col-xs-5">
-                                                        <li><label>User: <a href="@routes.WhoElse.userProfile(r.userId)">View User</a> </label></li>
-                                                        <li><label>Start: @(r.startAddress) </label></li>
-                                                        <li><label>Destination: @(r.endAddress) </label></li>
-                                                    </div>
-                                                    <div class="col-xs-3">
-                                                        <li><label>Time: @(r.time) </label></li>
-                                                            <!--<li><label>PatternDate: @(r.date) </label></li>-->
-                                                        <li><label>Periodicity: @(r.periodicity) </label></li>
-                                                        <li><label>Fit: @(value.toString) </label></li>
-                                                    </div>
-                                                    <div class="col-xs-4">
-                                                        <div class="panel-heading"><b><img href='@routes.Assets.at("images/leave.png")'>
-                                                            <span style="font-size:50px; color: #017F0F">
-                                                                <span class="glyphicon glyphicon-tree-deciduous  glyphicon-ok" aria-hidden="true"></span>
-                                                                @if(value<0.88) {<span style="font-size:50px; color: gray">}
-                                                                <span class="glyphicon glyphicon-tree-deciduous  glyphicon-ok" aria-hidden="true"></span>
-                                                                @if(value<0.95) {<span style="font-size:50px; color: gray">}
-                                                                <span class="glyphicon glyphicon-tree-deciduous  glyphicon-ok" aria-hidden="true"></span>
-                                                                @if(value<0.99) {<span style="font-size:50px; color: gray">}
-                                                                <span class="glyphicon glyphicon-tree-deciduous  glyphicon-ok" aria-hidden="true"></span>
-                                                            </span>
-                                                        </b></div>
-                                                    </div>
 
-                                                </ul>
-                                            </div>
-                                            <div  class="panel-footer">
-                                                <input type="submit" class="btn btn-default btn-info btn-sm"
-                                                value="Show on map!"
-                                                onclick="showRoute(@(k.startLat), @(k.startLong), @(k.endLat), @(k.endLong), @(r.startLat), @(r.startLong), @(r.endLat), @(r.endLong))">
-
-                                                <!--MODAL TEST -->
-                                                <!-- Button trigger modal -->
-                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal@(r.userId)">
-                                                    <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>	 Send Message
-                                                </button>
-
-                                                    <!-- Modal -->
-                                                <div class="modal fade" id="myModal@(r.userId)" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                                <h4 class="modal-title" id="myModalLabel">Send message to user @(r.userId) </h4>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <textarea rows="15" class="form-control" type="text"  placeholder="Insert your message here..."></textarea>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                                <button type="button" class="btn btn-primary" data-dismiss="modal">Send</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                    <!--End MODAL TEST-->
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <br>
-                                }
-                            </div>
-                        </div>
-                    </div>
-                }
                 </div>
             }
             @if(matchResponse.routePatterns.isEmpty) {

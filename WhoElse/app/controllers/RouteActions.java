@@ -166,7 +166,7 @@ public class RouteActions extends Controller {
         matchingsQuery = JPA.em().createQuery(queryStr);
         results = matchingsQuery.executeUpdate();
 
-        return redirect(controllers.routes.WhoElse.profile());
+        return redirect(controllers.routes.WhoElse.userProfile(Integer.parseInt(session().get("whoelse_user_id").toString())));
     }
 
 

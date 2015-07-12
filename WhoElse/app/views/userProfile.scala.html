@@ -1,4 +1,4 @@
-@(user: User)(notif_list: List[Notification])
+@(user: User)(notif_list: List[Notification])(patternList: List[RoutePattern])
 
 @main("user") {
 
@@ -56,7 +56,36 @@
                         </tbody>
                     </table>
                 } else {
-                    <h3>You do not have any notifications</h3> <br>
+                    <div class="alert alert-danger">You do not have any notifications</div>
+                }
+            </div>
+            <div>
+                <h3>Route Patterns</h3>
+            </div>
+            <div class="col-lg-12" ng-app="">
+                @if(!patternList.isEmpty()) {
+                    @for(p <- patternList) {
+                        <div>
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <ul class="list-group">
+                                        <div class="col-xs-5">
+                                            <li><label>Start: @(p.startAddress)</label></li>
+                                            <li><label>Destination: @(p.endAddress)</label></li>
+                                            <li><label>Date: @(p.date)</label></li>
+                                            <li><label>Time: @(p.time)</label></li>
+                                        </div>
+                                        <form name="deletePattern" action="@routes.RouteActions.deletePattern()" method="post">
+                                            <input id="patternId" name="patternId" value="@(p.routePatternId)" type="hidden" />
+                                            <input type="submit" class="btn btn-default btn-sm" value="Delete this pattern!">
+                                        </form>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                } else {
+                    <div class="alert alert-danger">You do not have any stored route patterns</div>
                 }
             </div>
         }
