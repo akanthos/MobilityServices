@@ -33,8 +33,9 @@ public class RouteActions extends Controller {
         DynamicForm form = Form.form().bindFromRequest();
         String request_type = form.get("request_type");
         String butt = form.get("action_button");
-
-        if (  ( butt != null && ( butt.equals("Search") || butt.equals("Start commuting!") ) ) || ( request_type.equals("Search") || request_type.equals("Start commuting!") ) ) {
+        if (    ( butt != null         &&  butt.equals("Search")  )
+             || ( request_type != null &&  request_type.equals("Start commuting!") ) ) {
+//        if (  ( butt != null && ( butt.equals("Search") || butt.equals("Start commuting!") ) ) || ( request_type != null && ( request_type.equals("Search") || request_type.equals("Start commuting!") ) ) ) {
             Search search = new Search();
             String address1, address2;
             String message = "";
@@ -95,7 +96,7 @@ public class RouteActions extends Controller {
             return ok(views.html.search.render(new SearchResponse(), new MatchResponse(), message, form));
             }
         }
-        else if (request_type.equals("Login")) {
+        else if (butt != null && butt.equals("Login")) {
             return WhoElse.getLoginPage();
         }
         else {
