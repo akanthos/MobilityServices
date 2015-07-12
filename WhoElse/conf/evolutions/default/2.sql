@@ -9,6 +9,7 @@ CREATE TABLE `RoutePattern` (
 	`endLat`	REAL,
 	`endLong`	REAL,
 	`time`	TEXT,
+	`flexibility`	INTEGER,
 	`date`	TEXT,
 	`punctuality`	REAL,
 	`periodicity`	TEXT,

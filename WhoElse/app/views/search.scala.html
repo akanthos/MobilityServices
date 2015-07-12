@@ -6,7 +6,7 @@
 		<section>
 		<div class="container">
 		<h3>Search for Ridehsharing</h3><br>
-        <form name="searchRoute" action="@routes.RouteActions.search()" method="post">
+        <form id="searchRoute" name="searchRoute" action="@routes.RouteActions.search()" method="post">
 
             <div class="col-xs-12">
             <label>Starting Address</label>
@@ -39,6 +39,12 @@
             <label>Time</label>
             <input class="form-control col-xs-2" name="time" type="time" placeholder="20:30"/>
 			</div>
+            <br>
+
+            <div class="col-xs-4">
+            <label>Time Flexibility</label>
+            <input type=range id="flexibility" name="flexibility" min=0 value=30 max=180 step=30 oninput="outputUpdate(value)"><output for=fader id=volume>30 Minutes</output>
+            </div>
             <br>
 
             <div class="col-xs-4">
@@ -86,19 +92,21 @@
                                                         <li><label>Start: @(r.startAddress) </label></li>
                                                         <li><label>Destination: @(r.endAddress) </label></li>
                                                     </div>
-                                                    <div class="col-xs-4">
+                                                    <div class="col-xs-3">
                                                         <li><label>Time: @(r.time) </label></li>
                                                             <!--<li><label>PatternDate: @(r.date) </label></li>-->
                                                         <li><label>Periodicity: @(r.periodicity) </label></li>
                                                         <li><label>Fit: @(value.toString) </label></li>
                                                     </div>
-                                                    <div class="col-xs-3">
+                                                    <div class="col-xs-4">
                                                         <div class="panel-heading"><b><img href='@routes.Assets.at("images/leave.png")'>
                                                             <span style="font-size:50px; color: #017F0F">
                                                                 <span class="glyphicon glyphicon-tree-deciduous  glyphicon-ok" aria-hidden="true"></span>
                                                                 @if(value<0.88) {<span style="font-size:50px; color: gray">}
                                                                 <span class="glyphicon glyphicon-tree-deciduous  glyphicon-ok" aria-hidden="true"></span>
                                                                 @if(value<0.95) {<span style="font-size:50px; color: gray">}
+                                                                <span class="glyphicon glyphicon-tree-deciduous  glyphicon-ok" aria-hidden="true"></span>
+                                                                @if(value<0.99) {<span style="font-size:50px; color: gray">}
                                                                 <span class="glyphicon glyphicon-tree-deciduous  glyphicon-ok" aria-hidden="true"></span>
                                                             </span>
                                                         </b></div>
@@ -146,6 +154,9 @@
                     </div>
                 }
                 </div>
+            }
+            @if(matchResponse.routePatterns.isEmpty) {
+                <h3>No matches found for your route</h3>
             }
 
 
@@ -249,6 +260,12 @@
             document.getElementById('startAddress').value = '';
             pinpointMe(document, mapContainer, 'endAddress');
         }
+    }
+    function firstSearch(document) {
+        document.getElementById("searchRoute").submit();
+    }
+    function outputUpdate(vol) {
+        document.querySelector('#volume').value = vol + " minutes";
     }
     </script>
 }
