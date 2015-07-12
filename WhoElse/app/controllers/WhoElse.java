@@ -4,6 +4,8 @@ import models.MatchResponse;
 import models.Notification;
 import models.SearchResponse;
 import models.User;
+import play.data.DynamicForm;
+import play.data.Form;
 import play.db.jpa.Transactional;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -21,6 +23,8 @@ public class WhoElse extends Controller {
     @Transactional (readOnly = true)
     public static Result search() {
 
+        DynamicForm form = Form.form().bindFromRequest();
+
         checkForNotifications();
         String message = "";
         SearchResponse searchResponse = new SearchResponse();
@@ -28,7 +32,7 @@ public class WhoElse extends Controller {
 
         //TODO: run a search with current data and give a meaningful result
 
-        return ok(views.html.search.render(searchResponse, matchResponse, message));
+        return ok(views.html.search.render(searchResponse, matchResponse, message, form));
     }
 
     @Transactional(readOnly = true)

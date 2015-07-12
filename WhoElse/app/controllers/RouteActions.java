@@ -86,9 +86,9 @@ public class RouteActions extends Controller {
                 dummy.car = form.get("car");
                 matchResponse = new MatchResponse(dummy);
             }
-            return ok(views.html.search.render(searchResponse, matchResponse, message));
+            return ok(views.html.search.render(searchResponse, matchResponse, message, form));
         } catch (Exception e) {
-            return ok(views.html.search.render(new SearchResponse(), new MatchResponse(), message));
+            return ok(views.html.search.render(new SearchResponse(), new MatchResponse(), message, form));
         }
     }
 
@@ -133,10 +133,10 @@ public class RouteActions extends Controller {
             p.save();
         } catch (Exception e) {
             e.printStackTrace();
-            return ok(views.html.search.render(new SearchResponse(), new MatchResponse(), message));
+            return ok(views.html.search.render(new SearchResponse(), new MatchResponse(), message, form));
         }
         finally {
-            return ok(views.html.search.render(new SearchResponse(), new MatchResponse(), message));
+            return ok(views.html.search.render(new SearchResponse(), new MatchResponse(), message, form));
         }
     }
 

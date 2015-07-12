@@ -1,4 +1,4 @@
-@(searchResult: SearchResponse)(matchResponse: MatchResponse)(message: String)
+@(searchResult: SearchResponse)(matchResponse: MatchResponse)(message: String)(form: DynamicForm)
 
 @main("search") {
 
@@ -10,13 +10,13 @@
 
             <div class="col-xs-12">
             <label>Starting Address</label>
-            <input class="form-control" id="startAddress" type="text" name="startAddress" value="" placeholder="Enter Location" onFocus="geolocate()" />
+            <input class="form-control" id="startAddress" type="text" name="startAddress" value="@form.get("startAddress")" placeholder="Enter Location" onFocus="geolocate()" />
             </div>
             <br>
 
 			<div class="col-xs-12">
             <label>Destination Address</label>
-            <input class="form-control" id="endAddress" type="text" name="endAddress" value="" placeholder="Enter Location" onFocus="geolocate()" />
+            <input class="form-control" id="endAddress" type="text" name="endAddress" value="@form.get("endAddress")" placeholder="Enter Location" onFocus="geolocate()" />
 
             <label>Use current location for</label>
             <input type="radio" name="auto" checked="yes" onclick="handleClick();" value="start"><b>Starting</b>
@@ -31,7 +31,7 @@
 
 			<div class="col-xs-4">
             <label>Date</label>
-            <input class="form-control" name="date" type="date" placeholder="30.12.2015" />
+            <input class="form-control" name="date" type="date" value="@form.get("date")" placeholder="30.12.2015" />
 			</div>
             <br>
 
