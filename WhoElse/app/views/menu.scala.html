@@ -26,20 +26,17 @@
                     @if(!session().containsKey("whoelse_user")){
                         <li role="presentation" class="@{if (template == "profile") { "active" }}"><a href="@routes.WhoElse.getLoginPage()">Matches</a></li>
                     }
-                    @if(session().containsKey("whoelse_user")){
-                        <li role="presentation" class="@{if (template == "user") { "active" }}"><a href="@routes.WhoElse.userProfile(session().get("whoelse_user_id").toInt)">Profile
-                            @if(Integer.valueOf(session().get("whoelse_notifications")) > 0) { (@session().get("whoelse_notifications")) }
-                        </a></li>
-                    }
 					<li class="dropdown">
-								 <a class="dropdown-toggle" data-toggle="dropdown" href="#">User
+								 <a class="dropdown-toggle" data-toggle="dropdown" href="#">User Profile
+                                     @if(Integer.valueOf(session().get("whoelse_notifications")) > 0) { (@session().get("whoelse_notifications")) }
 								  <span class="caret"></span></a>
 											<ul class="dropdown-menu" style="padding:15px;">
-								
+
 									@if(session().containsKey("whoelse_user")){
-										<p align="center" style="font-size: 14px">Logged in as </br>
-										<span style="font-size: 16px" >@session().get("whoelse_user")<b></p>
-                                        <a class="btn btn-success" style="color:black; font-size: 14px" href="@routes.WhoElse.logout()"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Logout</a>
+										<p align="center" style="font-size: 14px">Logged in as <br>
+										<a style="font-size: 16px; color:black" href="@routes.WhoElse.userProfile(session().get("whoelse_user_id").toInt)">@session().get("whoelse_user")</a></p>
+                                        <a class="btn btn-success" style="color:black; font-size: 14px" href="@routes.WhoElse.logout()">
+                                        <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Logout</a>
 									}
 									@if(!session().containsKey("whoelse_user")){
                                         <p align="center" style="font-size: 14px">Not Logged In</p>
