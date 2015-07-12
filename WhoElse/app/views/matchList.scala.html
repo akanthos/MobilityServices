@@ -1,6 +1,6 @@
-@(matchResponse: MatchResponse)
+@(routePatterns: Map[RoutePattern, ArrayList[(RoutePattern, Double)]])
 
-@for((k, v) <- matchResponse.routePatterns) {
+@for((k, v) <- routePatterns) {
 
     <div class="panel panel-default" xmlns="http://www.w3.org/1999/html">
     <div class="panel-heading" role="tab" id="headingOne">

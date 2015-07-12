@@ -71,7 +71,7 @@
                 @if(!matchResponse.routePatterns.isEmpty) {
                     <h3>Matched Routes</h3>
                     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                    @matchList(matchResponse)
+                    @matchList(matchResponse.routePatterns)
                     </div>
                 }
                 @if(matchResponse.routePatterns.isEmpty) {
