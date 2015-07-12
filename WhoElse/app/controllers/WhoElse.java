@@ -15,8 +15,6 @@ public class WhoElse extends Controller {
     @Transactional
     public static Result main() {
 
-
-
         return ok(views.html.index.render());
     }
 

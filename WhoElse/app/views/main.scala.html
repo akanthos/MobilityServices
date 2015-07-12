@@ -48,6 +48,11 @@
                 <div class="alert alert-warning">@flash.get("notification")</div>
             }
             </div>
+            <div class="container">
+            @if(flash.containsKey("info")) {
+                <div class="alert alert-success">@flash.get("info")</div>
+            }
+            </div>
         @content
         @footer(template)
     

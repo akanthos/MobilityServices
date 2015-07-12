@@ -103,6 +103,7 @@ public class RouteActions extends Controller {
         String queryStr = "DELETE FROM RoutePattern WHERE (routePatternId = " + routePatternId + ")";
         Query matchingsQuery = JPA.em().createQuery(queryStr);
         int results = matchingsQuery.executeUpdate();
+        flash("info", "Deleted query with ID: " + routePatternId);
         System.out.println("Deleted query with ID: " + routePatternId);
 
         queryStr = "DELETE FROM Matching WHERE (routePatternId1 = " + routePatternId + " OR routePatternId2 = " + routePatternId + ")";
