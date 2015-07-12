@@ -28,7 +28,9 @@
                     }
 					<li class="dropdown">
 								 <a class="dropdown-toggle" data-toggle="dropdown" href="#">User Profile
-                                     @if(Integer.valueOf(session().get("whoelse_notifications")) > 0) { (@session().get("whoelse_notifications")) }
+                                     @if(session().containsKey("whoelse_user")) {
+                                         @if(Integer.valueOf(session().get("whoelse_notifications")) > 0) { (@session().get("whoelse_notifications")) }
+                                        }
 								  <span class="caret"></span></a>
 											<ul class="dropdown-menu" style="padding:15px;">
 

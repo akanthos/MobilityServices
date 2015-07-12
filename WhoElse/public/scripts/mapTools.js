@@ -2,6 +2,70 @@
  * Created by Thanasis on 28/6/2015.
  */
 
+function loadStuff(document) {
+    if (navigator.geolocation) {
+
+        navigator.geolocation.getCurrentPosition(
+            function( position ){
+                var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                var geocoder = new google.maps.Geocoder();
+                geocoder.geocode({'latLng': latlng}, function(results, status) {
+                    if (status == google.maps.GeocoderStatus.OK) {
+                        if (results[0]) {
+                            document.getElementById('startAddress').value = results[0].formatted_address;
+                        } else {
+                            alert('No results found');
+                        }
+                    } else {
+                        alert('Geocoder failed due to: ' + status);
+                    }
+                });
+
+            },
+            function( error ){
+                console.log( "Something went wrong: ", error );
+            },
+            {
+                timeout: (5 * 1000),
+                maximumAge: (1000 * 60 * 15),
+                enableHighAccuracy: true
+            }
+        );
+
+    }
+
+    var now = new Date();
+    var year    = now.getFullYear();
+    var month   = now.getMonth()+1;
+    var day     = now.getDate();
+    var hour    = now.getHours();
+    var minute  = now.getMinutes();
+
+    if(month.toString().length == 1) {
+        month = '0'+month;
+    }
+
+    if(day.toString().length == 1) {
+        day = '0'+day;
+    }
+    if(hour.toString().length == 1) {
+        hour = '0'+hour;
+    }
+    if(minute.toString().length == 1) {
+        minute = '0'+minute;
+    }
+
+    var dateTime = year+'/'+month+'/'+day+' '+hour+':'+minute;
+
+    document.getElementById('time').value = hour+':'+minute;
+    document.getElementById('flexibility').value = '30';
+    document.getElementById('date').value = year+'-'+month+'-'+day;
+    document.getElementById('car').value = "No";
+    document.getElementById('request_type').value = "Start commuting!";
+
+
+}
+
 function geolocate() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {

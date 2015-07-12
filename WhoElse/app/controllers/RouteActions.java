@@ -31,9 +31,10 @@ public class RouteActions extends Controller {
     public static Result search() {
 
         DynamicForm form = Form.form().bindFromRequest();
+        String request_type = form.get("request_type");
         String butt = form.get("action_button");
 
-        if (butt.equals("Search") || butt.equals("Start commuting!")) {
+        if (  ( butt != null && ( butt.equals("Search") || butt.equals("Start commuting!") ) ) || ( request_type.equals("Search") || request_type.equals("Start commuting!") ) ) {
             Search search = new Search();
             String address1, address2;
             String message = "";
@@ -71,6 +72,7 @@ public class RouteActions extends Controller {
                 MatchResponse matchResponse = new MatchResponse();
                 if (latlngloc1 != null) {
                     RoutePattern dummy = new RoutePattern();
+                    dummy.userId = (session().get("whoelse_user")!=null)?(Integer.parseInt(session().get("whoelse_user_id").toString())):(new Integer(-1));
                     dummy.startAddress = address1;
                     dummy.endAddress = address2;
                     dummy.startLat = Double.parseDouble(latlngloc1.get(0));
@@ -93,7 +95,7 @@ public class RouteActions extends Controller {
             return ok(views.html.search.render(new SearchResponse(), new MatchResponse(), message, form));
             }
         }
-        else if (butt.equals("Login")) {
+        else if (request_type.equals("Login")) {
             return WhoElse.getLoginPage();
         }
         else {

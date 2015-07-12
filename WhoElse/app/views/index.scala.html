@@ -9,8 +9,9 @@
         <link rel="stylesheet" href="@routes.Assets.at("stylesheets/lander.css")">
         <script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("jquery.min.js"))'></script>
         <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
+        <script type='text/javascript' src='@routes.Assets.at("scripts/mapTools.js")'></script>
     </head>
-    <body class="lander">
+    <body class="lander" onload="loadStuff(document);">
 
 
         <div class="intro-header">
@@ -23,7 +24,7 @@
                             <img class="img-circle img-responsive" src="@routes.Assets.at("images/profile.png")" alt="">
                             <h3 style="font-weight:bold;">Find your best suitable commuting partner - in an easy, automated and effortless way</h3>
                             <hr class="intro-divider">
-                            @*<a href="@routes.WhoElse.search()">*@
+
                             <form id="searchRoute" name="searchRoute" action="@routes.RouteActions.search()" method="post">
                                 <input class="form-control" id="startAddress" type="hidden" name="startAddress" value="" />
                                 <input class="form-control" id="endAddress" type="hidden" name="endAddress" value="" />
@@ -31,10 +32,10 @@
                                 <input class="form-control col-xs-2" id="time" name="time" type="hidden" value=""/>
                                 <input class="form-control col-xs-2" id="flexibility" name="flexibility" type="hidden" value=""/>
                                 <input class="form-control" id="car" name="car" type="hidden"  value=""/>
-                                <input type="submit" class="btn btn-success btn-lg" name="action_button" value="Start commuting!"><span class="" aria-hidden="true"></span>
+                                <input class="form-control" id="request_type" name="request_type" type="hidden"  value=""/>
+                                <button class="btn btn-success btn-lg" id="action_button" name="action_button" onclick="loadStuff(document);" value="Start commuting!">Start commuting!</button>
                             </form>
 
-                            @*</a>*@
                         </div>
                     </div>
                 </div>
@@ -128,63 +129,6 @@
 </html>
 <script type="text/javascript">
 
-
-        if (navigator.geolocation) {
-
-            navigator.geolocation.getCurrentPosition(
-                function( position ){
-                    var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-                    var geocoder = new google.maps.Geocoder();
-                    geocoder.geocode({'latLng': latlng}, function(results, status) {
-                        if (status == google.maps.GeocoderStatus.OK) {
-                            if (results[0]) {
-                                document.getElementById('startAddress').value = results[0].formatted_address;
-                            } else {
-                                alert('No results found');
-                            }
-                        } else {
-                            alert('Geocoder failed due to: ' + status);
-                        }
-                    });
-                },
-                function( error ){
-                    console.log( "Something went wrong: ", error );
-                },
-                {
-                    timeout: (5 * 1000),
-                    maximumAge: (1000 * 60 * 15),
-                    enableHighAccuracy: true
-                }
-            );
-
-        }
-        var now = new Date();
-        var year    = now.getFullYear();
-        var month   = now.getMonth()+1;
-        var day     = now.getDate();
-        var hour    = now.getHours();
-        var minute  = now.getMinutes();
-
-        if(month.toString().length == 1) {
-            month = '0'+month;
-        }
-
-        if(day.toString().length == 1) {
-            day = '0'+day;
-        }
-        if(hour.toString().length == 1) {
-            hour = '0'+hour;
-        }
-        if(minute.toString().length == 1) {
-            minute = '0'+minute;
-        }
-
-        var dateTime = year+'/'+month+'/'+day+' '+hour+':'+minute;
-
-        document.getElementById('time').value = hour+':'+minute;
-        document.getElementById('flexibility').value = '30';
-        document.getElementById('date').value = year+'-'+month+'-'+day;
-        document.getElementById('car').value = "No";
 
 
 

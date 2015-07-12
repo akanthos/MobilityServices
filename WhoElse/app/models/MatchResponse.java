@@ -31,7 +31,11 @@ public class MatchResponse {
         System.out.println("Search");
         String carQuery;
         if (searchPattern.car.equals("No")) {
-            carQuery = " WHERE (car = 'Yes')";
+            carQuery = " WHERE (car = 'Yes'";
+            if (searchPattern.userId != -1) {
+                carQuery = carQuery + " AND userId != " + searchPattern.userId;
+            }
+            carQuery = carQuery + ")";
         }
         else {
             carQuery = "";

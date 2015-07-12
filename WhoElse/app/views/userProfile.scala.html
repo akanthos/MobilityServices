@@ -4,7 +4,7 @@
 
 <section>
     <div class="container">
-        @if( user.userId == session().get("whoelse_user_id").toInt ){
+        @if( session().get("whoelse_user") != null && user.userId == session().get("whoelse_user_id").toInt ){
             <div>
                 <h3>Notifications</h3>
             </div>
