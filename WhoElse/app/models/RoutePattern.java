@@ -86,7 +86,9 @@ public class RoutePattern {
     public boolean isSimilarEnough(RoutePattern p, Double overhead) {
 
         System.out.println("Dummy: " + periodicity + " and pattern: " + p.periodicity );
-        if (!periodicity.equals(p.periodicity)) return false;
+        if (p.type.equals("pattern")) {
+            if (!periodicity.equals(p.periodicity)) return false;
+        }
         Double startDistance = distance(this.startLat, p.startLat, this.startLong, p.startLong);
         Double endDistance = distance(this.endLat, p.endLat, this.endLong, p.endLong);
         if (this.endLat == 0.0 && this.endLong == 0.0) {

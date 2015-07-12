@@ -129,13 +129,15 @@ public class RouteActions extends Controller {
             p.time = form.get("time");
             p.flexibility = Integer.parseInt(form.get("flexibility"));
             p.date = form.get("date");
+            p.periodicity = "Daily";
             p.car = form.get("car");
             p.save();
+
+            MatchResponse matchResponse = new MatchResponse(p);
+            return ok(views.html.search.render(new SearchResponse(), matchResponse, message));
+
         } catch (Exception e) {
             e.printStackTrace();
-            return ok(views.html.search.render(new SearchResponse(), new MatchResponse(), message));
-        }
-        finally {
             return ok(views.html.search.render(new SearchResponse(), new MatchResponse(), message));
         }
     }

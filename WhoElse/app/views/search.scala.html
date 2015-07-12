@@ -79,13 +79,13 @@
                     <div class="panel panel-default">
                         <div class="panel-heading" role="tab" id="headingOne">
                             <div class="panel-title">
-                                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse@(k.routePatternId)" aria-expanded="false" aria-controls="collapse@(k.routePatternId)">
+                                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#subscriptionsCollapse@(k.routePatternId)" aria-expanded="false" aria-controls="subscriptionsCollapse@(k.routePatternId)">
                                     <p><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span><b>Start:</b> @(k.startAddress)<br>
                                         <b>End:</b> @(k.endAddress)<br></p>
                                 </a>
                             </div>
                         </div>
-                        <div id="collapse@(k.routePatternId)" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                        <div id="subscriptionsCollapse@(k.routePatternId)" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
                             <div class="panel-body">
                                 <h4>The following users have similar journeys:</h4>
                                 @for((r, value) <- v) {

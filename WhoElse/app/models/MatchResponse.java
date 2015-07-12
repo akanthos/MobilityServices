@@ -58,13 +58,24 @@ public class MatchResponse {
 
             }
         }
-        Collections.sort(routePatterns.get(searchPattern), new Comparator<Tuple2<RoutePattern, Double>>() {
-            @Override
-            public int compare(Tuple2<RoutePattern, Double> t1, Tuple2<RoutePattern, Double> t2) {
+        if (!routePatterns.isEmpty()){
+            Collections.sort(routePatterns.get(searchPattern), new Comparator<Tuple2<RoutePattern, Double>>() {
+                @Override
+                public int compare(Tuple2<RoutePattern, Double> t1, Tuple2<RoutePattern, Double> t2) {
 
-                return t2._2().compareTo(t1._2());
-            }
-        });
+                    return t2._2().compareTo(t1._2());
+                }
+            });
+        }
+        if (!subscriptions.isEmpty()) {
+            Collections.sort(subscriptions.get(searchPattern), new Comparator<Tuple2<RoutePattern, Double>>() {
+                @Override
+                public int compare(Tuple2<RoutePattern, Double> t1, Tuple2<RoutePattern, Double> t2) {
+
+                    return t2._2().compareTo(t1._2());
+                }
+            });
+        }
     }
 
     public MatchResponse(Integer userId) {
