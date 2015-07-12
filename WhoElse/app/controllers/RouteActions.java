@@ -31,29 +31,30 @@ public class RouteActions extends Controller {
     public static Result search() {
 
         DynamicForm form = Form.form().bindFromRequest();
+
         Search search = new Search();
         String address1, address2;
         String message = "";
 
-        try{
+        try {
             ArrayList<String> latlngloc1 = null;
             address1 = form.get("startAddress");
-            if (!address1.equals("")){
+            if (!address1.equals("")) {
                 latlngloc1 = RouteActions.getLatLongLocality(address1);
                 search.startAreaSubLoc = latlngloc1.get(2);
                 search.startAreaLoc = latlngloc1.get(3);
-            }else{
+            } else {
                 search.startAreaSubLoc = address1;
                 search.startAreaLoc = address1;
             }
 
             ArrayList<String> latlngloc2 = null;
             address2 = form.get("endAddress");
-            if (!address2.equals("")){
+            if (!address2.equals("")) {
                 latlngloc2 = RouteActions.getLatLongLocality(address2);
                 search.endAreaSubLoc = latlngloc2.get(2);
                 search.endAreaLoc = latlngloc2.get(3);
-            }else{
+            } else {
                 search.endAreaSubLoc = address2;
                 search.endAreaLoc = address2;
             }
@@ -61,13 +62,12 @@ public class RouteActions extends Controller {
             SearchResponse searchResponse = new SearchResponse();
             searchResponse.GetSearchResults(search.startAreaSubLoc, search.startAreaLoc, search.endAreaSubLoc, search.endAreaLoc);
 
-            if ( (!address1.equals("")) && (!address2.equals(""))){
+            if ((!address1.equals("")) && (!address2.equals(""))) {
                 search.save();
             }
 
-            // TODO: Bring matches and forward them to search view
             MatchResponse matchResponse = new MatchResponse();
-            if (latlngloc1 != null ) {
+            if (latlngloc1 != null) {
                 RoutePattern dummy = new RoutePattern();
                 dummy.startAddress = address1;
                 dummy.endAddress = address2;
@@ -76,8 +76,7 @@ public class RouteActions extends Controller {
                 if (latlngloc2 != null) {
                     dummy.endLat = Double.parseDouble(latlngloc2.get(0));
                     dummy.endLong = Double.parseDouble(latlngloc2.get(1));
-                }
-                else {
+                } else {
                     dummy.endLat = 0.0;
                     dummy.endLong = 0.0;
                 }
@@ -88,8 +87,55 @@ public class RouteActions extends Controller {
                 matchResponse = new MatchResponse(dummy);
             }
             return ok(views.html.search.render(searchResponse, matchResponse, message));
+        } catch (Exception e) {
+            return ok(views.html.search.render(new SearchResponse(), new MatchResponse(), message));
         }
-        catch(Exception e){
+    }
+
+    @Transactional
+    public static Result subscribe() {
+        DynamicForm form = Form.form().bindFromRequest();
+
+        RoutePattern p = new RoutePattern();
+        p.userId = Integer.parseInt(session().get("whoelse_user_id").toString());
+        p.type = "subscription";
+        String address1, address2;
+        String message = "";
+
+        try {
+            ArrayList<String> latlngloc1 = null;
+            address1 = form.get("startAddress");
+            if (!address1.equals("")) {
+                p.startAddress = address1;
+                latlngloc1 = RouteActions.getLatLongLocality(address1);
+                p.startLat = Double.parseDouble(latlngloc1.get(0));
+                p.startLong = Double.parseDouble(latlngloc1.get(1));
+            } else {
+               throw new Exception();
+            }
+
+            ArrayList<String> latlngloc2 = null;
+            address2 = form.get("endAddress");
+            if (!address2.equals("")) {
+                p.endAddress = address2;
+                latlngloc2 = RouteActions.getLatLongLocality(address2);
+                p.endLat = Double.parseDouble(latlngloc2.get(0));
+                p.endLong = Double.parseDouble(latlngloc2.get(1));
+            } else {
+                throw new Exception();
+            }
+
+
+            p.time = form.get("time");
+            p.flexibility = Integer.parseInt(form.get("flexibility"));
+            p.date = form.get("date");
+            p.car = form.get("car");
+            p.save();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ok(views.html.search.render(new SearchResponse(), new MatchResponse(), message));
+        }
+        finally {
             return ok(views.html.search.render(new SearchResponse(), new MatchResponse(), message));
         }
     }
@@ -122,15 +168,9 @@ public class RouteActions extends Controller {
 
         RoutePattern pattern = new RoutePattern();
 
-        if (!session().containsKey("whoelse_user_id")) {
-            pattern.userId = Integer.parseInt(form.get("userId"));
-        }
-        else {
-            Integer id = Integer.parseInt(session().get("whoelse_user_id").toString());
-            System.out.println(id);
-            pattern.userId = id;
-        }
+        pattern.userId = Integer.parseInt(session().get("whoelse_user_id").toString());
 
+        pattern.type = "pattern";
         pattern.startAddress = form.get("startAddress");
         ArrayList<String> latlng = getLatLongLocality(form.get("startAddress"));
         if (!latlng.isEmpty()) {

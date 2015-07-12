@@ -15,18 +15,18 @@ import java.util.*;
 public class MatchResponse {
 
     public Map<RoutePattern, ArrayList<Tuple2<RoutePattern, Double>>> routePatterns;
+    public Map<RoutePattern, ArrayList<Tuple2<RoutePattern, Double>>> subscriptions;
     public ArrayList<RoutePattern> otherPatterns;
-
-//    public List<RoutePattern> routePatterns;
-//    public List<Matching> matchings;
 
     public MatchResponse() {
         routePatterns = new HashMap<RoutePattern, ArrayList<Tuple2<RoutePattern, Double>>>();
+        subscriptions = new HashMap<RoutePattern, ArrayList<Tuple2<RoutePattern, Double>>>();
         otherPatterns = new ArrayList<RoutePattern>();
     }
 
     public MatchResponse(RoutePattern searchPattern) {
         routePatterns = new HashMap<RoutePattern, ArrayList<Tuple2<RoutePattern, Double>>>();
+        subscriptions = new HashMap<RoutePattern, ArrayList<Tuple2<RoutePattern, Double>>>();
         otherPatterns = new ArrayList<RoutePattern>();
         System.out.println("Search");
         String carQuery;
@@ -43,10 +43,19 @@ public class MatchResponse {
             Double overhead = searchPattern.overhead(p);
             System.out.println("Overhead: " + overhead);
             if (searchPattern.isSimilarEnough(p, overhead)) {
-                if (routePatterns.isEmpty()) {
-                    routePatterns.put(searchPattern, new ArrayList<Tuple2<RoutePattern, Double>>());
+                if (p.type.equals("pattern")) {
+                    if (routePatterns.isEmpty()) {
+                        routePatterns.put(searchPattern, new ArrayList<Tuple2<RoutePattern, Double>>());
+                    }
+                    routePatterns.get(searchPattern).add(new Tuple2<RoutePattern, Double>(p, overhead));
                 }
-                routePatterns.get(searchPattern).add(new Tuple2<RoutePattern, Double>(p, overhead));
+                else {
+                    if (subscriptions.isEmpty()) {
+                        subscriptions.put(searchPattern, new ArrayList<Tuple2<RoutePattern, Double>>());
+                    }
+                    subscriptions.get(searchPattern).add(new Tuple2<RoutePattern, Double>(p, overhead));
+                }
+
             }
         }
         Collections.sort(routePatterns.get(searchPattern), new Comparator<Tuple2<RoutePattern, Double>>() {
@@ -60,9 +69,10 @@ public class MatchResponse {
 
     public MatchResponse(Integer userId) {
         routePatterns = new HashMap<RoutePattern, ArrayList<Tuple2<RoutePattern, Double>>>();
+        subscriptions = new HashMap<RoutePattern, ArrayList<Tuple2<RoutePattern, Double>>>();
         otherPatterns = new ArrayList<RoutePattern>();
 
-        String queryStr = "SELECT rp FROM RoutePattern rp WHERE (userId = " + userId + ")";
+        String queryStr = "SELECT rp FROM RoutePattern rp WHERE (type = 'pattern' AND userId = " + userId + ")";
         TypedQuery<RoutePattern> routePatternsQuery = JPA.em().createQuery(queryStr, RoutePattern.class);
 
         for (RoutePattern p: routePatternsQuery.getResultList()) {

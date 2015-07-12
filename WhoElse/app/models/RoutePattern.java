@@ -19,6 +19,7 @@ public class RoutePattern {
     @GeneratedValue
     public Integer routePatternId;
     public Integer userId;
+    public String type;
     public String startAddress;
     public String endAddress;
     public Double startLat;
@@ -52,17 +53,12 @@ public class RoutePattern {
             carQuery = "";
         }
 
-        String queryStr = "SELECT rp FROM RoutePattern rp WHERE (userId != " + userId + carQuery + ")";
+        String queryStr = "SELECT rp FROM RoutePattern rp WHERE (type = 'pattern' AND userId != " + userId + carQuery + ")";
         TypedQuery<RoutePattern> query = JPA.em().createQuery(queryStr, RoutePattern.class);
         for (RoutePattern p: query.getResultList()) {
             Double overhead = overhead(p);
             System.out.println("overhead: " + overhead);
             if (isSimilarEnough(p, overhead)) {
-//                System.out.println("================================================");
-//                System.out.println("User: " + p.userId);
-//                System.out.println("Start: " + p.startAddress + "(" + p.startLat + ", " + p.endLat + ")");
-//                System.out.println("End: " + p.endAddress + "(" + p.startLong + ", " + p.endLong + ")");
-//                System.out.println("================================================");
                 Matching m = new Matching();
                 m.userId1 = userId;
                 m.userId2 = p.userId;
@@ -76,14 +72,6 @@ public class RoutePattern {
                 System.out.println("rpID2: " + m.routePatternId2);
                 System.out.println("overhead: " + m.value);
             }
-
-//            routePatterns.add(p);
-//            String queryStr2 = "SELECT m FROM Matching m WHERE (routePatternId1 = " + p.routePatternId + ")";
-//            TypedQuery<Matching> query2 = JPA.em().createQuery(queryStr2, Matching.class);
-//            List<Matching> l = query2.getResultList();
-//            if (l != null) {
-//                matchings.add(l);
-//            }
         }
     }
 
