@@ -1,7 +1,8 @@
 # --- !Ups
 CREATE TABLE `Notification` (
 	`notificationId`	INTEGER PRIMARY KEY AUTOINCREMENT,
-	`userId`	INTEGER,
+	`from_userId`	INTEGER,
+	`to_userId`	INTEGER,
 	`nType`	TEXT,
 	`message`	TEXT,
 	`seen`	INTEGER,

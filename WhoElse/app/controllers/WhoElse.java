@@ -59,6 +59,38 @@ public class WhoElse extends Controller {
         return ok(views.html.userProfile.render(u, notif_list, pat_list));
     }
 
+    @Transactional
+    public static Result request(Integer userId, Integer patternId) {
+
+        //send notification to driver of pattern
+        User u = User.findById(Integer.parseInt(session().get("whoelse_user_id")));
+        String user = u.firstName + " " + u.lastName;
+        RoutePattern r = RoutePattern.getRoutePatternById(patternId);
+        String msg = user + " has requested to share the ride from " + r.startAddress + " to " + r.endAddress;
+
+        Notification n = new Notification(userId, Integer.parseInt(session().get("whoelse_user_id")), "Request", msg);
+        n.save();
+
+        flash("info", "Request has been sent successfully");
+
+        return redirect(controllers.routes.WhoElse.search());
+    }
+
+    @Transactional
+    public static Result message(Integer userId) {
+
+        //send message to driver of pattern
+        DynamicForm form = Form.form().bindFromRequest();
+        String msg = form.get("message");
+
+        Notification n = new Notification(userId, Integer.parseInt(session().get("whoelse_user_id")), "Message", msg);
+        n.save();
+
+        flash("info", "Message has been sent successfully");
+
+        return redirect(controllers.routes.WhoElse.search());
+    }
+
     public static Result logout() {
 
         session().clear();

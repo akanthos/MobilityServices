@@ -46,6 +46,13 @@ public class RoutePattern {
         TypedQuery<RoutePattern> query = JPA.em().createQuery(string_query, RoutePattern.class);
         return query.getResultList();
     }
+
+    public static RoutePattern getRoutePatternById(Integer r_id){
+        String string_query = "SELECT r FROM RoutePattern r WHERE routePatternId    = " + r_id;
+        TypedQuery<RoutePattern> query = JPA.em().createQuery(string_query, RoutePattern.class);
+        return query.getSingleResult();
+    }
+
     public void updateMatchings() {
         List<Matching> matchings = new ArrayList<>();
         List<Matching> routePatterns = new ArrayList<>();

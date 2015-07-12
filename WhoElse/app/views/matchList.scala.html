@@ -80,10 +80,11 @@
                   </button>
                 </a>
 
-                <button type="button" class="btn btn-danger btn-sm"  style="float: right" data-toggle="modal" data-target="#myModal@(r.userId)">
-                  <span class="glyphicon glyphicon-check" aria-hidden="true"></span> Request Rideshare
-                </button>
-
+                  <a href="@routes.WhoElse.request(r.userId, r.routePatternId)">
+                      <button type="button" class="btn btn-danger btn-sm" style="float: right">
+                          <span class="glyphicon glyphicon-check" aria-hidden="true"></span> Request Rideshare
+                      </button>
+                  </a>
 
                   <!-- Modal -->
                 <div class="modal fade" id="myModal@(r.userId)" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -94,11 +95,13 @@
                         <h4 class="modal-title" id="myModalLabel">Send message to user @(r.userId) </h4>
                       </div>
                       <div class="modal-body">
-                        <textarea rows="15" class="form-control" type="text"  placeholder="Insert your message here..."></textarea>
+                        <textarea rows="15" class="form-control" name="message" type="text" form="msgform" placeholder="Insert your message here..."></textarea>
                       </div>
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">Send</button>
+                          <form action="@routes.WhoElse.message(r.userId)" id="msgform" method="post">
+                              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                              <input type="submit" class="btn btn-primary" value="Send">
+                          </form>
                       </div>
                     </div>
                   </div>
