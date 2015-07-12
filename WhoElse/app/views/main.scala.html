@@ -12,29 +12,15 @@
 	
 	<title>WhoElse</title>
 	
-	
-	
-	
-
-   
-	
-
-	
-	
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel='shortcut icon' type='image/png' href='@routes.Assets.at("images/favicon.png")'>
-  
-	
-	
 	<!--
 	<link rel='stylesheet' href='@routes.WebJarAssets.at(WebJarAssets.locate("bootstrap.min.css"))'>-->
 	<link rel='stylesheet' href='@routes.Assets.at("stylesheets/bootstrap.min.css")'>
      <link rel='stylesheet' href='@routes.Assets.at("stylesheets/freelancer.css")'>
 	 <link rel='stylesheet' href='@routes.Assets.at("stylesheets/main.css")'>
-
 	<!--glyphicons -->
 	<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
-	
 	
 	
     <script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("jquery.min.js"))'></script>
@@ -49,7 +35,6 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-	
 </head>
     @*background="@routes.Assets.at("images/whoelse.jpg")"*@
 <body>
@@ -58,6 +43,11 @@
             <h1>WhoElse</h1>
         </a>
         @menu(template)
+            <div class="container">
+            @if(flash.containsKey("notification")) {
+                <div class="alert alert-warning">@flash.get("notification")</div>
+            }
+            </div>
         @content
         @footer(template)
     

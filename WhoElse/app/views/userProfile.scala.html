@@ -1,4 +1,5 @@
-@(user: User)
+@(user: User)(notif_list: List[Notification])
+
 @main("user") {
 
 <section>
@@ -7,15 +8,61 @@
             <div>
                 <h3>Notifications</h3>
             </div>
+            <div class="col-lg-12" ng-app="">
+                @if(!notif_list.isEmpty()) {
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Type</th>
+                                <th>Message</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        @for(n <- notif_list) {
+                            <tr>
+                                <td>@n.nType</td>
+                                <td><div>@n.message</div>
+                                    @if(n.nType == "Rating") {
+                                        <div ng-show="show && !finished">
+                                            <div class="row" ui-view></div>
+                                            <div class="row">
+                                                <button class="btn btn-success" type="button" ng-show="!finished" ng-click="finished = true" ng-init="finished = false">
+                                                    Done</button>
+                                            </div>
+                                        </div>
+                                    }
+                                </td>
+                                <td>
+                                @if(n.nType == "Rating") {
+                                    <button class="btn btn-success" type="button" ng-hide="show" ng-click="show = true" ng-init="show = false">
+                                        Rate</button>
+                                    <div class="alert alert-success" role='alert' ng-show="finished">
+                                        Thank you.
+                                    </div>
+                                } else {
+                                    @if(!n.nType.equals("Status Update")) {
+                                        @if(n.answered == 0){
+                                            <div class="btn-group-vertical">
+                                                <a href="" class="btn btn-success">Accept</a>
+                                                <a href="" class="btn btn-danger">Decline</a>
+                                            </div>
+                                        }
+                                    }
+                                }
+                                </td>
+                            </tr>
+                        }
+                        </tbody>
+                    </table>
+                } else {
+                    <h3>You do not have any notifications</h3> <br>
+                }
+            </div>
         }
-		
-		
 		
         <div>
             <h3>User Profile</h3>
-            
-			
-			
 			  <div class="span3 well">
         <center style="border:5px solid #ECF0F1; padding: 10px;">
 	
