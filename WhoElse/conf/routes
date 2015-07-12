@@ -5,6 +5,7 @@
 GET         /                     controllers.WhoElse.main()
 GET         /initSearch           controllers.WhoElse.search()
 POST        /search               controllers.RouteActions.search()
+POST        /subscribe            controllers.RouteActions.subscribe()
 GET         /profile              controllers.WhoElse.profile()
 POST        /addPattern           controllers.RouteActions.addPattern()
 POST        /deletePattern        controllers.RouteActions.deletePattern()
