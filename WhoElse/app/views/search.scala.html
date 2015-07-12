@@ -35,7 +35,7 @@
 
             <div class="col-xs-4">
             <label>Time Flexibility</label>
-            <input type=range id="flexibility" name="flexibility" min=0 value=30 max=180 step=30 oninput="outputUpdate(value)"><output for=fader id=volume>30 Minutes</output>
+            <input type=range id="flexibility" name="flexibility" value="@form.get("flexibility")" min=15 max=120 step=15 oninput="outputUpdate(value)"><output for=fader id=volume>@form.get("flexibility") minutes</output>
             </div>
             <br>
 
@@ -61,9 +61,27 @@
             <br>
         </form>
 		</div>
-		<hr style="margin-top:40px; margin-bottom:40px">
-        <div class="container" >
+
+
             @*==========================================================================================================*@
+            <hr style="margin-top:20px; margin-bottom:10px">
+            <div class="container" >
+            <h3>Matches</h3>
+
+                @if(!matchResponse.routePatterns.isEmpty) {
+                    <h3>Matched Routes</h3>
+                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    @matchList(matchResponse)
+                    </div>
+                }
+                @if(matchResponse.routePatterns.isEmpty) {
+                    <div class="alert alert-danger">No matches found for your route</div>
+                }
+            </div>
+            @*==========================================================================================================*@
+            <hr style="margin-top:20px; margin-bottom:10px">
+            <div class="container" >
+            <h3>Subscriptions</h3>
             @if(!matchResponse.subscriptions.isEmpty) {
                 <h3>Subscriptions you may be interested in</h3>
                 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
@@ -156,24 +174,12 @@
                 </div>
             }
             @if(matchResponse.subscriptions.isEmpty) {
-                <h3>No relevant subscriptions found</h3>
+                <div class="alert alert-danger">No relevant subscriptions found</div>
             }
+
             @*==========================================================================================================*@
-            @if(!matchResponse.routePatterns.isEmpty) {
-                <h3>Matched Routes</h3>
-                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-
-                    @matchList(matchResponse)
-
-
-                </div>
-            }
-            @if(matchResponse.routePatterns.isEmpty) {
-                <h3>No matches found for your route</h3>
-            }
-
-
-            @if(!searchResult.Start.equals("")) {
+                <hr style="margin-top:20px; margin-bottom:10px">
+                @if(!searchResult.Start.equals("")) {
                 <h3>Search Statistics</h3>
             }
 
