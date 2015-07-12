@@ -119,7 +119,7 @@ public class RoutePattern {
             System.out.println("Minutes: " + minutes );
             System.out.println("Overhead: " + overhead);
             boolean ret = ( minutes <= 30 &&  overhead >= 0.5 );
-            ret = ( minutes <= new Long(flexibility) && minutes <= new Long(p.flexibility) &&  overhead >= 0.5 );
+            ret = ( minutes <= new Long(flexibility) &&  overhead >= 0.5 );
             System.out.println(ret);
             return ret;
         } catch (ParseException e) {
