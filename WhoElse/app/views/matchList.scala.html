@@ -70,9 +70,16 @@
 
                   <!--MODAL TEST -->
                   <!-- Button trigger modal -->
-                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal@(r.userId)">
-                  <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>	 Send Message
-                </button>
+                  @if(session().containsKey("whoelse_user")) {
+                          <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal@(r.userId)">
+                          <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>Send Message
+                        </button>
+
+                  }else{
+                      <button onclick="myAlertFunction()" type="button" class="btn btn-success btn-sm">
+                          <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>Send Message
+                      </button>
+                  }
 
                 <a href="@routes.WhoElse.userProfile(r.userId)">
                   <button type="button" class="btn btn-primary btn-sm">
@@ -80,11 +87,19 @@
                   </button>
                 </a>
 
-                  <a href="@routes.WhoElse.request(r.userId, r.routePatternId)">
-                      <button type="button" class="btn btn-danger btn-sm" style="float: right">
-                          <span class="glyphicon glyphicon-check" aria-hidden="true"></span> Request Rideshare
-                      </button>
-                  </a>
+
+                    @if(session().containsKey("whoelse_user")) {
+                        <a href="@routes.WhoElse.request(r.userId, r.routePatternId)">
+                            <button type="button" class="btn btn-danger btn-sm" style="float : right">
+                                <span class="glyphicon glyphicon-check" aria-hidden="true"></span> Request Rideshare
+                            </button>
+                        </a>
+                    }else{
+                        <button onclick="myAlertFunction()" type="button" class="btn btn-danger btn-sm" style="float : right">
+                            <span class="glyphicon glyphicon-check" aria-hidden="true"></span> Request Rideshare
+                        </button>
+                    }
+
 
                   <!-- Modal -->
                 <div class="modal fade" id="myModal@(r.userId)" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -116,4 +131,9 @@
       </div>
     </div>
   </div>
+<script>
+function myAlertFunction() {
+    alert("You have to login before you can perform this action!");
+}
+</script>
 }
