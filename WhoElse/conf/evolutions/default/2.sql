@@ -2,7 +2,7 @@
 CREATE TABLE `RoutePattern` (
 	`routePatternId`	INTEGER PRIMARY KEY AUTOINCREMENT,
 	`userId`	INTEGER,
-	`type`	TEXT,
+	`request_type`	TEXT,
 	`startAddress`	TEXT,
 	`endAddress`	TEXT,
 	`startLat`	REAL,

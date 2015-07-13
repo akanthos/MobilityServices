@@ -10,8 +10,8 @@
       <p class="panel-title">
         <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseForm" aria-expanded="false" aria-controls="collapseForm" style="color:white !important">
           <p>
-		  <b><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Add New Pattern</b><br>
-		  Click here to add new personal patterns
+		  <b><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Add New Regular Route</b><br>
+		  Click here to add new personal regular routes
 		  </p>
         </a>
       </p>
@@ -65,10 +65,10 @@
 </div>
 
     @if(!matchResponse.routePatterns.isEmpty) {
-        <h3>My commuting patterns:</h3>
+        <h3>My commuting routes:</h3>
 
         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-            @matchList(matchResponse.routePatterns)
+            @matchList(matchResponse.routePatterns)("pattern")
         </div>
 
     }
@@ -94,7 +94,7 @@
 
                         <form name="deletePattern" action="@routes.RouteActions.deletePattern()" method="post">
                             <input id="patternId" name="patternId" value="@(p.routePatternId)" type="hidden" />
-                            <input type="submit" class="btn btn-default btn-sm" value="Delete this pattern!">
+                            <input type="submit" class="btn btn-default btn-sm" value="Delete this regular route!">
                         </form>
 
 
@@ -144,7 +144,7 @@
     }
     @if(matchResponse.routePatterns.isEmpty && matchResponse.otherPatterns.isEmpty) {
         <div>
-                <h3>No patterns found!</h3>
+                <h3>No routes found!</h3>
         </div>
     }
     </div>

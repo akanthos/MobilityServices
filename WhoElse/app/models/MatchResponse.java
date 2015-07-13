@@ -47,7 +47,7 @@ public class MatchResponse {
             Double overhead = searchPattern.overhead(p);
             System.out.println("Overhead: " + overhead);
             if (searchPattern.isSimilarEnough(p, overhead)) {
-                if (p.type.equals("pattern")) {
+                if (p.request_type.equals("pattern")) {
                     if (routePatterns.isEmpty()) {
                         routePatterns.put(searchPattern, new ArrayList<Tuple2<RoutePattern, Double>>());
                     }
@@ -87,7 +87,7 @@ public class MatchResponse {
         subscriptions = new HashMap<RoutePattern, ArrayList<Tuple2<RoutePattern, Double>>>();
         otherPatterns = new ArrayList<RoutePattern>();
 
-        String queryStr = "SELECT rp FROM RoutePattern rp WHERE (type = 'pattern' AND userId = " + userId + ")";
+        String queryStr = "SELECT rp FROM RoutePattern rp WHERE (request_type = 'pattern' AND userId = " + userId + ")";
         TypedQuery<RoutePattern> routePatternsQuery = JPA.em().createQuery(queryStr, RoutePattern.class);
 
         for (RoutePattern p: routePatternsQuery.getResultList()) {

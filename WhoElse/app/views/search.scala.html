@@ -69,11 +69,11 @@
             @*=========================               MATCHES                      =====================================*@
             <hr style="margin-top:20px; margin-bottom:10px">
             <div class="container" >
-            <h3>Matches</h3>
+            <h3>Regular Route Matches</h3>
 
                 @if(!matchResponse.routePatterns.isEmpty) {
                     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                    @matchList(matchResponse.routePatterns)
+                    @matchList(matchResponse.routePatterns)("pattern")
                     </div>
                 }
                 @if(matchResponse.routePatterns.isEmpty) {
@@ -88,7 +88,7 @@
 
                 @if(!matchResponse.subscriptions.isEmpty) {
                     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                    @matchList(matchResponse.subscriptions)
+                    @matchList(matchResponse.subscriptions)("subscription")
                     </div>
                 }
                 @if(matchResponse.subscriptions.isEmpty) {
@@ -209,8 +209,6 @@
             document.searchRoute.action ="@routes.WhoElse.getLoginPage()";
             document.searchRoute.method ="get";
         }
-        alert(document.searchRoute.action);
-        alert(document.searchRoute.method);
         return true;
     }
     </script>

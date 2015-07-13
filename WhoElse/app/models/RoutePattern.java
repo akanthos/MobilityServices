@@ -19,7 +19,7 @@ public class RoutePattern {
     @GeneratedValue
     public Integer routePatternId;
     public Integer userId;
-    public String type;
+    public String request_type;
     public String startAddress;
     public String endAddress;
     public Double startLat;
@@ -98,7 +98,7 @@ public class RoutePattern {
     public boolean isSimilarEnough(RoutePattern p, Double overhead) {
 
         System.out.println("Dummy: " + periodicity + " and pattern: " + p.periodicity );
-        if (p.type.equals("pattern")) {
+        if (p.request_type.equals("pattern")) {
             if (!periodicity.equals(p.periodicity)) return false;
         }
         Double startDistance = distance(this.startLat, p.startLat, this.startLong, p.startLong);

@@ -74,6 +74,7 @@ public class RouteActions extends Controller {
                 if (latlngloc1 != null) {
                     RoutePattern dummy = new RoutePattern();
                     dummy.userId = (session().get("whoelse_user")!=null)?(Integer.parseInt(session().get("whoelse_user_id").toString())):(new Integer(-1));
+                    dummy.request_type = "subscription";
                     dummy.startAddress = address1;
                     dummy.endAddress = address2;
                     dummy.startLat = Double.parseDouble(latlngloc1.get(0));
@@ -111,7 +112,7 @@ public class RouteActions extends Controller {
 
         RoutePattern p = new RoutePattern();
         p.userId = Integer.parseInt(session().get("whoelse_user_id").toString());
-        p.type = "subscription";
+        p.request_type = "subscription";
         String address1, address2;
         String message = "";
 
@@ -183,7 +184,7 @@ public class RouteActions extends Controller {
 
         pattern.userId = Integer.parseInt(session().get("whoelse_user_id").toString());
 
-        pattern.type = "pattern";
+        pattern.request_type = "pattern";
         pattern.startAddress = form.get("startAddress");
         ArrayList<String> latlng = getLatLongLocality(form.get("startAddress"));
         if (!latlng.isEmpty()) {
