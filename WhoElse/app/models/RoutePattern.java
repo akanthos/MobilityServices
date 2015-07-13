@@ -65,7 +65,7 @@ public class RoutePattern {
             carQuery = "";
         }
 
-        String queryStr = "SELECT rp FROM RoutePattern rp WHERE (type = 'pattern' AND userId != " + userId + carQuery + ")";
+        String queryStr = "SELECT rp FROM RoutePattern rp WHERE (request_type = 'pattern' AND userId != " + userId + carQuery + ")";
         TypedQuery<RoutePattern> query = JPA.em().createQuery(queryStr, RoutePattern.class);
         for (RoutePattern p: query.getResultList()) {
             Double overhead = overhead(p);
