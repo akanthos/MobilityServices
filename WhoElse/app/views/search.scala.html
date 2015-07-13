@@ -171,6 +171,16 @@
         <div class="container" id="mapContainer" style="height: 600px ; margin: 0px auto;"; >
                 <!-- This is where Google map will go. -->
         </div>
+
+
+
+            @*<hr style="margin-top:20px; margin-bottom:10px">*@
+            @*<div class="container" >*@
+                @*<h3>TEST</h3>*@
+                    @*<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">*@
+                        @*@allMap(matchResponse)*@
+                    @*</div>*@
+            @*</div>*@
 	</section>
     </body>
 
@@ -192,7 +202,13 @@
 //            );
     //pinpointMe(document, mapContainer, 'startAddress');
     function showRoute(startLat1, startLong1, endLat1, endLong1, startLat2, startLong2, endLat2, endLong2) {
-                showRouteOnMap(document, mapContainer, /*map,*/ startLat1, startLong1, endLat1, endLong1, startLat2, startLong2, endLat2, endLong2);
+        routesJson = "{ \"routes\" : [" +
+         "{\"startLat\" : \"" + startLat1 + "\", \"startLong\" : \"" + startLong1 + "\", \"endLat\" : \"" + endLat1 + "\" , \"endLong\" : \"" + endLong1+ "\" }," +
+         "{\"startLat\" : \"" + startLat2 + "\", \"startLong\" : \"" + startLong2 + "\", \"endLat\" : \"" + endLat2 + "\" , \"endLong\" : \"" + endLong2+ "\" }" +
+           "]}";
+        showAllRoutesOnMap(document, mapContainer, routesJson);
+//        showRouteOnMap(document, mapContainer, /*map,*/ startLat1, startLong1, endLat1, endLong1, startLat2, startLong2, endLat2, endLong2);
+
     }
     function firstSearch(document) {
         document.getElementById("searchRoute").submit();

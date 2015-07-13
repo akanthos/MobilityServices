@@ -1,0 +1,34 @@
+@(matchResponse: MatchResponse)
+<h3> TEST </h3>
+<script>
+    var empty = true;
+    var routesToShow = "{ \"routes\" : [";
+</script>
+
+
+@for((k, v) <- matchResponse.routePatterns) {
+
+    @for((p, value) <- v) {
+        <script>
+            empty = false;
+            routesToShow = routesToShow + "{\"startLat\" : @p.startLat , \"startLong\" : @p.startLong , \"endLat\" : @p.endLat , \"endLong\" : @p.endLong},";
+        </script>
+    }
+}
+
+<div class="container" id="mapContainerAll" style="height: 600px ; margin: 0px auto;"; >
+        <!-- This is where Google map will go. -->
+</div>
+
+<script>
+    if (!empty) {
+        routesToShow = routesToShow.substring(0, routesToShow.length - 1);
+    }
+    routesToShow = routesToShow + "]}";
+
+    var mapContainerAll = $( "#mapContainerAll" );
+//    alert(routesToShow);
+    if (!empty) {
+        showAllRoutesOnMap(document, mapContainerAll, routesToShow);
+    }
+</script>

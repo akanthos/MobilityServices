@@ -132,7 +132,7 @@
             </div>
 
 
-        </div>
+        
         }
 
         </div>
@@ -166,10 +166,19 @@
 //                    );
         var directionsDisplay;
         function showRoute(startLat1, startLong1, endLat1, endLong1, startLat2, startLong2, endLat2, endLong2) {
-                showRouteOnMap(document, mapContainer, /*map,*/ startLat1, startLong1, endLat1, endLong1, startLat2, startLong2, endLat2, endLong2);
+            routesJson = "{ \"routes\" : [" +
+             "{\"startLat\" : \"" + startLat1 + "\", \"startLong\" : \"" + startLong1 + "\", \"endLat\" : \"" + endLat1 + "\" , \"endLong\" : \"" + endLong1+ "\" }," +
+             "{\"startLat\" : \"" + startLat2 + "\", \"startLong\" : \"" + startLong2 + "\", \"endLat\" : \"" + endLat2 + "\" , \"endLong\" : \"" + endLong2+ "\" }" +
+               "]}";
+            showAllRoutesOnMap(document, mapContainer, routesJson);
+//                showRouteOnMap(document, mapContainer, /*map,*/ startLat1, startLong1, endLat1, endLong1, startLat2, startLong2, endLat2, endLong2);
         }
         function showSingleRoute(startLat, startLong, endLat, endLong) {
-                showSingleRouteOnMap(document, mapContainer, /*map,*/ startLat, startLong, endLat, endLong);
+            routesJson = "{ \"routes\" : [" +
+             "{\"startLat\" : \"" + startLat + "\", \"startLong\" : \"" + startLong + "\", \"endLat\" : \"" + endLat + "\" , \"endLong\" : \"" + endLong+ "\" }" +
+               "]}";
+            showAllRoutesOnMap(document, mapContainer, routesJson);
+//                showSingleRouteOnMap(document, mapContainer, /*map,*/ startLat, startLong, endLat, endLong);
         }
         function check_periodicity() {
                 if (document.getElementById('periodicity').value=="Weekly")

@@ -2,6 +2,61 @@
  * Created by Thanasis on 28/6/2015.
  */
 
+
+function showAllRoutesOnMap(document, mapContainer, routesToShow) {
+
+    var parsedRoutes;
+    try {
+        parsedRoutes = JSON.parse(routesToShow);
+    } catch (e) {
+        alert('wrong json');
+        return;
+    }
+    var map = new google.maps.Map(
+        mapContainer[ 0 ],
+        {
+            zoom: 15,
+            center: new google.maps.LatLng(
+                40.700683,
+                -73.925972
+            ),
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+    );
+    var routes = parsedRoutes.routes;
+    var start = [];
+    var end =[];
+    var request = [];
+    for(var i = 0; i < routes.length; i++) {
+        start[i] = new google.maps.LatLng(routes[i].startLat, routes[i].startLong);
+        end[i] = new google.maps.LatLng(routes[i].endLat, routes[i].endLong);
+        request[i] = {
+            origin : start[i],
+            destination : end[i],
+            travelMode : google.maps.TravelMode.DRIVING
+        };
+        sh(request[i], map);
+    }
+}
+
+function sh(req, map) {
+    var directionsDisplay = new google.maps.DirectionsRenderer({
+        polylineOptions: {
+            strokeColor: getRandomColor()
+        }
+    });
+    directionsDisplay.setMap(map);
+    var directionsService = new google.maps.DirectionsService();
+    directionsService.route(req, function(response, status) {
+        if (status == google.maps.DirectionsStatus.OK) {
+            directionsDisplay.setDirections(response);
+        }
+    });
+}
+
+
+
+
 function loadStuff(document) {
     if (navigator.geolocation) {
 
