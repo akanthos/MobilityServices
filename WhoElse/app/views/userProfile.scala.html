@@ -72,7 +72,8 @@
                                         <div class="col-xs-5">
                                             <li><label>Start: @(p.startAddress)</label></li>
                                             <li><label>Destination: @(p.endAddress)</label></li>
-                                            <li><label>Date: @(p.date)</label></li>
+											<li><label>Periodicity: @(p.periodicity)</label></li>
+                                            <!-- <li><label>Date: @(p.date)</label></li>-->
                                             <li><label>Time: @(p.time)</label></li>
                                         </div>
                                         <form name="deletePattern" action="@routes.RouteActions.deletePattern()" method="post">
