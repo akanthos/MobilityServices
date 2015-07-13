@@ -58,7 +58,7 @@ function loadStuff(document) {
     var dateTime = year+'/'+month+'/'+day+' '+hour+':'+minute;
 
     document.getElementById('time').value = hour+':'+minute;
-    document.getElementById('flexibility').value = '30';
+    document.getElementById('flexibility').value = '720';
     document.getElementById('date').value = year+'-'+month+'-'+day;
     document.getElementById('car').value = "No";
     document.getElementById('request_type').value = "Start commuting!";

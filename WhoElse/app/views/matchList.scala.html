@@ -5,13 +5,13 @@
     <div class="panel panel-default" xmlns="http://www.w3.org/1999/html">
     <div class="panel-heading" role="tab" id="headingOne">
       <div class="panel-title">
-        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse@if(request_type.equals("subscription")){Subscription}@(k.routePatternId)" aria-expanded="false" aria-controls="collapse@if(request_type.equals("subscription")){Subscription}@(k.routePatternId)">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse@(request_type)@(k.routePatternId)" aria-expanded="false" aria-controls="collapse@(request_type)@(k.routePatternId)">
             Start: @(k.startAddress)<br>
             End: @(k.endAddress)
         </a>
       </div>
     </div>
-    <div id="collapse@if(request_type.equals("subscription")){Subscription}@(k.routePatternId)" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+    <div id="collapse@(request_type)@(k.routePatternId)" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
       <div class="panel-body">
         @for((r, value) <- v) {
           <div>

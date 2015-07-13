@@ -31,7 +31,7 @@
                 <input class="form-control" id="time" type="time" name="time"  />
                 <br>
                 <label>Time Flexibility</label>
-                <input class="form-control" type=range id="flexibility" name="flexibility" min=0 value=30 max=180 step=30 oninput="outputUpdate(value)"><output for=fader id=volume>30 Minutes</output>
+                <input class="form-control" type=range id="flexibility" name="flexibility" min=0 value=30 max=720 step=30 oninput="outputUpdate(value)"><output for=fader id=volume>30 Minutes</output>
                 <br>
                 <label>Periodicity</label>
                 <select class="form-control" id="periodicity" name="periodicity" onchange="check_periodicity()">
@@ -202,7 +202,19 @@
                 return re.test(t.value);
         }
         function outputUpdate(vol) {
-            document.querySelector('#volume').value = vol + " minutes";
+            if (vol >= 60) {
+                var hours = Math.floor(vol / 60);
+                var minutes = vol - hours*60;
+                var minStr = hours + " hours ";
+                 if (minutes > 0) {
+                    minStr = minStr + minutes + " minutes";
+                 }
+                 document.querySelector('#volume').value = minStr;
+            }
+            else {
+                document.querySelector('#volume').value = vol + " minutes";
+            }
         }
+        outputUpdate(document.getElementById("flexibility").value);
 </script>
 }

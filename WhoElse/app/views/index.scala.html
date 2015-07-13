@@ -10,35 +10,37 @@
         <script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("jquery.min.js"))'></script>
         <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
         <script type='text/javascript' src='@routes.Assets.at("scripts/mapTools.js")'></script>
+        <script type='text/javascript' src='@routes.Assets.at("scripts/autocomplete.js")'></script>
     </head>
-    <body class="lander" onload="loadStuff(document);">
+    <body class="lander" onload="loadStuff(document);initializeAutocomplete(document);">
 
 
         <div class="intro-header">
             <div class="container">
                 <span id="background">
                 <div class="row" style="">
-                    <div class="col-lg-12">
+                    <div class="col-lg-12" style="display: flex; justify-content: space-around; align-content: center">
                         <div align="center" class="intro-message">
                             <h1 style="color:black;">WhoElse</h1>
                             <img class="img-circle img-responsive" src="@routes.Assets.at("images/profile.png")" alt="">
                             <h3 style="font-weight:bold;">Find your best suitable commuting partner - in an easy, automated and effortless way</h3>
                             <hr class="intro-divider">
-
                             <form id="searchRoute" name="searchRoute" action="@routes.RouteActions.search()" method="post">
                                 <input class="form-control" id="startAddress" type="hidden" name="startAddress" value="" />
-                                <input class="form-control" id="endAddress" type="hidden" name="endAddress" value="" />
                                 <input class="form-control" id="date" name="date" type="hidden" value=""/>
                                 <input class="form-control col-xs-2" id="time" name="time" type="hidden" value=""/>
-                                <input class="form-control col-xs-2" id="flexibility" name="flexibility" type="hidden" value=""/>
-                                <input class="form-control" id="car" name="car" type="hidden"  value=""/>
+                                <input class="form-control col-xs-2" id="flexibility" name="flexibility" type="hidden" value="720"/>
+                                <input class="form-control" id="car" name="car" type="hidden"  value="No"/>
                                 <input class="form-control" id="request_type" name="request_type" type="hidden"  value=""/>
+                                <input class="form-control" id="endAddress" type="text" name="endAddress" style="width: 600px; height: inherit" placeholder="Enter a destination" onFocus="geolocate()" />
+                                <br>
                                 <button class="btn btn-success btn-lg" id="action_button" name="action_button" onclick="loadStuff(document);" value="Start commuting!">Start commuting!</button>
                             </form>
-
                         </div>
                     </div>
                 </div>
+
+
                 </span>
             </div>
         </div>
