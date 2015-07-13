@@ -6,7 +6,7 @@
     <div class="container">
         @if( session().get("whoelse_user") != null && user.userId == session().get("whoelse_user_id").toInt ){
             <div>
-                <h3>Notifications</h3>
+                <h3>My Notifications</h3>
             </div>
             <div class="col-lg-12" ng-app="">
                 @if(!notif_list.isEmpty()) {
@@ -60,7 +60,7 @@
                 }
             </div>
             <div>
-                <h3>Regular Routes</h3>
+                <h3>My Regular Routes</h3>
             </div>
             <div class="col-lg-12" ng-app="">
                 @if(!patternList.isEmpty()) {

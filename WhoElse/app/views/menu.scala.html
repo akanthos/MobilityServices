@@ -36,10 +36,10 @@
 
 									@if(session().containsKey("whoelse_user")){
 										<p align="center" style="font-size: 14px">Logged in as <br>
-										<a style="font-size: 16px; color:black" href="@routes.WhoElse.userProfile(session().get("whoelse_user_id").toInt)">@session().get("whoelse_user")</a></p>
-                                        <a class="btn btn-success" style="color:black; font-size: 14px" href="@routes.WhoElse.logout()">
-                                        <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Logout</a>
-									}
+										<a style="font-size: 16px; color:black" href="@routes.WhoElse.userProfile(session().get("whoelse_user_id").toInt)"><span class="glyphicon glyphicon-user" aria-hidden="true"> </span>@session().get("whoelse_user")</a></p>
+                                        <center><a class="btn btn-success" style="color:black; font-size: 14px" href="@routes.WhoElse.logout()">
+                                        <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Logout</a></center>
+									}  
 									@if(!session().containsKey("whoelse_user")){
                                         <p align="center" style="font-size: 14px">Not Logged In</p>
                                         <a class="btn btn-success" style="color:black; font-size: 14px" href="@routes.WhoElse.getLoginPage()"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Login</a>

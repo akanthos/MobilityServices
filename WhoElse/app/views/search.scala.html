@@ -114,15 +114,16 @@
             }
 
             @if(!searchResult.Start.equals("")) {
-                <b>Searches starting in @searchResult.Start (@searchResult.StartMatches occurances)</b>
-
+				
+                <b>Searches starting in @searchResult.Start (@searchResult.StartMatches occurances)</b><br>
+				Other users are interested in commutes from @searchResult.Start to:
                 <table class="table table-striped table-bordered">
                     <tr>
                         <th>
                             Destination Address
                         </th>
                         <th>
-                            Frequency
+                            Number of commuters
                         </th>
                     </tr>
                     @for(a <- searchResult.StartArea) {
@@ -140,15 +141,15 @@
 
 
             @if(!searchResult.Stop.equals("")) {
-                <b>Searches with destination in @searchResult.Stop (@searchResult.EndMatches occurances)</b>
-
+                <b>Searches with destination in @searchResult.Stop (@searchResult.EndMatches occurances)</b><br>
+				Other users are interested in commutes to @searchResult.Start from:
                 <table class="table table-striped table-bordered">
                     <tr>
                         <th>
                             Start Address
                         </th>
                         <th>
-                            Frequency
+                            Number of commuters
                         </th>
                     </tr>
                     @for(a <- searchResult.DestinationAreas) {
