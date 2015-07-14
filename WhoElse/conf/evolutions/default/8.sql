@@ -23,6 +23,9 @@ INSERT INTO `RoutePattern` (routePatternId,userId,request_type,startAddress,endA
 INSERT INTO `RoutePattern` (routePatternId,userId,request_type,startAddress,endAddress,startLat,startLong,endLat,endLong,time,flexibility,date,punctuality,periodicity,car) VALUES (27,8,'pattern','Ingolstadt, Germany','Garching, Forschungszentrum, Garching, Germany',48.7665351,11.4257541,48.264671,11.671391,'17:30',30,'',0.0,'Daily','Yes');
 INSERT INTO `RoutePattern` (routePatternId,userId,request_type,startAddress,endAddress,startLat,startLong,endLat,endLong,time,flexibility,date,punctuality,periodicity,car) VALUES (28,8,'pattern','Ingolstadt, Germany','Garching, Forschungszentrum, Garching, Germany',48.7665351,11.4257541,48.264671,11.671391,'11:00',30,'',0.0,'Daily','Yes');
 
+INSERT INTO `RoutePattern` (routePatternId,userId,request_type,startAddress,endAddress,startLat,startLong,endLat,endLong,time,flexibility,date,punctuality,periodicity,car) VALUES (30,8,'subscription','Sendlinger Tor, Munich, Germany','Garching-Hochbr?ck, Hochbr?ck, Germany',48.133445,11.566683,48.2473897,11.6309592,'13:00',90,'2015-07-14',NULL,'','Yes');
+
+
 
 INSERT INTO `Matching` (matchingId,userId1,userId2,routePatternId1,routePatternId2,value) VALUES (5,8,7,9,7,0.989061162834593);
 INSERT INTO `Matching` (matchingId,userId1,userId2,routePatternId1,routePatternId2,value) VALUES (6,8,7,10,8,0.989061162834593);
