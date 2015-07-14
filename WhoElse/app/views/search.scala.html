@@ -11,9 +11,9 @@
 
             <div class="col-xs-4">
                 <label>Looking for:</label>
-                <select class="form-control" id="car" name="car" >
-                    <option value="No" selected="selected">Drivers</option>
-                    <option value="Yes">Passengers</option>
+                <select class="form-control" selected  id="car" name="car" >
+                    <option value="No" @if(form.get("car").equals("No")){selected="selected"} >Drivers</option>
+                    <option value="Yes" @if(form.get("car").equals("Yes")){selected="selected"} >Passengers</option>
                 </select>
             </div>
 
