@@ -53,6 +53,12 @@ public class RoutePattern {
         return query.getSingleResult();
     }
 
+    public static List<RoutePattern> getOnlyRoutePatternByUserId(Integer user_id){
+        String string_query = "SELECT r FROM RoutePattern r WHERE (request_type = 'pattern') AND (userId    = " + user_id + ")";
+        TypedQuery<RoutePattern> query = JPA.em().createQuery(string_query, RoutePattern.class);
+        return query.getResultList();
+    }
+
     public void updateMatchings() {
         List<Matching> matchings = new ArrayList<>();
         List<Matching> routePatterns = new ArrayList<>();

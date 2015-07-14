@@ -54,7 +54,7 @@ public class WhoElse extends Controller {
         session("whoelse_notifications", "0");
 
         List<Notification> notif_list = Notification.getNotificationsByUserId(userId);
-        List<RoutePattern> pat_list = RoutePattern.getRoutePatternsByUserId(userId);
+        List<RoutePattern> pat_list = RoutePattern.getOnlyRoutePatternByUserId(userId);
 
         return ok(views.html.userProfile.render(u, notif_list, pat_list));
     }
