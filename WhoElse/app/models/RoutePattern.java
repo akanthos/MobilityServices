@@ -95,8 +95,13 @@ public class RoutePattern {
         Double rideshareDistance = distance(p.startLat, p.endLat, p.startLong, p.endLong);
         return aloneDistance / (startDistance + rideshareDistance + endDistance);
     }
-    public boolean isSimilarEnough(RoutePattern p, Double overhead) {
+    public Double limit(RoutePattern p) {
 
+        Double rideshareDistance = distance(p.startLat, p.endLat, p.startLong, p.endLong);
+        return rideshareDistance / 4.0 ;
+    }
+    public boolean isSimilarEnough(RoutePattern p, Double overhead) {
+        Double limit = limit(p);
         System.out.println("Dummy: " + periodicity + " and pattern: " + p.periodicity );
         if (p.request_type.equals("pattern")) {
             if (!periodicity.equals(p.periodicity)) return false;
@@ -104,10 +109,10 @@ public class RoutePattern {
         Double startDistance = distance(this.startLat, p.startLat, this.startLong, p.startLong);
         Double endDistance = distance(this.endLat, p.endLat, this.endLong, p.endLong);
         if (this.endLat == 0.0 && this.endLong == 0.0) {
-            if (startDistance > 5000) return false;
+            if (startDistance > limit) return false;
         }
         else {
-            if (startDistance > 5000 || endDistance > 5000) return false;
+            if (startDistance > limit || endDistance > limit) return false;
         }
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
         try {

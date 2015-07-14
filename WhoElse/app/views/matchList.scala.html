@@ -33,9 +33,9 @@
                     <div class="panel-heading"><img href='@routes.Assets.at("images/leave.png")'>
                       <span style="font-size:50px; color: #017F0F">
                         <span class="glyphicon glyphicon-tree-deciduous  glyphicon-ok" aria-hidden="true"></span>
-                        @if(value<0.7) {<span style="font-size:50px; color: gray">}
-                        <span class="glyphicon glyphicon-tree-deciduous  glyphicon-ok" aria-hidden="true"></span>
                         @if(value<0.8) {<span style="font-size:50px; color: gray">}
+                        <span class="glyphicon glyphicon-tree-deciduous  glyphicon-ok" aria-hidden="true"></span>
+                        @if(value<0.85) {<span style="font-size:50px; color: gray">}
                         <span class="glyphicon glyphicon-tree-deciduous  glyphicon-ok" aria-hidden="true"></span>
                         @if(value<0.9) {<span style="font-size:50px; color: gray">}
                         <span class="glyphicon glyphicon-tree-deciduous  glyphicon-ok" aria-hidden="true"></span>
@@ -47,10 +47,10 @@
                           @if(value>0.9){
                               <span style="font-size:50px; color: green">
                           }else{
-                              @if(value>0.8){
+                              @if(value>0.85){
                                     <span style="font-size:50px; color: orange">
                               }else{
-                                @if(value>0.7){
+                                @if(value>0.8){
                                     <span style="font-size:50px; color: darkorange">
                                 }else{
                                     <span style="font-size:50px; color: red">
