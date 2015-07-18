@@ -73,11 +73,11 @@ public class WhoElse extends Controller {
             }
         }
 
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = new Date();
-//        System.out.println(dateFormat.format(date)); //2014/08/06 15:59:48
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH:mm");
+        Date datetime = new Date();
+        System.out.println(dateFormat.format(datetime)); //2014/08/06 15:59:48
 
-        return ok(views.html.userProfile.render(u, notif_list, pat_list, activePatterns, dateFormat.format(date)));
+        return ok(views.html.userProfile.render(u, notif_list, pat_list, activePatterns, dateFormat.format(datetime)));
     }
 
     @Transactional

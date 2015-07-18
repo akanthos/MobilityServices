@@ -1,4 +1,4 @@
-@(user: User)(notif_list: List[Notification])(patternList: List[RoutePattern])(activePatterns: Map[RoutePattern, ArrayList[Route]])(date: String)
+@(user: User)(notif_list: List[Notification])(patternList: List[RoutePattern])(activePatterns: Map[RoutePattern, ArrayList[Route]])(datetime: String)
 
 @main("user") {
 
@@ -103,7 +103,7 @@
             @if(!activePatterns.isEmpty()) {
 
                 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                @rideshareHistory(activePatterns)("active")(date)
+                @rideshareHistory(activePatterns)("active")(datetime)
                 </div>
 
 

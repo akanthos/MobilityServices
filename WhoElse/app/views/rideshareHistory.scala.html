@@ -1,4 +1,4 @@
-@(activePatterns: Map[RoutePattern, ArrayList[Route]])(request_type: String)(date: String)
+@(activePatterns: Map[RoutePattern, ArrayList[Route]])(request_type: String)(datetime: String)
 
 @for((k, v) <- activePatterns) {
 
@@ -28,7 +28,7 @@
                                 </div>
                             </ul>
                         </div>
-                        @if(route.date > date) {
+                        @if((route.date + route.time) > datetime) {
                         <div  class="panel-footer" >
                             @*<a href="@routes.WhoElse.userProfile(k.userId)">*@
                             @*<a href="">*@
