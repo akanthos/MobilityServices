@@ -1,4 +1,4 @@
-@(user: User)(notif_list: List[Notification])(patternList: List[RoutePattern])
+@(user: User)(notif_list: List[Notification])(patternList: List[RoutePattern])(activePatterns: Map[RoutePattern, ArrayList[Route]])(date: String)
 
 @main("user") {
 
@@ -23,7 +23,7 @@
                             <tr>
                                 <td>@n.nType</td>
                                 <td><div>@n.message</div>
-                                    @if(n.nType == "Rating") {
+                                    @if(n.nType.equals("Rating") && n.answered != 1) {
                                         <div ng-show="show && !finished">
                                             <div class="row" ui-view></div>
                                             <div class="row">
@@ -34,25 +34,25 @@
                                     }
                                 </td>
                                 <td>
-                                @if(n.nType == "Rating") {
+                                @if(n.nType.equals("Rating") && n.answered != 1) {
                                     <button class="btn btn-success" type="button" ng-hide="show" ng-click="show = true" ng-init="show = false">
                                         Rate</button>
                                     <div class="alert alert-success" role='alert' ng-show="finished">
                                         Thank you.
                                     </div>
                                 } else {
-                                    @if(n.nType.equals("Info")) {
+                                    @if(n.nType.equals("Info") && n.answered != 1) {
                                         <div class="btn-group-vertical">
                                             <a href="@routes.WhoElse.acceptNotification(n.notificationId, n.patternId1, n.patternId2)" class="btn btn-success">Got it!</a>
                                         </div>
                                     } else {
-                                        @if(n.nType.equals("Request")) {
+                                        @if(n.nType.equals("Request") && n.answered != 1) {
                                                 <div class="btn-group-vertical">
                                                     <a href="@routes.WhoElse.acceptNotification(n.notificationId, n.patternId1, n.patternId2)" class="btn btn-success">Accept</a>
                                                     <a href="@routes.WhoElse.declineNotification(n.notificationId, n.patternId1, n.patternId2)" class="btn btn-danger">Decline</a>
                                                 </div>
                                         } else {
-                                            @if(n.nType.equals("Message")) {
+                                            @if(n.nType.equals("Message") && n.answered != 1) {
                                                 <div class="btn-group-vertical">
                                                     @*<a href="@routes.WhoElse.acceptNotification(n.notificationId, n.patternId1, n.patternId2)" class="btn btn-success">Send Reply</a>*@
                                                     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal@(n.from_userId)">
@@ -97,6 +97,22 @@
                 }
             </div>
             <div>
+                <h3>My Active Routes</h3>
+            </div>
+            <div class="col-lg-12" ng-app="">
+            @if(!activePatterns.isEmpty()) {
+
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                @rideshareHistory(activePatterns)("active")(date)
+                </div>
+
+
+
+            } else {
+                <div class="alert alert-danger">You do not have any active routes</div>
+            }
+            </div>
+            <div>
                 <h3>My Regular Routes</h3>
             </div>
             <div class="col-lg-12" ng-app="">
@@ -115,7 +131,10 @@
                                         </div>
                                         <form name="deletePattern" action="@routes.RouteActions.deletePattern()" method="post">
                                             <input id="patternId" name="patternId" value="@(p.routePatternId)" type="hidden" />
-                                            <input type="submit" class="btn btn-default btn-sm" value="Delete this pattern!">
+                                            <button type="submit" class="btn btn-default btn-sm" onclick="document.deletePattern.submit();">
+                                                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete this pattern!
+                                            </button>
+                                            @*<input type="submit" class="btn btn-default btn-sm" value="Delete this pattern!">*@
                                         </form>
                                     </ul>
                                 </div>
@@ -126,6 +145,7 @@
                     <div class="alert alert-danger">You do not have any stored route patterns</div>
                 }
             </div>
+
         }
 		
         <div>
@@ -171,4 +191,8 @@
 
 	
 </section>
+
+<script>
+
+</script>
 }

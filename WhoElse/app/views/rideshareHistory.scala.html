@@ -1,0 +1,73 @@
+@(activePatterns: Map[RoutePattern, ArrayList[Route]])(request_type: String)(date: String)
+
+@for((k, v) <- activePatterns) {
+
+    <div class="panel panel-default" xmlns="http://www.w3.org/1999/html">
+        <div class="panel-heading" role="tab" id="headingOne">
+            <div class="panel-title">
+                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse@(request_type)@(k.routePatternId)" aria-expanded="false" aria-controls="collapse@(request_type)@(k.routePatternId)">
+            Start: @(k.startAddress)<br>
+                    End: @(k.endAddress)
+        </a>
+            </div>
+        </div>
+        <div id="collapse@(request_type)@(k.routePatternId)" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+            <div class="panel-body">
+            @for(route <- v) {
+                <div>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><b>Route</b></div>
+
+
+                        <div class="panel-body">
+                            <ul class="list-group">
+                                <div class="col-xs-5">
+                                    @if(!route.date.equals("")){<li><label>Date: @(route.date) </label></li>}
+                                    <li><label>Time: @(route.time) </label></li>
+                                </div>
+                            </ul>
+                        </div>
+                        @if(route.date > date) {
+                        <div  class="panel-footer" >
+                            @*<a href="@routes.WhoElse.userProfile(k.userId)">*@
+                            @*<a href="">*@
+                            <button type="button" class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Cancel
+                            </button>
+                            @*</a>*@
+
+                        } else {
+                            @*<a href="@routes.WhoElse.userProfile(k.userId)">*@
+                            @*<a href="">*@
+                            <button type="button" class="btn btn-success btn-sm">
+                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Took place normally
+                            </button>
+                            @*</a>*@
+                            @*<a href="">*@
+                            <button type="button" class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Cancelled
+                            </button>
+                            @*</a>*@
+                            @*<a href="">*@
+                            <button type="button" class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span> Report!
+                            </button>
+                            @*</a>*@
+                        }
+                        </div>
+                    </div>
+                </div>
+                <br>
+
+                }
+            </div>
+        </div>
+    </div>
+    <script>
+    function myAlertFunction() {
+        alert("You have to login before you can perform this action!");
+    }
+
+    </script>
+}

@@ -35,7 +35,7 @@ public class Notification {
 
     public static List<Notification> getNotificationsByUserId(Integer user_id) {
 
-        String string_query = "SELECT n FROM Notification n WHERE (to_userId    = " + user_id + "AND answered = 0)";
+        String string_query = "SELECT n FROM Notification n WHERE to_userId    = " + user_id ;
         TypedQuery<Notification> query = JPA.em().createQuery(string_query, Notification.class);
         return query.getResultList();
     }

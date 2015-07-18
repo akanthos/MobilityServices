@@ -9,7 +9,9 @@ import play.mvc.Controller;
 import play.mvc.Result;
 
 import javax.persistence.TypedQuery;
-import java.util.List;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class WhoElse extends Controller {
 
@@ -58,7 +60,24 @@ public class WhoElse extends Controller {
         List<Notification> notif_list = Notification.getNotificationsByUserId(userId);
         List<RoutePattern> pat_list = RoutePattern.getOnlyRoutePatternByUserId(userId);
 
-        return ok(views.html.userProfile.render(u, notif_list, pat_list));
+        List<Matching> activeMatchings = Matching.getActiveMatchingsByUserId(userId);
+
+
+
+        Map<RoutePattern, ArrayList<Route>> activePatterns = new HashMap<>();
+        for (RoutePattern p: pat_list) {
+            for (Matching am: activeMatchings) {
+                if (p.routePatternId == am.routePatternId1 || p.routePatternId == am.routePatternId2) {
+                    activePatterns.put(p, Route.getRoutesByPatternId(p.routePatternId));
+                }
+            }
+        }
+
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
+//        System.out.println(dateFormat.format(date)); //2014/08/06 15:59:48
+
+        return ok(views.html.userProfile.render(u, notif_list, pat_list, activePatterns, dateFormat.format(date)));
     }
 
     @Transactional
