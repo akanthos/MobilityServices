@@ -5,6 +5,7 @@ CREATE TABLE `Matching` (
 	`userId2`	INTEGER,
 	`routePatternId1`	INTEGER,
 	`routePatternId2`	INTEGER,
+	`active`	INTEGER,
 	`value`	REAL
 );
 

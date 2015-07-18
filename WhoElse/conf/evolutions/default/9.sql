@@ -3,8 +3,10 @@ CREATE TABLE `Notification` (
 	`notificationId`	INTEGER PRIMARY KEY AUTOINCREMENT,
 	`from_userId`	INTEGER,
 	`to_userId`	INTEGER,
-	`nType`	TEXT,
-	`message`	TEXT,
+	`nType`	NUMERIC,
+	`message`	BLOB,
+	`patternId1`	INTEGER,
+	`patternId2`	INTEGER,
 	`seen`	INTEGER,
 	`answered`	INTEGER
 );

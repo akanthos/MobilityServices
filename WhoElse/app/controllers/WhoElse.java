@@ -3,10 +3,12 @@ package controllers;
 import models.*;
 import play.data.DynamicForm;
 import play.data.Form;
+import play.db.jpa.JPA;
 import play.db.jpa.Transactional;
 import play.mvc.Controller;
 import play.mvc.Result;
 
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 public class WhoElse extends Controller {
@@ -60,15 +62,15 @@ public class WhoElse extends Controller {
     }
 
     @Transactional
-    public static Result request(Integer userId, Integer patternId) {
+    public static Result request(Integer userId, Integer patternId1, Integer patternId2) {
 
         //send notification to driver of pattern
         User u = User.findById(Integer.parseInt(session().get("whoelse_user_id")));
         String user = u.firstName + " " + u.lastName;
-        RoutePattern r = RoutePattern.getRoutePatternById(patternId);
-        String msg = user + " has requested to share the ride from " + r.startAddress + " to " + r.endAddress;
+        RoutePattern r1 = RoutePattern.getRoutePatternById(patternId1);
+        String msg = user + " has requested to share the ride from " + r1.startAddress + " to " + r1.endAddress;
 
-        Notification n = new Notification(userId, Integer.parseInt(session().get("whoelse_user_id")), "Request", msg);
+        Notification n = new Notification(userId, Integer.parseInt(session().get("whoelse_user_id")), "Request", msg, patternId1, patternId2);
         n.save();
 
         flash("info", "Request has been sent successfully");
@@ -77,14 +79,66 @@ public class WhoElse extends Controller {
     }
 
     @Transactional
-    public static Result message(Integer userId) {
+    public static Result acceptNotification(Integer notificationId, Integer patternId1, Integer patternId2) {
+        //send notification to driver of pattern
+        Notification n = Notification.getNotificationsById(notificationId);
+        Notification.updateNotificationAsAnswered(notificationId);
+
+        if (!n.nType.equals("Info") && !n.nType.equals("Message")) {
+            User fromUser = User.findById(n.from_userId);
+            User toUser = User.findById(n.to_userId);
+            String user = toUser.firstName + " " + toUser.lastName;
+            RoutePattern r1 = RoutePattern.getRoutePatternById(patternId1);
+            String msg = user + " has accepted to share the ride from " + r1.startAddress + " to " + r1.endAddress;
+
+            Notification answer = new Notification(fromUser.userId, toUser.userId, "Info", msg, patternId1, patternId2);
+            answer.save();
+
+            // Store matching as active
+            Matching match = Matching.getMatchingByRouteIds(patternId1, patternId2);
+            match.active = 1;
+            match.update();
+
+
+            flash("info", "Rideshare acceptance was sent successfully");
+        }
+        return redirect(controllers.routes.WhoElse.userProfile(n.to_userId));
+    }
+
+    @Transactional
+    public static Result declineNotification(Integer notificationId, Integer patternId1, Integer patternId2) {
+        //send notification to driver of pattern
+        Notification n = Notification.getNotificationsById(notificationId);
+
+        Notification.updateNotificationAsAnswered(notificationId);
+        User fromUser = User.findById(n.from_userId);
+        User toUser = User.findById(n.to_userId);
+        String user = toUser.firstName + " " + toUser.lastName;
+        RoutePattern r1 = RoutePattern.getRoutePatternById(patternId1);
+        String msg = user + " has declined to share the ride from " + r1.startAddress + " to " + r1.endAddress;
+
+        Notification answer = new Notification(fromUser.userId, toUser.userId, "Info", msg, patternId1, patternId2);
+        answer.save();
+
+        flash("info", "Rideshare declining was sent successfully");
+        return redirect(controllers.routes.WhoElse.userProfile(n.to_userId));
+    }
+
+    @Transactional
+    public static Result message(Integer userId, Integer sourceNotificationId) {
 
         //send message to driver of pattern
         DynamicForm form = Form.form().bindFromRequest();
         String msg = form.get("message");
 
-        Notification n = new Notification(userId, Integer.parseInt(session().get("whoelse_user_id")), "Message", msg);
+        Notification n = new Notification(userId, Integer.parseInt(session().get("whoelse_user_id")), "Message", msg, 0, 0);
         n.save();
+
+        if (sourceNotificationId != -1) {
+            Notification n2 = Notification.getNotificationsById(sourceNotificationId);
+            n2.answered = 1;
+            n2.update();
+        }
 
         flash("info", "Message has been sent successfully");
 

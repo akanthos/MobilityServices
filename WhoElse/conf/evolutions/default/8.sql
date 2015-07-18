@@ -27,8 +27,8 @@ INSERT INTO `RoutePattern` (routePatternId,userId,request_type,startAddress,endA
 
 
 
-INSERT INTO `Matching` (matchingId,userId1,userId2,routePatternId1,routePatternId2,value) VALUES (5,8,7,9,7,0.989061162834593);
-INSERT INTO `Matching` (matchingId,userId1,userId2,routePatternId1,routePatternId2,value) VALUES (6,8,7,10,8,0.989061162834593);
+INSERT INTO `Matching` (matchingId,userId1,userId2,routePatternId1,routePatternId2,active,value) VALUES (5,8,7,9,7,0,0.989061162834593);
+INSERT INTO `Matching` (matchingId,userId1,userId2,routePatternId1,routePatternId2,active,value) VALUES (6,8,7,10,8,0,0.989061162834593);
 
 INSERT INTO `Search` (searchId,startAreaSubLoc,startAreaLoc,endAreaSubLoc,endAreaLoc) VALUES (1,'Ramersdorf-Perlach','München','','Garching');
 INSERT INTO `Search` (searchId,startAreaSubLoc,startAreaLoc,endAreaSubLoc,endAreaLoc) VALUES (2,'','Munich','','Garching');

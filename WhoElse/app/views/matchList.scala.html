@@ -90,7 +90,7 @@
 
 
                     @if(session().containsKey("whoelse_user")) {
-                        <a href="@routes.WhoElse.request(r.userId, r.routePatternId)">
+                        <a href="@routes.WhoElse.request(r.userId, k.routePatternId, r.routePatternId)">
                             <button type="button" class="btn btn-danger btn-sm" style="float : right">
                                 <span class="glyphicon glyphicon-check" aria-hidden="true"></span> Request Rideshare
                             </button>
@@ -114,7 +114,7 @@
                         <textarea rows="15" class="form-control" name="message" type="text" form="msgform" placeholder="Insert your message here..."></textarea>
                       </div>
                       <div class="modal-footer">
-                          <form action="@routes.WhoElse.message(r.userId)" id="msgform" method="post">
+                          <form action="@routes.WhoElse.message(r.userId, -1)" id="msgform" method="post">
                               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                               <input type="submit" class="btn btn-primary" value="Send">
                           </form>

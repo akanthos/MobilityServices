@@ -82,12 +82,14 @@ public class RoutePattern {
                 m.userId2 = p.userId;
                 m.routePatternId1 = routePatternId;
                 m.routePatternId2 = p.routePatternId;
+                m.active = 0;
                 m.value = overhead;
                 m.save();
                 System.out.println("Saved matching: ");
                 System.out.println("ID: " + m.matchingId);
                 System.out.println("rpID1: " + m.routePatternId1);
                 System.out.println("rpID2: " + m.routePatternId2);
+                System.out.println("active: " + m.active);
                 System.out.println("overhead: " + m.value);
             }
         }
