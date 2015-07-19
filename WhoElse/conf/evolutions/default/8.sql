@@ -31,7 +31,9 @@ INSERT INTO `Matching` (matchingId,userId1,userId2,routePatternId1,routePatternI
 INSERT INTO `Matching` (matchingId,userId1,userId2,routePatternId1,routePatternId2,active,value) VALUES (6,8,7,10,8,0,0.989061162834593);
 
 INSERT INTO `Route` (routeId,userId,routePatternId,date,time,done) VALUES (1,8,9,'2015-07-18','08:00',1);
-INSERT INTO `Route` (routeId,userId,routePatternId,date,time,done) VALUES (2,8,9,'2015-07-19','08:00',0);
+INSERT INTO `Route` (routeId,userId,routePatternId,date,time,done) VALUES (2,7,7,'2015-07-18','08:00',1);
+INSERT INTO `Route` (routeId,userId,routePatternId,date,time,done) VALUES (3,8,9,'2015-07-19','08:00',0);
+INSERT INTO `Route` (routeId,userId,routePatternId,date,time,done) VALUES (4,7,7,'2015-07-19','08:00',0);
 
 INSERT INTO `Search` (searchId,startAreaSubLoc,startAreaLoc,endAreaSubLoc,endAreaLoc) VALUES (1,'Ramersdorf-Perlach','München','','Garching');
 INSERT INTO `Search` (searchId,startAreaSubLoc,startAreaLoc,endAreaSubLoc,endAreaLoc) VALUES (2,'','Munich','','Garching');
