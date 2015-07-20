@@ -4,9 +4,10 @@ CREATE TABLE `Notification` (
 	`from_userId`	INTEGER,
 	`to_userId`	INTEGER,
 	`nType`	NUMERIC,
-	`message`	BLOB,
+	`message`	TEXT,
 	`patternId1`	INTEGER,
 	`patternId2`	INTEGER,
+	`matchingId`	INTEGER,
 	`seen`	INTEGER,
 	`answered`	INTEGER
 );

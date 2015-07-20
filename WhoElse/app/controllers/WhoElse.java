@@ -7,6 +7,7 @@ import play.db.jpa.JPA;
 import play.db.jpa.Transactional;
 import play.mvc.Controller;
 import play.mvc.Result;
+import scala.Tuple2;
 
 import javax.persistence.TypedQuery;
 import java.text.DateFormat;
@@ -30,8 +31,6 @@ public class WhoElse extends Controller {
         String message = "";
         SearchResponse searchResponse = new SearchResponse();
         MatchResponse matchResponse = new MatchResponse();
-
-        //TODO: run a search with current data and give a meaningful result
 
         return ok(views.html.search.render(searchResponse, matchResponse, message, form));
     }
@@ -68,7 +67,7 @@ public class WhoElse extends Controller {
         for (RoutePattern p: pat_list) {
             for (Matching am: activeMatchings) {
                 if (p.routePatternId == am.routePatternId1 || p.routePatternId == am.routePatternId2) {
-                    activePatterns.put(p, Route.getRoutesByPatternId(p.routePatternId));
+                    activePatterns.put(p, Route.getRoutesByPatternId(am.routePatternId1));
                 }
             }
         }
@@ -77,7 +76,29 @@ public class WhoElse extends Controller {
         Date datetime = new Date();
         System.out.println(dateFormat.format(datetime)); //2014/08/06 15:59:48
 
-        return ok(views.html.userProfile.render(u, notif_list, pat_list, activePatterns, dateFormat.format(datetime)));
+        HashMap<RoutePattern, ArrayList<Tuple2<RoutePattern, Double>>> alternatives = new HashMap<>();
+        List<Notification> cancels = Notification.getCancelNotificationsNotAnswered(userId);
+
+        if (!cancels.isEmpty()) {
+            Integer matchingId = cancels.get(0).matchingId;
+            Matching currentMatching = Matching.getMatchingById(matchingId);
+            Integer myPatternId = (currentMatching.userId1==userId)?(currentMatching.routePatternId1):(currentMatching.routePatternId2);
+            RoutePattern myPattern = RoutePattern.getRoutePatternById(myPatternId);
+
+            MatchResponse mr = new MatchResponse(myPattern);
+            if (!mr.routePatterns.isEmpty()) {
+                ArrayList<Tuple2<RoutePattern,Double>> bestValue = new ArrayList<>();
+                bestValue.add(mr.routePatterns.get(myPattern).get(0));
+                mr.routePatterns.remove(myPattern);
+//                mr.routePatterns.put(myPattern, bestValue);
+                alternatives.put(myPattern, bestValue);
+            }
+
+
+            // TODO: Find alternatives
+        }
+
+        return ok(views.html.userProfile.render(u, notif_list, pat_list, activePatterns, dateFormat.format(datetime), alternatives));
     }
 
     @Transactional
@@ -97,30 +118,13 @@ public class WhoElse extends Controller {
         return redirect(controllers.routes.WhoElse.search());
     }
 
-//    @Transactional
-//    public static Result cancelRoute(Integer targetUserId, Integer targetPatternId, Integer routeId) {
-//
-//        //send notification to driver of pattern
-//        User u = User.findById(Integer.parseInt(session().get("whoelse_user_id")));
-//        String user = u.firstName + " " + u.lastName;
-//        RoutePattern r1 = RoutePattern.getRoutePatternById(targetPatternId);
-//        String msg = user + " has cancelled the rideshare from " + r1.startAddress + " to " + r1.endAddress;
-//
-//        Notification n = new Notification(targetUserId, Integer.parseInt(session().get("whoelse_user_id")), "Cancel", msg, patternId1, patternId2);
-//        n.save();
-//
-//        flash("info", "Request has been sent successfully");
-//
-//        return redirect(controllers.routes.WhoElse.userProfile());
-//    }
-
     @Transactional
     public static Result acceptNotification(Integer notificationId, Integer patternId1, Integer patternId2) {
         //send notification to driver of pattern
         Notification n = Notification.getNotificationsById(notificationId);
         Notification.updateNotificationAsAnswered(notificationId);
 
-        if (!n.nType.equals("Info") && !n.nType.equals("Message")) {
+        if (!n.nType.equals("Info") && !n.nType.equals("Message") && !n.nType.equals("Cancel")) {
             User fromUser = User.findById(n.from_userId);
             User toUser = User.findById(n.to_userId);
             String user = toUser.firstName + " " + toUser.lastName;
@@ -166,8 +170,6 @@ public class WhoElse extends Controller {
         r.status = "success";
         r.update();
 
-        // TODO: change also status for route of other user....
-
         flash("info", "Route status saved successfully");
         return redirect(controllers.routes.WhoElse.userProfile(Integer.parseInt(session().get("whoelse_user_id")  )));
     }
@@ -176,8 +178,6 @@ public class WhoElse extends Controller {
         Route r = Route.getRouteById(routeId);
         r.status = "cancelled";
         r.update();
-
-        // TODO: change also status for route of other user....
 
         flash("info", "Route status saved successfully");
         return redirect(controllers.routes.WhoElse.userProfile(Integer.parseInt(session().get("whoelse_user_id")  )));
@@ -188,7 +188,18 @@ public class WhoElse extends Controller {
         r.status = "cancelled";
         r.update();
 
+        Matching m = Matching.getMatchingById(r.matchingId);
+        RoutePattern p = RoutePattern.getRoutePatternById(m.routePatternId1);
+        User me = User.findById(Integer.parseInt(session().get("whoelse_user_id")));
+
+        Integer partnerId = (m.userId1 == me.userId)?(m.userId2):(m.userId1);
+        User partner = User.findById(partnerId);
+
+        String msg = "User " + me.firstName + " " + me.lastName + " has cancelled route from '" + p.startAddress + "' to '" + p.endAddress + " on " + r.date;
+
         // TODO: Provide another matching !!!!!!!
+        Notification n = new Notification(partnerId, me.userId, "Cancel", msg, 0, 0, r.matchingId);
+        n.save();
 
         flash("info", "Route status saved successfully");
         return redirect(controllers.routes.WhoElse.userProfile(Integer.parseInt(session().get("whoelse_user_id")  )));

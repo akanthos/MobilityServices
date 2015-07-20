@@ -52,4 +52,10 @@ public class Matching {
         return query.getResultList();
     }
 
+    public static List<Matching> getMatchingsByUserId(Integer userId) {
+        String queryStr = "SELECT m FROM Matching m WHERE (userId1 = " + userId + " OR userId2 = " + userId + ")";
+        TypedQuery<Matching> query = JPA.em().createQuery(queryStr, Matching.class);
+        return query.getResultList();
+    }
+
 }

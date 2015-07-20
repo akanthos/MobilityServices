@@ -16,7 +16,7 @@ public class Route {
     @GeneratedValue
     public Integer routeId;
 
-    public Integer userId;
+    public Integer matchingId;
     public Integer routePatternId;
     public String date;
     public String time;

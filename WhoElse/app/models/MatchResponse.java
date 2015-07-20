@@ -29,17 +29,11 @@ public class MatchResponse {
         subscriptions = new HashMap<RoutePattern, ArrayList<Tuple2<RoutePattern, Double>>>();
         otherPatterns = new ArrayList<RoutePattern>();
         System.out.println("Search");
-        String carQuery;
+        String carQuery = " WHERE (userId != " + searchPattern.userId + ")";
         if (searchPattern.car.equals("No")) {
-            carQuery = " WHERE (car = 'Yes'";
-            if (searchPattern.userId != -1) {
-                carQuery = carQuery + " AND userId != " + searchPattern.userId;
-            }
-            carQuery = carQuery + ")";
+            carQuery = carQuery + " AND (car = 'Yes')";
         }
-        else {
-            carQuery = "";
-        }
+
         String queryStr = "SELECT rp FROM RoutePattern rp" + carQuery;
         TypedQuery<RoutePattern> query = JPA.em().createQuery(queryStr, RoutePattern.class);
         List<RoutePattern> results = query.getResultList();

@@ -1,4 +1,4 @@
-@(user: User)(notif_list: List[Notification])(patternList: List[RoutePattern])(activePatterns: Map[RoutePattern, ArrayList[Route]])(datetime: String)
+@(user: User)(notif_list: List[Notification])(patternList: List[RoutePattern])(activePatterns: Map[RoutePattern, ArrayList[Route]])(datetime: String)(alternatives: Map[RoutePattern, ArrayList[(RoutePattern, Double)]])
 
 @main("user") {
 
@@ -60,6 +60,12 @@
                                                     </button>
                                                     <a href="@routes.WhoElse.acceptNotification(n.notificationId, 0, 0)" class="btn btn-success">Got it!</a>
                                                 </div>
+                                            } else {
+                                                @if(n.nType.equals("Cancel") && n.answered != 1) {
+                                                    <div class="btn-group-vertical">
+                                                        <a href="@routes.WhoElse.acceptNotification(n.notificationId, n.patternId1, n.patternId2)" class="btn btn-success">Got it!</a>
+                                                    </div>
+                                                }
                                             }
                                         }
                                     }
@@ -96,6 +102,23 @@
                     <div class="alert alert-danger">You do not have any notifications</div>
                 }
             </div>
+
+
+            @if(!alternatives.isEmpty()) {
+                <div>
+                    <h3>Alternative Routes</h3>
+                </div>
+                <div class="col-lg-12" ng-app="">
+                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    @matchList(alternatives)("alternatives")
+                    </div>
+                </div>
+
+                <div class="hidable" id="mapContainer" style="height: 600px ; width: 80%; margin: 0px auto;"; >
+                        <!-- This is where Google map will go. -->
+                </div>
+            }
+
             <div>
                 <h3>My Active Routes</h3>
             </div>
@@ -185,6 +208,8 @@
         <div>
             <h3>Comments</h3>
         </div>
+
+
     </div>
 	
 	<br><br>
@@ -193,6 +218,14 @@
 </section>
 
 <script>
-
+    var mapContainer = $( "#mapContainer" );
+    var directionsDisplay;
+    function showRoute(startLat1, startLong1, endLat1, endLong1, startLat2, startLong2, endLat2, endLong2) {
+        routesJson = "{ \"routes\" : [" +
+         "{\"startLat\" : \"" + startLat1 + "\", \"startLong\" : \"" + startLong1 + "\", \"endLat\" : \"" + endLat1 + "\" , \"endLong\" : \"" + endLong1+ "\" }," +
+         "{\"startLat\" : \"" + startLat2 + "\", \"startLong\" : \"" + startLong2 + "\", \"endLat\" : \"" + endLat2 + "\" , \"endLong\" : \"" + endLong2+ "\" }" +
+           "]}";
+        showAllRoutesOnMap(document, mapContainer, routesJson);
+    }
 </script>
 }

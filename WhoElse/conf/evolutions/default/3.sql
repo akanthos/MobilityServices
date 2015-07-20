@@ -1,7 +1,7 @@
 # --- !Ups
 CREATE TABLE `Route` (
 	`routeId`	INTEGER PRIMARY KEY AUTOINCREMENT,
-	`userId`	INTEGER,
+	`matchingId`	INTEGER,
 	`routePatternId`	INTEGER,
 	`date`	TEXT,
 	`time`	TEXT,

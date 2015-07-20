@@ -37,7 +37,7 @@ public class User {
     {
         User user;
 
-        String query = "SELECT u FROM User u WHERE userId = '" + id + "')";
+        String query = "SELECT u FROM User u WHERE userId = " + id  ;
         TypedQuery<User> query_result = JPA.em().createQuery(query, User.class);
         user = query_result.getSingleResult();
 

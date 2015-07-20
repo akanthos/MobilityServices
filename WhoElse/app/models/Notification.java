@@ -17,6 +17,7 @@ public class Notification {
     public String message;
     public Integer patternId1;
     public Integer patternId2;
+    public Integer matchingId;
     public Integer seen;
     public Integer answered;
 
@@ -29,6 +30,19 @@ public class Notification {
         this.message = mes;
         this.patternId1 = patternId1;
         this.patternId2 = patternId2;
+        this.matchingId = 0;
+        this.seen = 0;
+        this.answered = 0;
+    }
+
+    public Notification(Integer to_u, Integer from_u, String nTyp, String mes, Integer patternId1, Integer patternId2, Integer matchingId){
+        this.to_userId = to_u;
+        this.from_userId = from_u;
+        this.nType = nTyp;
+        this.message = mes;
+        this.patternId1 = patternId1;
+        this.patternId2 = patternId2;
+        this.matchingId = matchingId;
         this.seen = 0;
         this.answered = 0;
     }
@@ -46,6 +60,13 @@ public class Notification {
         TypedQuery<Notification> query = JPA.em().createQuery(string_query, Notification.class);
         List<Notification> res = query.getResultList();
         return res.size();
+    }
+
+    public static List<Notification> getCancelNotificationsNotAnswered(Integer user_id) {
+
+        String string_query = "SELECT n FROM Notification n WHERE (answered = 0) AND (nType = 'Cancel') AND (to_userId = " + user_id + ")";
+        TypedQuery<Notification> query = JPA.em().createQuery(string_query, Notification.class);
+        return query.getResultList();
     }
 
     public static void updateNotificationsAsSeen(Integer user_id) {
