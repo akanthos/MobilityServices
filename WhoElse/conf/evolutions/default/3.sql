@@ -5,7 +5,8 @@ CREATE TABLE `Route` (
 	`routePatternId`	INTEGER,
 	`date`	TEXT,
 	`time`	TEXT,
-	`done`	INTEGER
+	`done`	INTEGER,
+	`status`	TEXT
 );
 
 # --- !Downs

@@ -30,30 +30,37 @@
                         </div>
                         @if((route.date + route.time) > datetime) {
                         <div  class="panel-footer" >
-                            @*<a href="@routes.WhoElse.userProfile(k.userId)">*@
-                            @*<a href="">*@
-                            <button type="button" class="btn btn-danger btn-sm">
-                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Cancel
-                            </button>
-                            @*</a>*@
+                            <a href="@routes.WhoElse.cancelRoute(route.routeId)">
+                                <button type="button" class="btn btn-danger btn-sm">
+                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Cancel
+                                </button>
+                            </a>
 
                         } else {
-                            @*<a href="@routes.WhoElse.userProfile(k.userId)">*@
-                            @*<a href="">*@
-                            <button type="button" class="btn btn-success btn-sm">
-                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Took place normally
-                            </button>
-                            @*</a>*@
-                            @*<a href="">*@
-                            <button type="button" class="btn btn-danger btn-sm">
-                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Cancelled
-                            </button>
-                            @*</a>*@
-                            @*<a href="">*@
-                            <button type="button" class="btn btn-danger btn-sm">
-                                <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span> Report!
-                            </button>
-                            @*</a>*@
+                            @if(route.status.equals("wait")) {
+                                <a href="@routes.WhoElse.confirmRoute(route.routeId)">
+                                    <button type="button" class="btn btn-success btn-sm">
+                                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                        Took place normally
+                                    </button>
+                                </a>
+                                <a href="@routes.WhoElse.cancelledRoute(route.routeId)">
+                                    <button type="button" class="btn btn-danger btn-sm">
+                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Cancelled
+                                    </button>
+                                </a>
+                                @*<a href="">*@
+                                    <button type="button" class="btn btn-danger btn-sm">
+                                        <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span> Report!
+                                    </button>
+                                @*</a>*@
+                            } else {
+                                @if(route.status.equals("success")) {
+                                    Status: Route completed successfully
+                                } else {
+                                    Status: Route was cancelled
+                                }
+                            }
                         }
                         </div>
                     </div>

@@ -30,10 +30,18 @@ INSERT INTO `RoutePattern` (routePatternId,userId,request_type,startAddress,endA
 INSERT INTO `Matching` (matchingId,userId1,userId2,routePatternId1,routePatternId2,active,value) VALUES (5,8,7,9,7,1,0.989061162834593);
 INSERT INTO `Matching` (matchingId,userId1,userId2,routePatternId1,routePatternId2,active,value) VALUES (6,8,7,10,8,0,0.989061162834593);
 
-INSERT INTO `Route` (routeId,userId,routePatternId,date,time,done) VALUES (1,8,9,'2015-07-18','08:00',1);
-INSERT INTO `Route` (routeId,userId,routePatternId,date,time,done) VALUES (2,7,7,'2015-07-18','08:00',1);
-INSERT INTO `Route` (routeId,userId,routePatternId,date,time,done) VALUES (3,8,9,'2015-07-19','08:00',0);
-INSERT INTO `Route` (routeId,userId,routePatternId,date,time,done) VALUES (4,7,7,'2015-07-19','08:00',0);
+INSERT INTO `Route` (routeId,userId,routePatternId,date,time,done,status) VALUES (1,8,9,'2015-07-16','08:00',1,'wait');
+INSERT INTO `Route` (routeId,userId,routePatternId,date,time,done,status) VALUES (2,7,7,'2015-07-16','08:00',1,'wait');
+INSERT INTO `Route` (routeId,userId,routePatternId,date,time,done,status) VALUES (3,8,9,'2015-07-17','08:00',1,'wait');
+INSERT INTO `Route` (routeId,userId,routePatternId,date,time,done,status) VALUES (4,7,7,'2015-07-17','08:00',1,'wait');
+INSERT INTO `Route` (routeId,userId,routePatternId,date,time,done,status) VALUES (5,8,9,'2015-07-18','08:00',1,'wait');
+INSERT INTO `Route` (routeId,userId,routePatternId,date,time,done,status) VALUES (6,7,7,'2015-07-18','08:00',1,'wait');
+INSERT INTO `Route` (routeId,userId,routePatternId,date,time,done,status) VALUES (7,8,9,'2015-07-19','08:00',0,'wait');
+INSERT INTO `Route` (routeId,userId,routePatternId,date,time,done,status) VALUES (8,7,7,'2015-07-19','08:00',0,'wait');
+INSERT INTO `Route` (routeId,userId,routePatternId,date,time,done,status) VALUES (9,8,9,'2015-07-20','08:00',0,'wait');
+INSERT INTO `Route` (routeId,userId,routePatternId,date,time,done,status) VALUES (10,7,7,'2015-07-20','08:00',0,'wait');
+
+
 
 INSERT INTO `Search` (searchId,startAreaSubLoc,startAreaLoc,endAreaSubLoc,endAreaLoc) VALUES (1,'Ramersdorf-Perlach','München','','Garching');
 INSERT INTO `Search` (searchId,startAreaSubLoc,startAreaLoc,endAreaSubLoc,endAreaLoc) VALUES (2,'','Munich','','Garching');

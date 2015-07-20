@@ -97,6 +97,23 @@ public class WhoElse extends Controller {
         return redirect(controllers.routes.WhoElse.search());
     }
 
+//    @Transactional
+//    public static Result cancelRoute(Integer targetUserId, Integer targetPatternId, Integer routeId) {
+//
+//        //send notification to driver of pattern
+//        User u = User.findById(Integer.parseInt(session().get("whoelse_user_id")));
+//        String user = u.firstName + " " + u.lastName;
+//        RoutePattern r1 = RoutePattern.getRoutePatternById(targetPatternId);
+//        String msg = user + " has cancelled the rideshare from " + r1.startAddress + " to " + r1.endAddress;
+//
+//        Notification n = new Notification(targetUserId, Integer.parseInt(session().get("whoelse_user_id")), "Cancel", msg, patternId1, patternId2);
+//        n.save();
+//
+//        flash("info", "Request has been sent successfully");
+//
+//        return redirect(controllers.routes.WhoElse.userProfile());
+//    }
+
     @Transactional
     public static Result acceptNotification(Integer notificationId, Integer patternId1, Integer patternId2) {
         //send notification to driver of pattern
@@ -141,6 +158,40 @@ public class WhoElse extends Controller {
 
         flash("info", "Rideshare declining was sent successfully");
         return redirect(controllers.routes.WhoElse.userProfile(n.to_userId));
+    }
+
+    @Transactional
+    public static Result confirmRoute(Integer routeId) {
+        Route r = Route.getRouteById(routeId);
+        r.status = "success";
+        r.update();
+
+        // TODO: change also status for route of other user....
+
+        flash("info", "Route status saved successfully");
+        return redirect(controllers.routes.WhoElse.userProfile(Integer.parseInt(session().get("whoelse_user_id")  )));
+    }
+    @Transactional
+    public static Result cancelledRoute(Integer routeId) {
+        Route r = Route.getRouteById(routeId);
+        r.status = "cancelled";
+        r.update();
+
+        // TODO: change also status for route of other user....
+
+        flash("info", "Route status saved successfully");
+        return redirect(controllers.routes.WhoElse.userProfile(Integer.parseInt(session().get("whoelse_user_id")  )));
+    }
+    @Transactional
+    public static Result cancelRoute(Integer routeId) {
+        Route r = Route.getRouteById(routeId);
+        r.status = "cancelled";
+        r.update();
+
+        // TODO: Provide another matching !!!!!!!
+
+        flash("info", "Route status saved successfully");
+        return redirect(controllers.routes.WhoElse.userProfile(Integer.parseInt(session().get("whoelse_user_id")  )));
     }
 
     @Transactional

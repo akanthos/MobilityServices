@@ -21,6 +21,7 @@ public class Route {
     public String date;
     public String time;
     public Integer done;
+    public String status;
 
     public void save() {
         JPA.em().persist(this);
@@ -29,6 +30,7 @@ public class Route {
     public void delete() {
         JPA.em().remove(this);
     }
+    public void update() { JPA.em().merge(this); }
 
     public static ArrayList<Route> getRoutesByPatternId(Integer routePatternId) {
         String queryStr = "SELECT r FROM Route r WHERE routePatternId = " + routePatternId ;
@@ -38,6 +40,12 @@ public class Route {
             ret.add(r);
         }
         return ret;
+    }
+
+    public static Route getRouteById(Integer routeId) {
+        String queryStr = "SELECT r FROM Route r WHERE routeId = " + routeId ;
+        TypedQuery<Route> query = JPA.em().createQuery(queryStr, Route.class);
+        return query.getSingleResult();
     }
 
 }
