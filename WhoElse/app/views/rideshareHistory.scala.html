@@ -29,7 +29,7 @@
                             </ul>
                         </div>
                         <div  class="panel-footer" >
-                            @if((route.date + route.time) > datetime) {
+                            @if((route.date + "-" + route.time) > datetime) {
                                 @if(route.status.equals("wait")) {
                                     <a href="@routes.WhoElse.cancelRoute(route.routeId)">
                                         <button type="button" class="btn btn-danger btn-sm">
