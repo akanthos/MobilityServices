@@ -121,10 +121,13 @@ public class WhoElse extends Controller {
         //send notification to driver of pattern
         User u = User.findById(Integer.parseInt(session().get("whoelse_user_id")));
         String user = u.firstName + " " + u.lastName;
-        RoutePattern r1 = RoutePattern.getRoutePatternById(patternId1);
+
+        Matching m = Matching.getMatchingByRouteIds(patternId1, patternId2);
+        RoutePattern r1 = RoutePattern.getRoutePatternById(m.routePatternId1);
+        RoutePattern r2 = RoutePattern.getRoutePatternById(m.routePatternId2);
         String msg = user + " has requested to share the ride from " + r1.startAddress + " to " + r1.endAddress;
 
-        Notification n = new Notification(userId, Integer.parseInt(session().get("whoelse_user_id")), "Request", msg, patternId1, patternId2);
+        Notification n = new Notification(userId, Integer.parseInt(session().get("whoelse_user_id")), "Request", msg, r1.routePatternId, r2.routePatternId, m.matchingId);
         n.save();
 
         flash("info", "Request has been sent successfully");
@@ -145,14 +148,30 @@ public class WhoElse extends Controller {
             RoutePattern r1 = RoutePattern.getRoutePatternById(patternId1);
             String msg = user + " has accepted to share the ride from " + r1.startAddress + " to " + r1.endAddress;
 
-            Notification answer = new Notification(fromUser.userId, toUser.userId, "Info", msg, patternId1, patternId2);
+            Notification answer = new Notification(fromUser.userId, toUser.userId, "Info", msg, patternId1, patternId2, n.matchingId);
             answer.save();
 
             // Store matching as active
-            Matching match = Matching.getMatchingByRouteIds(patternId1, patternId2);
+            Matching match = Matching.getMatchingById(n.matchingId);
             match.active = 1;
             match.update();
 
+            // Store new Routes
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date todayTime = new Date();
+            Date tomorrowTime = new Date(todayTime.getTime() + (1000 * 60 * 60 * 24));
+            Date dayAfterTomorrowTime = new Date(tomorrowTime.getTime() + (1000 * 60 * 60 * 24));
+
+            String today = dateFormat.format(todayTime);
+            String tomorrow = dateFormat.format(tomorrowTime);
+            String dayAfterTomorrow = dateFormat.format(dayAfterTomorrowTime);
+
+            Route route1 = new Route(match.matchingId, match.routePatternId1, today, RoutePattern.getRoutePatternById(match.routePatternId1).time);
+            route1.save();
+            Route route2 = new Route(match.matchingId, match.routePatternId1, tomorrow, RoutePattern.getRoutePatternById(match.routePatternId1).time);
+            route2.save();
+            Route route3 = new Route(match.matchingId, match.routePatternId1, dayAfterTomorrow, RoutePattern.getRoutePatternById(match.routePatternId1).time);
+            route3.save();
 
             flash("info", "Rideshare acceptance was sent successfully");
         }

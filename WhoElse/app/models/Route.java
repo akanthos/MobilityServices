@@ -31,6 +31,22 @@ public class Route {
     }
     public void update() { JPA.em().merge(this); }
 
+    public Route () {
+        this.matchingId = 0;
+        this.routePatternId = 0;
+        this.date = "";
+        this.time = "";
+        this.status = "wait";
+    }
+
+    public Route(Integer matchingId, Integer routePatternId, String date, String time) {
+        this.matchingId = matchingId;
+        this.routePatternId = routePatternId;
+        this.date = date;
+        this.time = time;
+        this.status = "wait";
+    }
+
     public static ArrayList<Route> getRoutesByPatternId(Integer routePatternId) {
         String queryStr = "SELECT r FROM Route r WHERE routePatternId = " + routePatternId ;
         TypedQuery<Route> query = JPA.em().createQuery(queryStr, Route.class);
