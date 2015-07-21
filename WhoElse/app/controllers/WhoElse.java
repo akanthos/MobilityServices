@@ -83,19 +83,33 @@ public class WhoElse extends Controller {
             Integer matchingId = cancels.get(0).matchingId;
             Matching currentMatching = Matching.getMatchingById(matchingId);
             Integer myPatternId = (currentMatching.userId1==userId)?(currentMatching.routePatternId1):(currentMatching.routePatternId2);
+            Integer partnerPatternId = (currentMatching.userId1==userId)?(currentMatching.routePatternId2):(currentMatching.routePatternId1);
             RoutePattern myPattern = RoutePattern.getRoutePatternById(myPatternId);
 
             MatchResponse mr = new MatchResponse(myPattern);
+            ArrayList<Tuple2<RoutePattern,Double>> response;
             if (!mr.routePatterns.isEmpty()) {
+                // TODO: Clean old matching
+
                 ArrayList<Tuple2<RoutePattern,Double>> bestValue = new ArrayList<>();
-                bestValue.add(mr.routePatterns.get(myPattern).get(0));
-                mr.routePatterns.remove(myPattern);
-//                mr.routePatterns.put(myPattern, bestValue);
-                alternatives.put(myPattern, bestValue);
+                for (Tuple2<RoutePattern, Double> v: mr.routePatterns.get(myPattern)) {
+                    if (v._1().routePatternId != partnerPatternId) {
+                        bestValue.add(v);
+                    }
+                }
+                if (!bestValue.isEmpty()){
+                    Collections.sort(bestValue, new Comparator<Tuple2<RoutePattern, Double>>() {
+                        @Override
+                        public int compare(Tuple2<RoutePattern, Double> t1, Tuple2<RoutePattern, Double> t2) {
+
+                            return t2._2().compareTo(t1._2());
+                        }
+                    });
+                    response = new ArrayList<>();
+                    response.add(bestValue.get(0));
+                    alternatives.put(myPattern, bestValue);
+                }
             }
-
-
-            // TODO: Find alternatives
         }
 
         return ok(views.html.userProfile.render(u, notif_list, pat_list, activePatterns, dateFormat.format(datetime), alternatives));
@@ -197,7 +211,6 @@ public class WhoElse extends Controller {
 
         String msg = "User " + me.firstName + " " + me.lastName + " has cancelled route from '" + p.startAddress + "' to '" + p.endAddress + " on " + r.date;
 
-        // TODO: Provide another matching !!!!!!!
         Notification n = new Notification(partnerId, me.userId, "Cancel", msg, 0, 0, r.matchingId);
         n.save();
 

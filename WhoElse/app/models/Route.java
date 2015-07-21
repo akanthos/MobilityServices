@@ -20,7 +20,6 @@ public class Route {
     public Integer routePatternId;
     public String date;
     public String time;
-    public Integer done;
     public String status;
 
     public void save() {

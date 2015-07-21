@@ -51,14 +51,14 @@
                                     </a>
                                     <a href="@routes.WhoElse.cancelledRoute(route.routeId)">
                                         <button type="button" class="btn btn-danger btn-sm">
-                                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Cancelled
+                                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Did not take place
                                         </button>
                                     </a>
-                                    <a href="@routes.WhoElse.cancelRoute(route.routeId)">
+                                    @*<a href="@routes.WhoElse.cancelRoute(route.routeId)">*@
                                         <button type="button" class="btn btn-danger btn-sm">
                                             <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span> Report!
                                         </button>
-                                    </a>
+                                    @*</a>*@
                                 } else {
                                         @if(route.status.equals("success")){
                                             <label>Status: completed successfully </label>
