@@ -8,7 +8,7 @@ INSERT INTO `User` (userId,username,firstName,lastName,company,password,email,ba
 INSERT INTO `RoutePattern` (routePatternId,userId,request_type,startAddress,endAddress,startLat,startLong,endLat,endLong,time,flexibility,date,punctuality,periodicity,car) VALUES (1,1,'pattern','Garching, Forschungszentrum, Garching, Germany','AUDI AG, Ingolstadt',48.264671,11.671391,48.7665351,11.4257541,'10:00',30,'',0.0,'Daily','Yes');
 INSERT INTO `RoutePattern` (routePatternId,userId,request_type,startAddress,endAddress,startLat,startLong,endLat,endLong,time,flexibility,date,punctuality,periodicity,car) VALUES (2,1,'pattern','AUDI AG, Ingolstadt','Garching, Forschungszentrum, Garching, Germany',48.7665351,11.4257541,48.264671,11.671391,'18:30',30,'',0.0,'Daily','Yes');
 INSERT INTO `RoutePattern` (routePatternId,userId,request_type,startAddress,endAddress,startLat,startLong,endLat,endLong,time,flexibility,date,punctuality,periodicity,car) VALUES (3,2,'pattern','Garching, Germany','Ingolstadt, Germany',48.2488721,11.6532477,48.7665351,11.4257541,'10:20',30,'',0.0,'Daily','Yes');
-INSERT INTO `RoutePattern` (routePatternId,userId,request_type,startAddress,endAddress,startLat,startLong,endLat,endLong,time,flexibility,date,punctuality,periodicity,car) VALUES (4,2,'pattern','Ingolstadt, Germany','Garching, Germany',48.7665351,11.4257541,48.2488721,11.6532477,'18:15',30,'',0.0,'Daily','Yes');
+INSERT INTO `RoutePattern` (routePatternId,userId,request_type,startAddress,endAddress,startLat,startLong,endLat,endLong,time,flexibility,date,punctuality,periodicity,car) VALUES (4,2,'pattern','Ingolstadt, Germany','Garching, Germany',48.7665351,11.4257541,48.2488721,11.6532477,'18:20',30,'',0.0,'Daily','Yes');
 INSERT INTO `RoutePattern` (routePatternId,userId,request_type,startAddress,endAddress,startLat,startLong,endLat,endLong,time,flexibility,date,punctuality,periodicity,car) VALUES (5,3,'pattern','Carl-Zeiss-Ring 6-8, 85737, Ismaning, Germany','Ingolstadt, Germany',48.23532,11.68019,48.7665351,11.4257541,'10:30',30,'',0.0,'Daily','Yes');
 INSERT INTO `RoutePattern` (routePatternId,userId,request_type,startAddress,endAddress,startLat,startLong,endLat,endLong,time,flexibility,date,punctuality,periodicity,car) VALUES (6,3,'pattern','Ingolstadt, Germany','Carl-Zeiss-Ring 6-8, 85737, Ismaning, Germany',48.7665351,11.4257541,48.23532,11.68019,'18:15',30,'',0.0,'Daily','Yes');
 
@@ -34,27 +34,27 @@ INSERT INTO `Route` (routeId,matchingId,routePatternId,date,time,status) VALUES 
 
 
 
-INSERT INTO `Search` (searchId,startAreaSubLoc,startAreaLoc,endAreaSubLoc,endAreaLoc) VALUES (1,'Ramersdorf-Perlach','München','','Garching');
+INSERT INTO `Search` (searchId,startAreaSubLoc,startAreaLoc,endAreaSubLoc,endAreaLoc) VALUES (1,'Ramersdorf-Perlach','Mï¿½nchen','','Garching');
 INSERT INTO `Search` (searchId,startAreaSubLoc,startAreaLoc,endAreaSubLoc,endAreaLoc) VALUES (2,'','Munich','','Garching');
 INSERT INTO `Search` (searchId,startAreaSubLoc,startAreaLoc,endAreaSubLoc,endAreaLoc) VALUES (3,'','Munich','','Garching');
-INSERT INTO `Search` (searchId,startAreaSubLoc,startAreaLoc,endAreaSubLoc,endAreaLoc) VALUES (4,'Ramersdorf-Perlach','München','','Garching');
-INSERT INTO `Search` (searchId,startAreaSubLoc,startAreaLoc,endAreaSubLoc,endAreaLoc) VALUES (5,'','Garching','Altstadt-Lehel','München');
-INSERT INTO `Search` (searchId,startAreaSubLoc,startAreaLoc,endAreaSubLoc,endAreaLoc) VALUES (6,'','Garching','Sendling-Westpark','München');
+INSERT INTO `Search` (searchId,startAreaSubLoc,startAreaLoc,endAreaSubLoc,endAreaLoc) VALUES (4,'Ramersdorf-Perlach','Mï¿½nchen','','Garching');
+INSERT INTO `Search` (searchId,startAreaSubLoc,startAreaLoc,endAreaSubLoc,endAreaLoc) VALUES (5,'','Garching','Altstadt-Lehel','Mï¿½nchen');
+INSERT INTO `Search` (searchId,startAreaSubLoc,startAreaLoc,endAreaSubLoc,endAreaLoc) VALUES (6,'','Garching','Sendling-Westpark','Mï¿½nchen');
 INSERT INTO `Search` (searchId,startAreaSubLoc,startAreaLoc,endAreaSubLoc,endAreaLoc) VALUES (7,'','Garching','Ramersdorf-Perlach','Munich');
-INSERT INTO `Search` (searchId,startAreaSubLoc,startAreaLoc,endAreaSubLoc,endAreaLoc) VALUES (8,'','Garching','Hochbrück','Garching');
-INSERT INTO `Search` (searchId,startAreaSubLoc,startAreaLoc,endAreaSubLoc,endAreaLoc) VALUES (9,'Ramersdorf-Perlach','München','','Garching');
-INSERT INTO `Search` (searchId,startAreaSubLoc,startAreaLoc,endAreaSubLoc,endAreaLoc) VALUES (10,'Altstadt-Lehel','München','Hochbrück','Garching');
-INSERT INTO `Search` (searchId,startAreaSubLoc,startAreaLoc,endAreaSubLoc,endAreaLoc) VALUES (11,'Altstadt-Lehel','München','','Garching');
-INSERT INTO `Search` (searchId,startAreaSubLoc,startAreaLoc,endAreaSubLoc,endAreaLoc) VALUES (12,'Altstadt-Lehel','München','','Ingolstadt');
+INSERT INTO `Search` (searchId,startAreaSubLoc,startAreaLoc,endAreaSubLoc,endAreaLoc) VALUES (8,'','Garching','Hochbrï¿½ck','Garching');
+INSERT INTO `Search` (searchId,startAreaSubLoc,startAreaLoc,endAreaSubLoc,endAreaLoc) VALUES (9,'Ramersdorf-Perlach','Mï¿½nchen','','Garching');
+INSERT INTO `Search` (searchId,startAreaSubLoc,startAreaLoc,endAreaSubLoc,endAreaLoc) VALUES (10,'Altstadt-Lehel','Mï¿½nchen','Hochbrï¿½ck','Garching');
+INSERT INTO `Search` (searchId,startAreaSubLoc,startAreaLoc,endAreaSubLoc,endAreaLoc) VALUES (11,'Altstadt-Lehel','Mï¿½nchen','','Garching');
+INSERT INTO `Search` (searchId,startAreaSubLoc,startAreaLoc,endAreaSubLoc,endAreaLoc) VALUES (12,'Altstadt-Lehel','Mï¿½nchen','','Ingolstadt');
 INSERT INTO `Search` (searchId,startAreaSubLoc,startAreaLoc,endAreaSubLoc,endAreaLoc) VALUES (13,'','Ingolstadt','','Munich');
 INSERT INTO `Search` (searchId,startAreaSubLoc,startAreaLoc,endAreaSubLoc,endAreaLoc) VALUES (14,'','Ingolstadt','','Munich');
-INSERT INTO `Search` (searchId,startAreaSubLoc,startAreaLoc,endAreaSubLoc,endAreaLoc) VALUES (15,'Altstadt-Lehel','München','','Garching');
-INSERT INTO `Search` (searchId,startAreaSubLoc,startAreaLoc,endAreaSubLoc,endAreaLoc) VALUES (16,'Altstadt-Lehel','München','','Garching');
-INSERT INTO `Search` (searchId,startAreaSubLoc,startAreaLoc,endAreaSubLoc,endAreaLoc) VALUES (17,'Ramersdorf-Perlach','München','','Garching');
-INSERT INTO `Search` (searchId,startAreaSubLoc,startAreaLoc,endAreaSubLoc,endAreaLoc) VALUES (18,'Altstadt-Lehel','München','','Garching');
-INSERT INTO `Search` (searchId,startAreaSubLoc,startAreaLoc,endAreaSubLoc,endAreaLoc) VALUES (19,'Altstadt-Lehel','München','','Garching');
-INSERT INTO `Search` (searchId,startAreaSubLoc,startAreaLoc,endAreaSubLoc,endAreaLoc) VALUES (20,'Altstadt-Lehel','München','','Garching');
-INSERT INTO `Search` (searchId,startAreaSubLoc,startAreaLoc,endAreaSubLoc,endAreaLoc) VALUES (21,'Altstadt-Lehel','München','Hochbrück','Garching');
+INSERT INTO `Search` (searchId,startAreaSubLoc,startAreaLoc,endAreaSubLoc,endAreaLoc) VALUES (15,'Altstadt-Lehel','Mï¿½nchen','','Garching');
+INSERT INTO `Search` (searchId,startAreaSubLoc,startAreaLoc,endAreaSubLoc,endAreaLoc) VALUES (16,'Altstadt-Lehel','Mï¿½nchen','','Garching');
+INSERT INTO `Search` (searchId,startAreaSubLoc,startAreaLoc,endAreaSubLoc,endAreaLoc) VALUES (17,'Ramersdorf-Perlach','Mï¿½nchen','','Garching');
+INSERT INTO `Search` (searchId,startAreaSubLoc,startAreaLoc,endAreaSubLoc,endAreaLoc) VALUES (18,'Altstadt-Lehel','Mï¿½nchen','','Garching');
+INSERT INTO `Search` (searchId,startAreaSubLoc,startAreaLoc,endAreaSubLoc,endAreaLoc) VALUES (19,'Altstadt-Lehel','Mï¿½nchen','','Garching');
+INSERT INTO `Search` (searchId,startAreaSubLoc,startAreaLoc,endAreaSubLoc,endAreaLoc) VALUES (20,'Altstadt-Lehel','Mï¿½nchen','','Garching');
+INSERT INTO `Search` (searchId,startAreaSubLoc,startAreaLoc,endAreaSubLoc,endAreaLoc) VALUES (21,'Altstadt-Lehel','Mï¿½nchen','Hochbrï¿½ck','Garching');
 
 # --- !Downs
 

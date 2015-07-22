@@ -20,10 +20,7 @@ import java.lang.reflect.Array;
 import java.net.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class RouteActions extends Controller {
 
@@ -73,6 +70,7 @@ public class RouteActions extends Controller {
                 MatchResponse matchResponse = new MatchResponse();
                 if (latlngloc1 != null) {
                     RoutePattern dummy = new RoutePattern();
+                    dummy.routePatternId = -1;
                     dummy.userId = (session().get("whoelse_user")!=null)?(Integer.parseInt(session().get("whoelse_user_id").toString())):(new Integer(-1));
                     dummy.request_type = "subscription";
                     dummy.startAddress = address1;
@@ -86,15 +84,20 @@ public class RouteActions extends Controller {
                         dummy.endLat = 0.0;
                         dummy.endLong = 0.0;
                     }
+                    dummy.date = "";
                     dummy.periodicity = "Daily";
                     dummy.time = form.get("time");
                     dummy.flexibility = Integer.parseInt(form.get("flexibility"));
                     dummy.car = form.get("car");
                     matchResponse = new MatchResponse(dummy);
+                    System.out.println("HERE: routePatterns size: " + matchResponse.routePatterns.size() + " !!!!!");
                 }
-            return ok(views.html.search.render(searchResponse, matchResponse, message, form));
+//                matchResponse.routePatterns = new HashMap<>();
+                return ok(views.html.search.render(searchResponse, matchResponse, message, form));
+//                return ok(views.html.search.render(searchResponse, new MatchResponse(), message, form));
             } catch (Exception e) {
-            return ok(views.html.search.render(new SearchResponse(), new MatchResponse(), message, form));
+                e.printStackTrace();;
+                return ok(views.html.search.render(new SearchResponse(), new MatchResponse(), message, form));
             }
         }
         else if (butt != null && butt.equals("Login")) {

@@ -56,6 +56,7 @@ public class MatchResponse {
 
             }
         }
+        System.out.println("Size of answer is: " + routePatterns.size() + " !!!!!!!!!!");
         if (!routePatterns.isEmpty()){
             Collections.sort(routePatterns.get(searchPattern), new Comparator<Tuple2<RoutePattern, Double>>() {
                 @Override
@@ -74,6 +75,7 @@ public class MatchResponse {
                 }
             });
         }
+        System.out.println("Size of answer is: " + routePatterns.size() + " !!!!!!!!!!");
     }
 
     public MatchResponse(Integer userId) {

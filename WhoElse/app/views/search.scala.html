@@ -70,10 +70,9 @@
             <hr style="margin-top:20px; margin-bottom:10px">
             <div class="container" >
             <h3>Regular Route Matches</h3>
-
                 @if(!matchResponse.routePatterns.isEmpty) {
                     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                    @matchList(matchResponse.routePatterns)("pattern")
+                        @matchList(matchResponse.routePatterns)("pattern")
                     </div>
                 }
                 @if(matchResponse.routePatterns.isEmpty) {

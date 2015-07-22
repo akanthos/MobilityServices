@@ -90,7 +90,7 @@
 
 
                     @if(session().containsKey("whoelse_user")) {
-                        <a href="@routes.WhoElse.request(r.userId, k.routePatternId, r.routePatternId)">
+                        <a href="@routes.WhoElse.request(r.userId, k.routePatternId , r.routePatternId)">
                             <button type="button" class="btn btn-danger btn-sm" style="float : right">
                                 <span class="glyphicon glyphicon-check" aria-hidden="true"></span> Request Rideshare
                             </button>
