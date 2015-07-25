@@ -35,7 +35,6 @@
                                 <input class="form-control" id="endAddress" type="text" name="endAddress" style="width: 600px; height: inherit" placeholder="Enter a destination" onFocus="geolocate()" />
                                 <br>
                                 <button class="btn btn-success btn-lg" id="action_button" name="action_button" onclick="loadStuff(document);" value="Start commuting!">Start commuting!</button>
-                                <br>
                                 @if(!session().containsKey("whoelse_user")) {
                                     <a href="@routes.WhoElse.getLoginPage()">
                                         <input class="btn btn-success btn-lg" type="button" id="login_button" name="login_button" value="Login" />
