@@ -186,13 +186,13 @@
                 <div align="center">
                     <h3>User Profile</h3>
                     @if(user.userId==1){
-                        <img src='@routes.Assets.at("images/user1.jpg")' name="aboutme" width="180" height="180" class="img-circle" >
+                        <img src='@routes.Assets.at("images/user1.jpg")' name="aboutme" width="180" class="img-circle" >
                     }
                     @if(user.userId==2){
-                        <img src='@routes.Assets.at("images/user2.jpg")' name="aboutme" width="180" height="180" class="img-circle" >
+                        <img src='@routes.Assets.at("images/user2.jpg")' name="aboutme" width="180" class="img-circle" >
                     }
                     @if(user.userId==3){
-                        <img src='@routes.Assets.at("images/user3.jpg")' name="aboutme" width="180" height="180" class="img-circle" >
+                        <img src='@routes.Assets.at("images/user3.jpg")' name="aboutme" width="180" class="img-circle" >
                     }
                     <h3>@user.firstName @user.lastName</h3>
                     <label>Email: @user.email</label>
