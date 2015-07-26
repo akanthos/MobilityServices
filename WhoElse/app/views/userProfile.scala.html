@@ -6,143 +6,125 @@
         @if(session().get("whoelse_user") != null && user.userId == session().get("whoelse_user_id").toInt) {
             <div class="container">
                 <div class="row">
-                    <div class="col-md-8">
-                        <div class="col-lg-12" ng-app="">
+                    <div class="col-lg-12" ng-app="">
 
-                            <div class="col-lg-12">
-                                @if(!notif_list.isEmpty()) {
+                        <div class="col-lg-12">
+                            @if(!notif_list.isEmpty()) {
 
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Type</th>
-                                                <th>Message</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        @for(n <- notif_list) {
-                                            <tr>
-                                                <td>@n.nType</td>
-                                                <td><div>@n.message</div>
-                                                    @if(n.nType.equals("Rating") && n.answered != 1) {
-                                                        <div ng-show="show && !finished">
-                                                            <div class="row" ui-view></div>
-                                                            <div class="row">
-                                                                <button class="btn btn-success" type="button" ng-show="!finished" ng-click="finished = true" ng-init="finished = false">
-                                                                    Done</button>
-                                                            </div>
+                                <h3>My Notifications</h3>
+
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Type</th>
+                                            <th>Message</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    @for(n <- notif_list) {
+                                        <tr>
+                                            <td>@n.nType</td>
+                                            <td><div>@n.message</div>
+                                                @if(n.nType.equals("Rating") && n.answered != 1) {
+                                                    <div ng-show="show && !finished">
+                                                        <div class="row" ui-view></div>
+                                                        <div class="row">
+                                                            <button class="btn btn-success" type="button" ng-show="!finished" ng-click="finished = true" ng-init="finished = false">
+                                                                Done</button>
                                                         </div>
-                                                    }
-                                                </td>
-                                                <td>
-                                                    @if(n.nType.equals("Rating") && n.answered != 1) {
-                                                        <button class="btn btn-success" type="button" ng-hide="show" ng-click="show = true" ng-init="show = false">
-                                                            Rate</button>
-                                                        <div class="alert alert-success" role='alert' ng-show="finished">
-                                                            Thank you.
+                                                    </div>
+                                                }
+                                            </td>
+                                            <td>
+                                                @if(n.nType.equals("Rating") && n.answered != 1) {
+                                                    <button class="btn btn-success" type="button" ng-hide="show" ng-click="show = true" ng-init="show = false">
+                                                        Rate</button>
+                                                    <div class="alert alert-success" role='alert' ng-show="finished">
+                                                        Thank you.
+                                                    </div>
+                                                } else {
+                                                    @if(n.nType.equals("Info") && n.answered != 1) {
+                                                        <div class="btn-group-vertical">
+                                                            <a href="@routes.WhoElse.acceptNotification(n.notificationId, n.patternId1, n.patternId2)" class="btn btn-success">
+                                                                Got it!</a>
                                                         </div>
                                                     } else {
-                                                        @if(n.nType.equals("Info") && n.answered != 1) {
+                                                        @if(n.nType.equals("Request") && n.answered != 1) {
                                                             <div class="btn-group-vertical">
                                                                 <a href="@routes.WhoElse.acceptNotification(n.notificationId, n.patternId1, n.patternId2)" class="btn btn-success">
-                                                                    Got it!</a>
+                                                                    Accept</a>
+                                                                <a href="@routes.WhoElse.declineNotification(n.notificationId, n.patternId1, n.patternId2)" class="btn btn-danger">
+                                                                    Decline</a>
                                                             </div>
                                                         } else {
-                                                            @if(n.nType.equals("Request") && n.answered != 1) {
+                                                            @if(n.nType.equals("Message") && n.answered != 1) {
                                                                 <div class="btn-group-vertical">
-                                                                    <a href="@routes.WhoElse.acceptNotification(n.notificationId, n.patternId1, n.patternId2)" class="btn btn-success">
-                                                                        Accept</a>
-                                                                    <a href="@routes.WhoElse.declineNotification(n.notificationId, n.patternId1, n.patternId2)" class="btn btn-danger">
-                                                                        Decline</a>
+                                                                    @*<a href="@routes.WhoElse.acceptNotification(n.notificationId, n.patternId1, n.patternId2)" class="btn btn-success">Send Reply</a>*@
+                                                                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal@(n.from_userId)">
+                                                                        <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+                                                                        Reply
+                                                                    </button>
+                                                                    <a href="@routes.WhoElse.acceptNotification(n.notificationId, 0, 0)" class="btn btn-success">
+                                                                        Got it!</a>
                                                                 </div>
                                                             } else {
-                                                                @if(n.nType.equals("Message") && n.answered != 1) {
+                                                                @if(n.nType.equals("Cancel") && n.answered != 1) {
                                                                     <div class="btn-group-vertical">
-                                                                        @*<a href="@routes.WhoElse.acceptNotification(n.notificationId, n.patternId1, n.patternId2)" class="btn btn-success">Send Reply</a>*@
-                                                                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal@(n.from_userId)">
-                                                                            <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
-                                                                            Reply
-                                                                        </button>
-                                                                        <a href="@routes.WhoElse.acceptNotification(n.notificationId, 0, 0)" class="btn btn-success">
+                                                                        <a href="@routes.WhoElse.acceptNotification(n.notificationId, n.patternId1, n.patternId2)" class="btn btn-success">
                                                                             Got it!</a>
                                                                     </div>
-                                                                } else {
-                                                                    @if(n.nType.equals("Cancel") && n.answered != 1) {
-                                                                        <div class="btn-group-vertical">
-                                                                            <a href="@routes.WhoElse.acceptNotification(n.notificationId, n.patternId1, n.patternId2)" class="btn btn-success">
-                                                                                Got it!</a>
-                                                                        </div>
-                                                                    }
                                                                 }
                                                             }
                                                         }
                                                     }
+                                                }
 
-                                                    <!-- Modal -->
-                                                <div class="modal fade" id="myModal@(n.from_userId)" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                                <h4 class="modal-title" id="myModalLabel">Send message to user @(n.from_userId) </h4>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <textarea rows="15" class="form-control" name="message" type="text" form="msgform" placeholder="Insert your message here..."></textarea>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <form action="@routes.WhoElse.message(n.from_userId, n.notificationId)" id="msgform" method="post">
-                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                                    <input type="submit" class="btn btn-primary" value="Send">
-                                                                </form>
-                                                            </div>
+                                                <!-- Modal -->
+                                            <div class="modal fade" id="myModal@(n.from_userId)" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                            <h4 class="modal-title" id="myModalLabel">Send message to user @(n.from_userId) </h4>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <textarea rows="15" class="form-control" name="message" type="text" form="msgform" placeholder="Insert your message here..."></textarea>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <form action="@routes.WhoElse.message(n.from_userId, n.notificationId)" id="msgform" method="post">
+                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                <input type="submit" class="btn btn-primary" value="Send">
+                                                            </form>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                    <!--End MODAL TEST-->
+                                            </div>
+                                                <!--End MODAL TEST-->
 
-                                                </td>
-                                            </tr>
-                                        }
-                                        </tbody>
-                                    </table>
-                                } else {
-                                    <div class="alert alert-danger">You do not have any notifications</div>
-                                }
-                            </div>
-
-                                @if(!alternatives.isEmpty()) {
-                                    <div>
-                                        <h3>Alternative Routes</h3>
-                                    </div>
-                                    <div class="col-lg-12" ng-app="">
-                                        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                                        @matchList(alternatives)("alternatives")
-                                        </div>
-                                    </div>
-
-                                    <div class="hidable" id="mapContainer" style="height : 600 px ; width : 80 % ; margin : 0 px auto ;" ; >
-                                            <!-- This is where Google map will go. -->
-                                    </div>
-                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                    </tbody>
+                                </table>
+                            } else {
+                                <div class="alert alert-danger">You do not have any notifications</div>
+                            }
                         </div>
-                    </div>
 
-                    <div class="col-md-3">
-                        <div>
-                            <div class="span3 well">
-                                @if(user.userId==1){
-                                    <img src='@routes.Assets.at("images/user1.jpg")' name="aboutme" width="180" height="180" class="img-circle" >
-                                }
-                                @if(user.userId==2){
-                                    <img src='@routes.Assets.at("images/user2.jpg")' name="aboutme" width="180" height="180" class="img-circle" >
-                                }
-                                @if(user.userId==3){
-                                    <img src='@routes.Assets.at("images/user3.jpg")' name="aboutme" width="180" height="180" class="img-circle" >
-                                }
-                                <h3>@user.firstName @user.lastName</h3>
-                                <label>Email: @user.email</label>
-                            </div>
-                        </div>
+                            @if(!alternatives.isEmpty()) {
+                                <div>
+                                    <h3>Alternative Routes</h3>
+                                </div>
+                                <div class="col-lg-12" ng-app="">
+                                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                    @matchList(alternatives)("alternatives")
+                                    </div>
+                                </div>
+
+                                <div class="hidable" id="mapContainer" style="height : 600 px ; width : 80 % ; margin : 0 px auto ;" ; >
+                                        <!-- This is where Google map will go. -->
+                                </div>
+                            }
                     </div>
                 </div>
 
@@ -201,22 +183,71 @@
             </div>
         }else{
             <div class="container">
-                <h3>User Profile</h3>
+                <div align="center">
+                    <h3>User Profile</h3>
+                    @if(user.userId==1){
+                        <img src='@routes.Assets.at("images/user1.jpg")' name="aboutme" width="180" height="180" class="img-circle" >
+                    }
+                    @if(user.userId==2){
+                        <img src='@routes.Assets.at("images/user2.jpg")' name="aboutme" width="180" height="180" class="img-circle" >
+                    }
+                    @if(user.userId==3){
+                        <img src='@routes.Assets.at("images/user3.jpg")' name="aboutme" width="180" height="180" class="img-circle" >
+                    }
+                    <h3>@user.firstName @user.lastName</h3>
+                    <label>Email: @user.email</label>
+                </div>
 
-                <div class="col-md-3">
-                    <div>
-                        <div class="span3 well">
-                            @if(user.userId==1){
-                                <img src='@routes.Assets.at("images/user1.jpg")' name="aboutme" width="180" height="180" class="img-circle" >
-                            }
-                            @if(user.userId==2){
-                                <img src='@routes.Assets.at("images/user2.jpg")' name="aboutme" width="180" height="180" class="img-circle" >
-                            }
-                            @if(user.userId==3){
-                                <img src='@routes.Assets.at("images/user3.jpg")' name="aboutme" width="180" height="180" class="img-circle" >
-                            }
-                            <h3>@user.firstName @user.lastName</h3>
-                            <label>Email: @user.email</label>
+                <div class="row">
+                    <h3>Comments</h3>
+                    <div class="row well">
+                        <div ui-view="" class="ng-scope">
+                            <div class="row ng-scope">
+                                <div class="col-xs-12">
+                                    <table class="table">
+                                        <tbody>
+                                            <tr>
+                                                <th>What others think about this user</th>
+                                            </tr>
+                                            <tr ng-repeat="rating in ratings" class="ng-scope">
+                                                <td>
+                                                    <div class="row">
+                                                        <div class="col-xs-2">
+                                                            <img class="img img-circle img-responsive full-width" src='@routes.Assets.at("images/user4.jpg")' width="100%">
+                                                        </div>
+                                                        <div class="col-xs-10">
+                                                            <p></p><h4 class="ng-binding">Rated 5 out of 5</h4><p></p>
+                                                            <p class="ng-binding">Has never missed an appointment. Trustworhty!!!</p>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr ng-repeat="rating in ratings" class="ng-scope">
+                                                <td>
+                                                    <div class="row">
+                                                        <div class="col-xs-2">
+
+                                                            @if(user.userId==1){
+                                                                <img class="img img-circle img-responsive full-width" src='@routes.Assets.at("images/user2.jpg")' width="100%">
+                                                            }
+                                                            @if(user.userId==2){
+                                                                <img class="img img-circle img-responsive full-width" src='@routes.Assets.at("images/user3.jpg")' width="100%">
+                                                            }
+                                                            @if(user.userId==3){
+                                                                <img class="img img-circle img-responsive full-width" src='@routes.Assets.at("images/user1.jpg")' width="100%">
+                                                            }
+                                                        </div>
+                                                        <div class="col-xs-10">
+                                                            <h4 class="ng-binding">Rated 5 out of 5</h4>
+                                                            <p class="ng-binding">Great partner. Always on time. Drives very carefully.</p>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
