@@ -287,4 +287,20 @@ public class WhoElse extends Controller {
             }
         }
     }
+
+    @Transactional
+    public static Result resetDB(){
+
+        try{
+            //TO DO execute all required sql statements
+            //String query = "";
+            //TypedQuery<String> q = JPA.em().createQuery(query, String.class);
+        }
+        catch(Exception ex){
+            System.out.println(ex.toString());
+        }
+        finally {
+            return redirect(controllers.routes.WhoElse.main());
+        }
+    }
 }
