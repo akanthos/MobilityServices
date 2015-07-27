@@ -9,7 +9,6 @@
     <meta name="description" content="WhoElse APP">
     <meta name="author" content="Imaginnovation">
 	
-	
 	<title>WhoElse</title>
 	
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -36,13 +35,13 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-    @*background="@routes.Assets.at("images/whoelse.jpg")"*@
 <body>
     
         <a href="@routes.WhoElse.main()" class="title">
             <h1>WhoElse</h1>
         </a>
         @menu(template)
+    <br>
             <div class="container">
             @if(flash.containsKey("notification")) {
                 <div class="alert alert-warning">@flash.get("notification")</div>

@@ -293,8 +293,21 @@ public class WhoElse extends Controller {
 
         try{
             //TO DO execute all required sql statements
-            //String query = "";
-            //TypedQuery<String> q = JPA.em().createQuery(query, String.class);
+            //Delete all notifications
+            Notification.deleteAllNotifications();
+
+            //Routes have status wait
+            Route.setAllRouteWait();
+
+            //Matchings are inactive
+            Matching.setAllMatchesInactive();
+            //Matching 1 and 2 are active
+            Matching m = Matching.getMatchingById(1);
+            m.active = 1;
+            m.update();
+            m = Matching.getMatchingById(2);
+            m.active = 1;
+            m.update();
         }
         catch(Exception ex){
             System.out.println(ex.toString());

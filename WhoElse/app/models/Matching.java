@@ -22,9 +22,7 @@ public class Matching {
     public Integer active;
     public Double value;
 
-    public void save() {
-        JPA.em().persist(this);
-    }
+    public void save() { JPA.em().persist(this); }
 
     public void delete() {
         JPA.em().remove(this);
@@ -56,6 +54,15 @@ public class Matching {
         String queryStr = "SELECT m FROM Matching m WHERE (userId1 = " + userId + " OR userId2 = " + userId + ")";
         TypedQuery<Matching> query = JPA.em().createQuery(queryStr, Matching.class);
         return query.getResultList();
+    }
+
+    public static void setAllMatchesInactive() {
+        String queryStr = "SELECT m FROM Matching m";
+        TypedQuery<Matching> query = JPA.em().createQuery(queryStr, Matching.class);
+        for(Matching m : query.getResultList()){
+            m.active = 0;
+            m.update();
+        }
     }
 
 }

@@ -95,4 +95,17 @@ public class Notification {
     public void update() {
         JPA.em().merge(this);
     }
+
+    public static void deleteAllNotifications(){
+        String string_query = "SELECT n FROM Notification n";
+        Notification n;
+        TypedQuery<Notification> query = JPA.em().createQuery(string_query, Notification.class);
+        for(Notification not : query.getResultList() ){
+            not.delete();
+        }
+    }
+
+    public void delete() {
+        JPA.em().remove(this);
+    }
 }

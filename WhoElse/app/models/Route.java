@@ -63,4 +63,13 @@ public class Route {
         return query.getSingleResult();
     }
 
+    public static void setAllRouteWait() {
+        String queryStr = "SELECT r FROM Route r";
+        TypedQuery<Route> query = JPA.em().createQuery(queryStr, Route.class);
+        for(Route r : query.getResultList()){
+            r.status = "wait";
+            r.update();
+        }
+    }
+
 }
