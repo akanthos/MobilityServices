@@ -44,7 +44,7 @@
     <br>
             <div class="container">
             @if(flash.containsKey("notification")) {
-                <div class="alert alert-warning">@flash.get("notification")</div>
+                <a href="@routes.WhoElse.userProfile(session().get("whoelse_user_id").toInt)"><div class="alert alert-warning">@flash.get("notification")</div></a>
             }
             </div>
             <div class="container">
