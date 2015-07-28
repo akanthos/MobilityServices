@@ -72,4 +72,13 @@ public class Route {
         }
     }
 
+    public static void deleteJunk() {
+        String queryStr = "SELECT r FROM Route r WHERE routeId > 12";
+        TypedQuery<Route> query = JPA.em().createQuery(queryStr, Route.class);
+        for(Route r : query.getResultList()){
+            r.delete();
+        }
+    }
+
+
 }

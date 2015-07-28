@@ -222,6 +222,8 @@ public class WhoElse extends Controller {
         r.update();
 
         Matching m = Matching.getMatchingById(r.matchingId);
+        m.active = 0;
+        m.update();
         RoutePattern p = RoutePattern.getRoutePatternById(m.routePatternId1);
         User me = User.findById(Integer.parseInt(session().get("whoelse_user_id")));
 
@@ -298,6 +300,7 @@ public class WhoElse extends Controller {
 
             //Routes have status wait
             Route.setAllRouteWait();
+            Route.deleteJunk();
 
             //Matchings are inactive
             Matching.setAllMatchesInactive();
