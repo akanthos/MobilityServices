@@ -297,6 +297,7 @@ public class WhoElse extends Controller {
             //TO DO execute all required sql statements
             //Delete all notifications
             Notification.deleteAllNotifications();
+            RoutePattern.deleteAllSubscriptions();
 
             //Routes have status wait
             Route.setAllRouteWait();

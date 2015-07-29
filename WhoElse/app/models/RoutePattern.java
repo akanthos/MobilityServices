@@ -59,6 +59,14 @@ public class RoutePattern {
         return query.getResultList();
     }
 
+    public static void deleteAllSubscriptions(){
+        String string_query = "SELECT r FROM RoutePattern r WHERE (request_type = 'subscription') ";
+        TypedQuery<RoutePattern> query = JPA.em().createQuery(string_query, RoutePattern.class);
+        for(RoutePattern p : query.getResultList() ){
+            p.delete();
+        }
+    }
+
     public void updateMatchings() {
         List<Matching> matchings = new ArrayList<>();
         List<Matching> routePatterns = new ArrayList<>();
